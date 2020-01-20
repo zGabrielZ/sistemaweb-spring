@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Bem vindo</title>
+</head>
+<body>
+	<header>
+		<h1>Cadastro do aluno</h1>
+	</header>
+	<main>
+		<section class="sessao-01">
+			<article>
+				<form action="salvaraluno" method="post" th:object="${alunoobj}">
+					<table>
+						<tr>
+							<td><label for="tipo">Tipo:</label></td>
+							<td><input type="text" name="@type" id="tipo" value="Aluno" readonly="readonly"></td>
+						</tr>
+						<tr>
+							<td><label for="id">Id:</label></td>
+							<td><input type="text" name="id" id="id" readonly="readonly" th:field="*{id}"></td>
+						</tr>
+						<tr>
+							<td><label for="nome">Nome:</label></td>
+							<td><input type="text" name="nome" id="nome" th:field="*{nome}"><br></td>
+						</tr>
+						<tr>
+							<td><label for="sobrenome">Sobrenome:</label></td>
+							<td><input type="text" name="sobrenome" id="sobrenome" th:field="*{sobrenome}"><br></td>
+						</tr>
+						<tr>
+							<td><label for="cpf">Cpf:</label></td>
+							<td><input type="text" name="cpf" id="cpf" th:field="*{cpf}"></td>
+						</tr>
+						<tr>
+							<td><label for="ra">Ra:</label></td>
+							<td><input type="text" name="ra" id="ra" th:field="*{ra}"></td>
+						</tr>
+						<tr>
+							<td><label for="matricula">Numero da matricula:</label></td>
+							<td><input type="text" name="numeroDaMatricula" id="matricula" th:field="*{numeroDaMatricula}"></td>
+						</tr>
+						<tr>
+							<td><label for="curso">Curso:</label></td>
+							<td><input type="text" name="curso" id="curso" th:field="*{curso}"></td>
+						</tr>
+						<tr>
+							<td><label for="email">Email:</label></td>
+							<td><input type="text" name="email" id="email" th:field="*{contato.email}"></td>
+						</tr>
+						<tr>
+							<td><label for="telefone">Telefone:</label></td>
+							<td><input type="text" name="telefone" id="telefone" th:field="*{contato.telefone}"></td>
+						</tr>
+						<tr>
+							<td><input type="submit" value="Enviar"></td>
+						</tr>
+					</table>
+				</form>
+			</article>
+	</section>	
+	
+	<section class="sessao-02">
+		<article>
+			<form action="pesquisarnome" method="post">
+				<table>
+					<tr>
+						<td><label for="filtro">Procura nome :</label></td>
+						<td><input type="text" name="procurarnome" id="filtro"></td>
+					</tr>
+					<tr>
+						<td><input type="submit" value="Filtrar"></td>
+					</tr>
+				</table>
+			</form>
+		</article>
+	</section>
+	<section class="sessao-03">
+		<article>
+			<table>
+				<tr>
+					<td><a href="/listaalunos">Listar alunos</a></td>
+					<td><a href="/index">Voltar para o menu</a></td>
+				</tr>
+			</table>
+		</article>
+	</section>
+	
+	<section class="sessao-04">
+		<article>
+			<div class="msg-erro" th:each = "m : ${msgdeerro}" >
+				<strong th:text = ${m}></strong>
+			</div>
+			
+			<div class="msg-erro2" th:text = "${msgdeerro2}"></div>
+			
+			<div class="msg">
+				<h2 th:text = ${msg}></h2>
+			</div>
+		</article>
+	</section>
+	
+	<section class="sessao-05">
+		<article>
+			<table border="1">
+				 <thead>
+                	<tr>
+                    	<th>Id</th>
+                    	<th>Nome</th>
+                    	<th>Sobrenome</th>
+                    	<th>Cpf</th>
+                    	<th>Ra</th>
+                    	<th>N.Matrícula</th>
+                    	<th>Curso</th>
+                    	<th>Email</th>
+                    	<th>Telefone</th>
+                    	<th>Editar</th>
+                    	<th>Excluir</th>
+                	</tr>
+           		 </thead>
+           		 
+           		 <tfoot>
+                	<tr>
+                    	<td colspan="11">
+                        	Valores sujeitos a alteracões sem prévio aviso
+                    	</td>
+                	</tr>
+            	</tfoot>
+            	
+            	<tbody>
+            		<tr th:each = "aluno : ${alunos}">
+						<td th:text = "${aluno.id}"></td>
+						<td th:text = "${aluno.nome}"></td>
+						<td th:text = "${aluno.sobrenome}"></td>
+						<td th:text = "${aluno.cpf}"></td>
+						<td th:text = "${aluno.ra}"></td>
+						<td th:text = "${aluno.numeroDaMatricula}"></td>
+						<td th:text = "${aluno.curso}"></td>
+						<td th:text = "${aluno.contato.email}"></td>
+						<td th:text = "${aluno.contato.telefone}"></td>
+						<td><a th:href="@{/editaraluno/{idaluno}(idaluno=${aluno.id})}">Editar</a></td>
+						<td><a th:href="@{/deletaraluno/{idaluno}(idaluno=${aluno.id})}">Excluir</a></td>
+					</tr>
+            	</tbody>
+           		 
+			</table>
+		</article>
+	</section>
+	</main>
+</body>
+</html>
