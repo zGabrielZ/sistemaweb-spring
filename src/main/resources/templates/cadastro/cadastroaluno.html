@@ -51,7 +51,17 @@
 						</tr>
 						<tr>
 							<td><label for="telefone">Telefone:</label></td>
-							<td><input type="text" name="telefone" id="telefone" th:field="*{contato.telefone}"></td>
+							<td><input type="text" name="telefone" id="telefone" th:field="*{contato.telefone.numero}"></td>
+						</tr>
+						<tr>
+							<td><label for="tipo">Tipo:</label></td>
+							<td>
+								<select id="tipo" th:field = "*{contato.telefone.tiposTelefones}">	
+									<option  th:each = "tipo : ${tipostelefones}" th:value = "${tipo.id}" 
+									th:text = "${tipo.descricao}"></option>		
+								</select>
+								
+							</td>
 						</tr>
 						<tr>
 							<td><input type="submit" value="Enviar"></td>
@@ -115,6 +125,7 @@
                     	<th>Curso</th>
                     	<th>Email</th>
                     	<th>Telefone</th>
+                    	<th>Tipo</th>
                     	<th>Editar</th>
                     	<th>Excluir</th>
                 	</tr>
@@ -122,7 +133,7 @@
            		 
            		 <tfoot>
                 	<tr>
-                    	<td colspan="11">
+                    	<td colspan="12">
                         	Valores sujeitos a alteracões sem prévio aviso
                     	</td>
                 	</tr>
@@ -138,7 +149,8 @@
 						<td th:text = "${aluno.numeroDaMatricula}"></td>
 						<td th:text = "${aluno.curso}"></td>
 						<td th:text = "${aluno.contato.email}"></td>
-						<td th:text = "${aluno.contato.telefone}"></td>
+						<td th:text = "${aluno.contato.telefone.numero}"></td>
+						<td th:text = "${aluno.contato.telefone.tiposTelefones.descricao}"></td>
 						<td><a th:href="@{/editaraluno/{idaluno}(idaluno=${aluno.id})}">Editar</a></td>
 						<td><a th:href="@{/deletaraluno/{idaluno}(idaluno=${aluno.id})}">Excluir</a></td>
 					</tr>

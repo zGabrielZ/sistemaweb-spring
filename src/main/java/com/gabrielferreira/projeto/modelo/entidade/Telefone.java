@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
@@ -15,33 +16,32 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "tab_contato")
-public class Contato implements Serializable {
+@Table(name = "tab_telefone")
+public class Telefone implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@NotNull(message = "Email não pode ser nulo")
-	@NotEmpty(message = "Email não pode ser vazio")
-	private String email;
+	@NotNull(message = "Telefone não pode ser nulo")
+	@NotEmpty(message = "Telefone não pode ser vazio")
+	private String numero;
+	
+	@OneToOne(mappedBy = "telefone")
+	private Contato contato;
 	
 	@Valid
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "telefone_id")
-	private Telefone telefone;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "tipo_telefone_id")
+	private TipoTelefone tiposTelefones;
 	
-	@OneToOne(mappedBy = "contato")
-	private Pessoa pessoa;
-	
-	public Contato() {}
+	public Telefone() {}
 
-	public Contato(Integer id, String email, Telefone telefone) {
+	public Telefone(Integer id, String numero) {
 		this.id = id;
-		this.email = email;
-		this.telefone = telefone;
+		this.numero = numero;
 	}
 
 	public Integer getId() {
@@ -52,28 +52,28 @@ public class Contato implements Serializable {
 		this.id = id;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getNumero() {
+		return numero;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 	
-	public Telefone getTelefone() {
-		return telefone;
+	public Contato getContato() {
+		return contato;
 	}
 
-	public void setTelefone(Telefone telefone) {
-		this.telefone = telefone;
+	public void setContato(Contato contato) {
+		this.contato = contato;
 	}
 
-	public Pessoa getPessoa() {
-		return pessoa;
+	public TipoTelefone getTiposTelefones() {
+		return tiposTelefones;
 	}
 
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
+	public void setTiposTelefones(TipoTelefone tiposTelefones) {
+		this.tiposTelefones = tiposTelefones;
 	}
 
 	@Override
@@ -92,7 +92,7 @@ public class Contato implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Contato other = (Contato) obj;
+		Telefone other = (Telefone) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -104,5 +104,4 @@ public class Contato implements Serializable {
 	
 	
 	
-
 }

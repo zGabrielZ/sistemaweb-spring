@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.gabrielferreira.projeto.modelo.entidade.Professor;
+import com.gabrielferreira.projeto.modelo.entidade.TipoTelefone;
 import com.gabrielferreira.projeto.service.PessoaService;
 import com.gabrielferreira.projeto.service.ProfessorService;
+import com.gabrielferreira.projeto.service.TipoTelefoneService;
 
 @Controller
 public class ProfessorRecurso {
@@ -27,12 +28,17 @@ public class ProfessorRecurso {
 	@Autowired
 	private PessoaService pessoaService;
 	
+	@Autowired
+	private TipoTelefoneService tipoTelefoneService;
+	
 	@RequestMapping(method = RequestMethod.POST, value = "**/salvarprofessor")
 	public ModelAndView salvar(@Valid Professor professor,BindingResult bindingResult) {
 		
 		if(bindingResult.hasErrors()) {
 			ModelAndView modelandView = new ModelAndView("cadastro/cadastroprofessor");
 			Iterable<Professor> professores = professorService.consultarTodos();
+			Iterable<TipoTelefone> tipos = tipoTelefoneService.consultarTodos();
+			modelandView.addObject("tipostelefones",tipos);
 			modelandView.addObject("professores",professores);
 			modelandView.addObject("professorobj",professor);
 			
@@ -48,6 +54,8 @@ public class ProfessorRecurso {
 			if(pessoaService.buscarCpf(professor)) {
 				ModelAndView modelAndView = new ModelAndView("cadastro/cadastroprofessor");
 				Iterable<Professor> professores = professorService.consultarTodos();
+				Iterable<TipoTelefone> tipos = tipoTelefoneService.consultarTodos();
+				modelAndView.addObject("tipostelefones",tipos);
 				modelAndView.addObject("professores",professores);
 				modelAndView.addObject("msg","Cpf ja existe no banco !!");
 				modelAndView.addObject("professorobj",new Professor());
@@ -57,6 +65,8 @@ public class ProfessorRecurso {
 			professorService.inserir(professor);
 			ModelAndView modelAndView = new ModelAndView("cadastro/cadastroprofessor");
 			Iterable<Professor> professores = professorService.consultarTodos();
+			Iterable<TipoTelefone> tipos = tipoTelefoneService.consultarTodos();
+			modelAndView.addObject("tipostelefones",tipos);
 			modelAndView.addObject("professores",professores);
 			modelAndView.addObject("msg","Cadastrado com sucesso !!");
 			modelAndView.addObject("professorobj",new Professor());
@@ -66,6 +76,8 @@ public class ProfessorRecurso {
 			if(pessoaService.buscarCpfAtualizado(professor)) {
 				ModelAndView modelAndView = new ModelAndView("cadastro/cadastroprofessor");
 				Iterable<Professor> professores = professorService.consultarTodos();
+				Iterable<TipoTelefone> tipos = tipoTelefoneService.consultarTodos();
+				modelAndView.addObject("tipostelefones",tipos);
 				modelAndView.addObject("professores",professores);
 				modelAndView.addObject("msg","Cpf que informou ja existe cadastrado!!");
 				modelAndView.addObject("professorobj",new Professor());
@@ -75,6 +87,8 @@ public class ProfessorRecurso {
 			professorService.inserir(professor);
 			ModelAndView modelAndView = new ModelAndView("cadastro/cadastroprofessor");
 			Iterable<Professor> professores = professorService.consultarTodos();
+			Iterable<TipoTelefone> tipos = tipoTelefoneService.consultarTodos();
+			modelAndView.addObject("tipostelefones",tipos);
 			modelAndView.addObject("professores",professores);
 			modelAndView.addObject("msg","Atualizado com sucesso!!");
 			modelAndView.addObject("professorobj",new Professor());
@@ -88,6 +102,8 @@ public class ProfessorRecurso {
 	public ModelAndView consultarTodos() {
 		ModelAndView modelAndView = new ModelAndView("cadastro/cadastroprofessor");
 		Iterable<Professor> professores = professorService.consultarTodos();
+		Iterable<TipoTelefone> tipos = tipoTelefoneService.consultarTodos();
+		modelAndView.addObject("tipostelefones",tipos);
 		modelAndView.addObject("professores",professores);
 		modelAndView.addObject("professorobj",new Professor());
 		return modelAndView;
@@ -98,6 +114,8 @@ public class ProfessorRecurso {
 		ModelAndView modelAndView = new ModelAndView("cadastro/cadastroprofessor");
 		Professor professor = professorService.consultarPorId(id);
 		Iterable<Professor> professores = professorService.consultarTodos();
+		Iterable<TipoTelefone> tipos = tipoTelefoneService.consultarTodos();
+		modelAndView.addObject("tipostelefones",tipos);
 		modelAndView.addObject("professores",professores);
 		modelAndView.addObject("professorobj",professor);
 		return modelAndView;
@@ -108,6 +126,8 @@ public class ProfessorRecurso {
 		professorService.deletar(id);
 		ModelAndView modelAndView = new ModelAndView("cadastro/cadastroprofessor");
 		Iterable<Professor> professores = professorService.consultarTodos();
+		Iterable<TipoTelefone> tipos = tipoTelefoneService.consultarTodos();
+		modelAndView.addObject("tipostelefones",tipos);
 		modelAndView.addObject("professores",professores);
 		modelAndView.addObject("professorobj",new Professor());
 		modelAndView.addObject("msg","Professor removido com sucesso !!");
@@ -118,6 +138,8 @@ public class ProfessorRecurso {
 	public ModelAndView buscarNome(@RequestParam("procurarnomeprofessor") String nome) {
 		ModelAndView modelAndView = new ModelAndView("cadastro/cadastroprofessor");
 		Iterable<Professor> professores = professorService.buscarNome(nome);
+		Iterable<TipoTelefone> tipos = tipoTelefoneService.consultarTodos();
+		modelAndView.addObject("tipostelefones",tipos);
 		modelAndView.addObject("professores",professores);
 		modelAndView.addObject("professorobj",new Professor());
 		return modelAndView;
