@@ -3,9 +3,9 @@ package com.gabrielferreira.projeto.repositorio;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.gabrielferreira.projeto.modelo.entidade.TipoTelefone;
+import com.gabrielferreira.projeto.modelo.entidade.Estado;
 
 @Repository
-public interface TipoTelefoneRepositorio extends JpaRepository<TipoTelefone,Integer> {
+public interface EstadoRepositorio extends JpaRepository<Estado,Integer> {
 
 }

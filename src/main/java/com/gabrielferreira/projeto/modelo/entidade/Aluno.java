@@ -4,32 +4,38 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @Entity
 @Table(name = "tab_aluno")
 @JsonTypeName("Aluno") 
 public class Aluno extends Pessoa {
+
 	private static final long serialVersionUID = 1L;
 	
-	@NotNull(message = "Ra não pode ser nulo")
+	@NotNull(message = "Número da matricula não pode ser nulo")
+	private Integer numeroDamatricula;
+	
 	@NotEmpty(message = "Ra não pode ser vazio")
+	@NotNull(message = "Ra não pode ser nulo")
 	private String ra;
-	
-	@NotNull(message = "Número da matricula nao pode ser vazio")
-	private Integer numeroDaMatricula;
-	
-	@NotNull(message = "Curso não pode ser nulo")
-	@NotEmpty(message = "Curso não pode ser vazio")
-	private String curso;
 	
 	public Aluno() {}
 	
-	public Aluno(Integer id, String nome,String sobrenome,String cpf,Contato contato ,String ra, Integer numeroDaMatricula, String curso) {
-		super(id, nome,sobrenome,cpf,contato);
+	public Aluno(Integer id, String nome, String sobrenome, String cpf, Sexo sexo,
+		Curso curso,Escola escola,Integer numeroDamatricula, String ra) {
+		super(id, nome, sobrenome, cpf, sexo,curso,escola);
+		this.numeroDamatricula = numeroDamatricula;
 		this.ra = ra;
-		this.numeroDaMatricula = numeroDaMatricula;
-		this.curso = curso;
+	}
+
+	public Integer getNumeroDamatricula() {
+		return numeroDamatricula;
+	}
+
+	public void setNumeroDamatricula(Integer numeroDamatricula) {
+		this.numeroDamatricula = numeroDamatricula;
 	}
 
 	public String getRa() {
@@ -39,22 +45,8 @@ public class Aluno extends Pessoa {
 	public void setRa(String ra) {
 		this.ra = ra;
 	}
-
-	public Integer getNumeroDaMatricula() {
-		return numeroDaMatricula;
-	}
-
-	public void setNumeroDaMatricula(Integer numeroDaMatricula) {
-		this.numeroDaMatricula = numeroDaMatricula;
-	}
-
-	public String getCurso() {
-		return curso;
-	}
-
-	public void setCurso(String curso) {
-		this.curso = curso;
-	}
+	
+	
 	
 	
 	

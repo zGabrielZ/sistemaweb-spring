@@ -1,39 +1,24 @@
 package com.gabrielferreira.projeto.recurso.exceptions;
 
 import java.io.Serializable;
-import java.time.Instant;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class ErroPadrao implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",timezone = "GMT")
-	private Instant timestamp;
 	private Integer status;
 	private String erro;
 	private String msg;
-	private String caminho;
 	
 	public ErroPadrao() {}
 
-	public ErroPadrao(Instant timestamp, Integer status, String erro, String msg, String caminho) {
-		this.timestamp = timestamp;
+	public ErroPadrao(Integer status, String erro, String msg) {
 		this.status = status;
 		this.erro = erro;
 		this.msg = msg;
-		this.caminho = caminho;
 	}
-
-	public Instant getTimestamp() {
-		return timestamp;
-	}
-
-	public void setTimestamp(Instant timestamp) {
-		this.timestamp = timestamp;
-	}
-
+	
 	public Integer getStatus() {
 		return status;
 	}
@@ -58,13 +43,7 @@ public class ErroPadrao implements Serializable{
 		this.msg = msg;
 	}
 
-	public String getCaminho() {
-		return caminho;
-	}
 
-	public void setCaminho(String caminho) {
-		this.caminho = caminho;
-	}
 	
 	
 	

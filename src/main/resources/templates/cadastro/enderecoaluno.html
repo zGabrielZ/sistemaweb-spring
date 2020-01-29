@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Bem vindo</title>
+</head>
+<body>
+	<header>
+		<h1>Endereço do aluno</h1>
+	</header>
+	
+	<main>
+		<section class="sessao-00">
+			<article>	
+				<div th:each = "a : ${alunoobj}">
+					<p>Id <span th:text = "${a.id}"></span></p>
+					<p>Nome <span  th:text = "${a.nome}"></span></p>
+					<p>Sobrenome <span th:text = "${a.sobrenome}" ></span></p>
+					<p>Cpf <span th:text = "${a.cpf}"></span></p>
+					<p>NúmeroDaMatricula<span th:text = "${a.numeroDamatricula}"></span></p>
+					<p>Ra <span th:text = "${a.ra}"></span></p>
+				</div>
+			</article>
+		</section>
+			<div id="voltar-aluno">
+				<p><a href="/cadastroaluno">Voltar para o cadastro</a></p>
+			</div>
+		<section>
+			<article>
+				<table border="1">
+					<thead>
+						<tr>
+							<th>Id</th>
+                    		<th>Logradouro</th>
+                    		<th>Número</th>
+                    		<th>Complemento</th>
+                    		<th>Bairro</th>
+                    		<th>Cep</th>
+                    		<th>Cidade</th>
+                    		<th>Estado</th>
+               			</tr>
+					</thead>
+						
+						<tbody>
+							<tr th:each = "a : ${alunoobj}">
+							<td th:text = "${a.endereco.id}"></td>
+                			<td th:text = "${a.endereco.logradouro}"></td>
+                			<td th:text = "${a.endereco.numero}"></td>
+                			<td th:text = "${a.endereco.complemento}"></td>
+                			<td th:text = "${a.endereco.bairro}"></td>
+                			<td th:text = "${a.endereco.cep}"></td>
+                			<td th:text = "${a.endereco.cidade.nomeCidade}"></td>
+                			<td th:text = "${a.endereco.cidade.estado.nomeEstado}"></td>
+						</tr>
+						</tbody>
+					</table>
+			</article>
+		</section>
+	</main>
+</body>
+</html>

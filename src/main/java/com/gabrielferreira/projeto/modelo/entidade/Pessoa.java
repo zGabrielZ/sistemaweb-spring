@@ -1,6 +1,8 @@
 package com.gabrielferreira.projeto.modelo.entidade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,6 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
@@ -22,8 +28,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @Table(name = "tab_pessoa")
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type") 
-public abstract class Pessoa implements Serializable {
-	
+public abstract class Pessoa implements Serializable{
+
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -38,26 +44,55 @@ public abstract class Pessoa implements Serializable {
 	@NotEmpty(message = "Sobrenome não pode ser vazio")
 	private String sobrenome;
 	
-	
 	@NotNull(message = "Cpf não pode ser nulo")
 	@NotEmpty(message = "Cpf não pode ser vazio")
 	private String cpf;
 	
 	@Valid
+	@NotNull(message = "Tem que selecionar o Sexo da pessoa")
+	@ManyToOne()
+	@JoinColumn(name = "sexo_id")
+	private Sexo sexo;
+	
+	@Valid
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "contato_id")
-	private Contato contato;
+	@JoinColumn(name = "endereco_id")
+	private Endereco endereco;
+	
+	@Valid
+	@NotNull(message = "Tem que selecionar o Curso da pessoa")
+	@ManyToOne()
+	@JoinColumn(name = "curso_id")
+	private Curso curso;
+	
+	@OneToMany(mappedBy = "pessoa",cascade = CascadeType.ALL)
+	private List<Telefone> telefones = new ArrayList<Telefone>();
+	
+	@Valid
+	@NotNull(message = "Tem que selecionar a Escola da pessoa")
+	@ManyToOne()
+	@JoinColumn(name = "escola_id")
+	private Escola escola;
+	
+	@ManyToMany()
+	@JoinTable(name = "tab_pessoa_disciplina",
+	joinColumns = @JoinColumn(name = "disciplina_id"),
+	inverseJoinColumns = @JoinColumn(name = "pessoa_id"))
+	private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
 	
 	public Pessoa() {}
 	
-	public Pessoa(Integer id, String nome,String sobrenome,String cpf,Contato contato) {
+	public Pessoa(Integer id, String nome, String sobrenome, String cpf, Sexo sexo,Curso curso,
+			Escola escola) {
 		this.id = id;
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.cpf = cpf;
-		this.contato = contato;
+		this.sexo = sexo;
+		this.curso = curso;
+		this.escola = escola;
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -74,14 +109,6 @@ public abstract class Pessoa implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-	
 	public String getSobrenome() {
 		return sobrenome;
 	}
@@ -89,13 +116,61 @@ public abstract class Pessoa implements Serializable {
 	public void setSobrenome(String sobrenome) {
 		this.sobrenome = sobrenome;
 	}
-	
-	public Contato getContato() {
-		return contato;
+
+	public String getCpf() {
+		return cpf;
 	}
 
-	public void setContato(Contato contato) {
-		this.contato = contato;
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public Sexo getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(Sexo sexo) {
+		this.sexo = sexo;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+	
+	public Curso getCurso() {
+		return curso;
+	}
+
+	public void setCurso(Curso curso) {
+		this.curso = curso;
+	}
+	
+	public List<Telefone> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(List<Telefone> telefones) {
+		this.telefones = telefones;
+	}
+
+	public Escola getEscola() {
+		return escola;
+	}
+
+	public void setEscola(Escola escola) {
+		this.escola = escola;
+	}
+	
+	public List<Disciplina> getDisciplinas() {
+		return disciplinas;
+	}
+
+	public void setDisciplinas(List<Disciplina> disciplinas) {
+		this.disciplinas = disciplinas;
 	}
 
 	@Override

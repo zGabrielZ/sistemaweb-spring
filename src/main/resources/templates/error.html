@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Deu erro amigo......</title>
+</head>
+<body>
+	<header>
+		<h1>Erro</h1>
+	</header>
+	<div th:each = "e : ${erro}">
+		<p>Status: <span th:text = "${e.status}"></span></p>
+		<p>Erro: <span  th:text = "${e.erro}"></span></p>
+		<p>Mensagem: <span th:text = "${e.msg}" ></span></p>			
+	</div>
+</body>
+</html>

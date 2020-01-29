@@ -6,10 +6,11 @@
 </head>
 <body>
 	<header>
-		<h1>Cadastro do aluno</h1>
+		<h1>Cadastro de aluno</h1>
 	</header>
+	
 	<main>
-		<section class="sessao-01">
+	<section class="sessao-00">
 			<article>
 				<form action="salvaraluno" method="post" th:object="${alunoobj}">
 					<table>
@@ -19,49 +20,92 @@
 						</tr>
 						<tr>
 							<td><label for="id">Id:</label></td>
-							<td><input type="text" name="id" id="id" readonly="readonly" th:field="*{id}"></td>
+							<td><input type="text" name="id" id="id" readonly="readonly" th:field = "*{id}"></td>
 						</tr>
 						<tr>
 							<td><label for="nome">Nome:</label></td>
-							<td><input type="text" name="nome" id="nome" th:field="*{nome}"><br></td>
+							<td><input type="text" name="nome" id="nome" th:field = "*{nome}"></td>
 						</tr>
 						<tr>
 							<td><label for="sobrenome">Sobrenome:</label></td>
-							<td><input type="text" name="sobrenome" id="sobrenome" th:field="*{sobrenome}"><br></td>
+							<td><input type="text" name="sobrenome" id="sobrenome" th:field = "*{sobrenome}"></td>
 						</tr>
 						<tr>
 							<td><label for="cpf">Cpf:</label></td>
-							<td><input type="text" name="cpf" id="cpf" th:field="*{cpf}"></td>
+							<td><input type="text" name="cpf" id="cpf" th:field = "*{cpf}"></td>
 						</tr>
 						<tr>
-							<td><label for="ra">Ra:</label></td>
-							<td><input type="text" name="ra" id="ra" th:field="*{ra}"></td>
+							<td><label for="sexo">Sexo:</label></td>
+							<td>
+								<select id="sexo" th:field = "*{sexo}">	
+									<option value="">Selecione</option>
+									<option  th:each = "sexo : ${sexos}" th:value = "${sexo.id}" 
+									th:text = "${sexo.nome}" ></option>		
+								</select>
+							</td>
 						</tr>
 						<tr>
-							<td><label for="matricula">Numero da matricula:</label></td>
-							<td><input type="text" name="numeroDaMatricula" id="matricula" th:field="*{numeroDaMatricula}"></td>
+							<td><label for="logra">Logradouro:</label></td>
+							<td><input type="text" name="logradouro" id="logra" th:field = "*{endereco.logradouro}"></td>
+						</tr>
+						<tr>
+							<td><label for="numero">Número:</label></td>
+							<td><input type="text" name="numero" id="numero" th:field = "*{endereco.numero}"></td>
+						</tr>
+						<tr>
+							<td><label for="complemento">Complemento:</label></td>
+							<td><input type="text" name="complemento" id="complemento" th:field = "*{endereco.complemento}"></td>
+						</tr>
+						<tr>
+							<td><label for="bairro">Bairro:</label></td>
+							<td><input type="text" name="bairro" id="bairro" th:field = "*{endereco.bairro}"></td>
+						</tr>
+						<tr>
+							<td><label for="cep">Cep:</label></td>
+							<td><input type="text" name="cep" id="cep" th:field = "*{endereco.cep}"></td>
+						</tr>
+						<tr>
+							<td><label for="cidade">Cidade:</label></td>
+							<td><input type="text" name="cidade" id="cidade" th:field = "*{endereco.cidade.nomeCidade}"></td>
+						</tr>
+						<tr>
+							<td><label for="estado">Estado:</label></td>
+							<td>
+								<select id="estado" th:field = "*{endereco.cidade.estado}">	
+									<option value="">Selecione</option>
+									<option  th:each = "estado : ${estados}" th:value = "${estado.id}" 
+									th:text = "${estado.nomeEstado}" ></option>		
+								</select>
+							</td>
 						</tr>
 						<tr>
 							<td><label for="curso">Curso:</label></td>
-							<td><input type="text" name="curso" id="curso" th:field="*{curso}"></td>
-						</tr>
-						<tr>
-							<td><label for="email">Email:</label></td>
-							<td><input type="text" name="email" id="email" th:field="*{contato.email}"></td>
-						</tr>
-						<tr>
-							<td><label for="telefone">Telefone:</label></td>
-							<td><input type="text" name="telefone" id="telefone" th:field="*{contato.telefone.numero}"></td>
-						</tr>
-						<tr>
-							<td><label for="tipo">Tipo:</label></td>
 							<td>
-								<select id="tipo" th:field = "*{contato.telefone.tiposTelefones}">	
-									<option  th:each = "tipo : ${tipostelefones}" th:value = "${tipo.id}" 
-									th:text = "${tipo.descricao}"></option>		
+								<select id="curso" th:field = "*{curso}">	
+									<option value="">Selecione</option>
+									<option  th:each = "c : ${cursos}" th:value = "${c.id}" 
+									th:text = "${c.nome}" ></option>		
 								</select>
-								
 							</td>
+						</tr>
+						<tr>
+							<td><label for="escola">Escola:</label></td>
+							<td>
+								<select id="escola"  th:field = "*{escola}">
+									<option value="">Selecione</option>
+									<option  th:each = "escola : ${escolas}" th:value = "${escola.id}" 
+									th:text = "${escola.nome}"></option>
+											
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td><label for="numeroDamatricula">N. Da Matricula:</label></td>
+							<td><input type="text" name="numeroDamatricula" id="numeroDamatricula" th:field = "*{numeroDamatricula}"></td>
+						</tr>
+						<tr>
+							<td><label for="ra">Ra:</label></td>
+							<td><input type="text" name="ra" id="ra" th:field = "*{ra}"></td>
 						</tr>
 						<tr>
 							<td><input type="submit" value="Enviar"></td>
@@ -69,96 +113,100 @@
 					</table>
 				</form>
 			</article>
-	</section>	
+		</section>
+	<section class="sessao-01">
+			<div id="listar-aluno">
+				<p><a href="/listaaluno">Listar aluno</a></p>
+			</div>
+			<div id="voltar-menu">
+				<p><a href="/index">Voltar para o menu</a></p>
+			</div>
+	</section>
 	
-	<section class="sessao-02">
-		<article>
-			<form action="pesquisarnome" method="post">
-				<table>
-					<tr>
-						<td><label for="filtro">Procura nome :</label></td>
-						<td><input type="text" name="procurarnome" id="filtro"></td>
-					</tr>
-					<tr>
-						<td><input type="submit" value="Filtrar"></td>
-					</tr>
+	<section class="sessao-pesquisa">
+			<div id="pesquisar-nome">
+				<form action="/procurarnomedoaluno" method="post">
+					<table>
+						<tr>
+							<td><label for="nome">Procurar pelo nome:</label></td>
+							<td><input type="text" id="nome" name="procurarnomealuno"></td>
+						</tr>
+						<tr>
+							<td><input type="submit" value = "Procurar"></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</section>
+		
+		<section class="sessao-03">
+			<article>
+				<div id="erro-2" th:each = "msg : ${msgdeerro}" >
+					<strong th:text = ${msg}></strong>
+				</div>
+				<div id="erro-3" th:each = "msg2 : ${msgdeerro2}" >
+					<strong th:text = ${msg2}></strong>
+				</div>
+			</article>
+		</section>
+		
+		<section class="sessao-04">
+			<article>
+				<div id="sucesso" th:each = "msg3 : ${msg}" >
+					<strong th:text = ${msg3}></strong>
+				</div>
+			</article>
+		</section>
+		
+		<section>
+			<article>
+				<table border="1">
+					<thead>
+						<tr>
+							<th>Id</th>
+                    		<th>Nome</th>
+                    		<th>Sobrenome</th>
+                    		<th>Cpf</th>
+                    		<th>Sexo</th>
+                    		<th>Curso</th>
+                    		<th>Escola</th>
+                    		<th>NúmeroDaMatricula</th>
+                    		<th>Ra</th>
+                    		<th>Contato</th>
+                    		<th>Disciplina</th>
+                    		<th>Endereço</th>
+                    		<th>Editar</th>
+                    		<th>Deletar</th>
+						</tr>
+					</thead>
+					<tfoot>
+                		<tr>
+                    		<td colspan="14">
+                        		Valores sujeitos a alteracões sem prévio aviso
+                    		</td>
+                		</tr>
+                	</tfoot>
+                	<tbody>
+                		<tr th:each = "a : ${alunos}">
+                			<td th:text = "${a.id}"></td>
+                			<td th:text = "${a.nome}"></td>
+                			<td th:text = "${a.sobrenome}"></td>
+                			<td th:text = "${a.cpf}"></td>
+                			<td th:text = "${a.sexo}"></td>
+                			<td th:text = "${a.curso}"></td>
+                			<td th:text = "${a.escola}"></td>
+                			<td th:text = "${a.numeroDamatricula}"></td>
+                			<td th:text = "${a.ra}"></td>
+                			<td><a th:href="@{/contatoaluno/{idaluno}(idaluno=${a.id})}">Add</a></td>
+                			<td><a th:href="@{/disciplinaaluno/{idaluno}(idaluno=${a.id})}">Visualizar</a></td>
+                			<td><a th:href="@{/enderecoaluno/{idaluno}(idaluno=${a.id})}">Visualizar</a></td>
+                			<td><a th:href="@{/editaraluno/{idaluno}(idaluno=${a.id})}">Editar</a></td>
+                			<td><a th:href="@{/deletaraluno/{idaluno}(idaluno=${a.id})}">Deletar</a></td>
+                		</tr>
+                	</tbody>
 				</table>
-			</form>
-		</article>
-	</section>
-	<section class="sessao-03">
-		<article>
-			<table>
-				<tr>
-					<td><a href="/listaalunos">Listar alunos</a></td>
-					<td><a href="/index">Voltar para o menu</a></td>
-				</tr>
-			</table>
-		</article>
-	</section>
-	
-	<section class="sessao-04">
-		<article>
-			<div class="msg-erro" th:each = "m : ${msgdeerro}" >
-				<strong th:text = ${m}></strong>
-			</div>
-			
-			<div class="msg-erro2" th:text = "${msgdeerro2}"></div>
-			
-			<div class="msg">
-				<h2 th:text = ${msg}></h2>
-			</div>
-		</article>
-	</section>
-	
-	<section class="sessao-05">
-		<article>
-			<table border="1">
-				 <thead>
-                	<tr>
-                    	<th>Id</th>
-                    	<th>Nome</th>
-                    	<th>Sobrenome</th>
-                    	<th>Cpf</th>
-                    	<th>Ra</th>
-                    	<th>N.Matrícula</th>
-                    	<th>Curso</th>
-                    	<th>Email</th>
-                    	<th>Telefone</th>
-                    	<th>Tipo</th>
-                    	<th>Editar</th>
-                    	<th>Excluir</th>
-                	</tr>
-           		 </thead>
-           		 
-           		 <tfoot>
-                	<tr>
-                    	<td colspan="12">
-                        	Valores sujeitos a alteracões sem prévio aviso
-                    	</td>
-                	</tr>
-            	</tfoot>
-            	
-            	<tbody>
-            		<tr th:each = "aluno : ${alunos}">
-						<td th:text = "${aluno.id}"></td>
-						<td th:text = "${aluno.nome}"></td>
-						<td th:text = "${aluno.sobrenome}"></td>
-						<td th:text = "${aluno.cpf}"></td>
-						<td th:text = "${aluno.ra}"></td>
-						<td th:text = "${aluno.numeroDaMatricula}"></td>
-						<td th:text = "${aluno.curso}"></td>
-						<td th:text = "${aluno.contato.email}"></td>
-						<td th:text = "${aluno.contato.telefone.numero}"></td>
-						<td th:text = "${aluno.contato.telefone.tiposTelefones.descricao}"></td>
-						<td><a th:href="@{/editaraluno/{idaluno}(idaluno=${aluno.id})}">Editar</a></td>
-						<td><a th:href="@{/deletaraluno/{idaluno}(idaluno=${aluno.id})}">Excluir</a></td>
-					</tr>
-            	</tbody>
-           		 
-			</table>
-		</article>
-	</section>
+			</article>
+		</section>
 	</main>
 </body>
 </html>

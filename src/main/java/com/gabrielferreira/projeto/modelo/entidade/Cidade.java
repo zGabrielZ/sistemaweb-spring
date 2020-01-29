@@ -2,21 +2,20 @@ package com.gabrielferreira.projeto.modelo.entidade;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "tab_contato")
-public class Contato implements Serializable {
+@Table(name = "tab_cidade")
+public class Cidade implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -24,24 +23,22 @@ public class Contato implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@NotNull(message = "Email não pode ser nulo")
-	@NotEmpty(message = "Email não pode ser vazio")
-	private String email;
+	@NotNull(message = "Cidade não pode ser nulo")
+	@NotEmpty(message = "Cidade não pode ser vazio")
+	private String nomeCidade;
 	
 	@Valid
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "telefone_id")
-	private Telefone telefone;
+	@NotNull(message = "Tem que selecionar o Estado da pessoa")
+	@ManyToOne()
+	@JoinColumn(name = "estado_id")
+	private Estado estado;
 	
-	@OneToOne(mappedBy = "contato")
-	private Pessoa pessoa;
-	
-	public Contato() {}
+	public Cidade() {}
 
-	public Contato(Integer id, String email, Telefone telefone) {
+	public Cidade(Integer id, String nomeCidade,Estado estado) {
 		this.id = id;
-		this.email = email;
-		this.telefone = telefone;
+		this.nomeCidade = nomeCidade;
+		this.estado = estado;
 	}
 
 	public Integer getId() {
@@ -52,28 +49,20 @@ public class Contato implements Serializable {
 		this.id = id;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getNomeCidade() {
+		return nomeCidade;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
-	public Telefone getTelefone() {
-		return telefone;
+	public void setNomeCidade(String nomeCidade) {
+		this.nomeCidade = nomeCidade;
 	}
 
-	public void setTelefone(Telefone telefone) {
-		this.telefone = telefone;
+	public Estado getEstado() {
+		return estado;
 	}
 
-	public Pessoa getPessoa() {
-		return pessoa;
-	}
-
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 
 	@Override
@@ -92,7 +81,7 @@ public class Contato implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Contato other = (Contato) obj;
+		Cidade other = (Cidade) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -104,5 +93,4 @@ public class Contato implements Serializable {
 	
 	
 	
-
 }

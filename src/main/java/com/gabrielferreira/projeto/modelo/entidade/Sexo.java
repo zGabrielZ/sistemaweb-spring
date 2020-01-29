@@ -3,30 +3,36 @@ package com.gabrielferreira.projeto.modelo.entidade;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "tab_tipo_telefone")
-public class TipoTelefone implements Serializable{
+@Table(name = "tab_sexo")
+public class Sexo implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@NotNull(message = "Sexo da pessoa não pode ser nulo")
+	@NotEmpty(message = "Sexo da pessoa não pode ser vazio")
 	private String nome;
 	
-	@OneToMany(mappedBy = "tipoTelefone")
-	private List<Telefone> telefones = new ArrayList<Telefone>();
+	@OneToMany(mappedBy = "sexo")
+	private List<Pessoa> pessoa = new ArrayList<Pessoa>();
 	
-	public TipoTelefone() {}
+	public Sexo() {}
 
-	public TipoTelefone(Integer id, String nome) {
+	public Sexo(Integer id, String nome) {
 		this.id = id;
 		this.nome = nome;
 	}
@@ -47,15 +53,14 @@ public class TipoTelefone implements Serializable{
 		this.nome = nome;
 	}
 
-	public List<Telefone> getTelefones() {
-		return telefones;
+	
+	public List<Pessoa> getPessoa() {
+		return pessoa;
 	}
 
-	public void setTelefones(List<Telefone> telefones) {
-		this.telefones = telefones;
+	public void setPessoa(List<Pessoa> pessoa) {
+		this.pessoa = pessoa;
 	}
-	
-	
 
 	@Override
 	public int hashCode() {
@@ -73,7 +78,7 @@ public class TipoTelefone implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		TipoTelefone other = (TipoTelefone) obj;
+		Sexo other = (Sexo) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -85,5 +90,6 @@ public class TipoTelefone implements Serializable{
 	
 	
 	
-
+	
+	
 }

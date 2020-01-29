@@ -3,32 +3,38 @@ package com.gabrielferreira.projeto.modelo.entidade;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "tab_tipo_telefone")
-public class TipoTelefone implements Serializable{
+@Table(name = "tab_estado")
+public class Estado implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String nome;
 	
-	@OneToMany(mappedBy = "tipoTelefone")
-	private List<Telefone> telefones = new ArrayList<Telefone>();
+	@NotNull(message = "Estado não pode ser nulo")
+	@NotEmpty(message = "Estado não pode ser vazio")
+	private String nomeEstado;
 	
-	public TipoTelefone() {}
+	@OneToMany(mappedBy = "estado")
+	private List<Cidade> cidades = new ArrayList<Cidade>();
+	
+	public Estado() {}
 
-	public TipoTelefone(Integer id, String nome) {
+	public Estado(Integer id, String nomeEstado) {
 		this.id = id;
-		this.nome = nome;
+		this.nomeEstado = nomeEstado;
 	}
 
 	public Integer getId() {
@@ -39,23 +45,21 @@ public class TipoTelefone implements Serializable{
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getNomeEstado() {
+		return nomeEstado;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNomeEstado(String nomeEstado) {
+		this.nomeEstado = nomeEstado;
 	}
 
-	public List<Telefone> getTelefones() {
-		return telefones;
+	public List<Cidade> getCidades() {
+		return cidades;
 	}
 
-	public void setTelefones(List<Telefone> telefones) {
-		this.telefones = telefones;
+	public void setCidades(List<Cidade> cidades) {
+		this.cidades = cidades;
 	}
-	
-	
 
 	@Override
 	public int hashCode() {
@@ -73,7 +77,7 @@ public class TipoTelefone implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		TipoTelefone other = (TipoTelefone) obj;
+		Estado other = (Estado) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -81,6 +85,8 @@ public class TipoTelefone implements Serializable{
 			return false;
 		return true;
 	}
+
+	
 	
 	
 	

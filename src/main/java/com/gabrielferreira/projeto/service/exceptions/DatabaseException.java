@@ -1,5 +1,6 @@
 package com.gabrielferreira.projeto.service.exceptions;
 
+
 public class DatabaseException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
@@ -7,5 +8,6 @@ public class DatabaseException extends RuntimeException {
 	public DatabaseException(String msg) {
 		super(msg);
 	}
+	
 
 }

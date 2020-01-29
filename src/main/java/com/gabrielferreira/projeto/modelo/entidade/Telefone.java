@@ -1,15 +1,12 @@
 package com.gabrielferreira.projeto.modelo.entidade;
 
 import java.io.Serializable;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -17,7 +14,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tab_telefone")
-public class Telefone implements Serializable{
+public class Telefone implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -27,21 +24,24 @@ public class Telefone implements Serializable{
 	
 	@NotNull(message = "Telefone não pode ser nulo")
 	@NotEmpty(message = "Telefone não pode ser vazio")
-	private String numero;
+	private String nome;
 	
-	@OneToOne(mappedBy = "telefone")
-	private Contato contato;
+	@ManyToOne()
+	@JoinColumn(name = "pessoa_id")
+	private Pessoa pessoa;
 	
 	@Valid
-	@ManyToOne(cascade = CascadeType.ALL)
+	@NotNull(message = "Tem que selecionar o tipo de telefone")
+	@ManyToOne()
 	@JoinColumn(name = "tipo_telefone_id")
-	private TipoTelefone tiposTelefones;
+	private TipoTelefone tipoTelefone;
 	
 	public Telefone() {}
 
-	public Telefone(Integer id, String numero) {
+	public Telefone(Integer id, String nome,TipoTelefone tipoTelefone) {
 		this.id = id;
-		this.numero = numero;
+		this.nome = nome;
+		this.tipoTelefone = tipoTelefone;
 	}
 
 	public Integer getId() {
@@ -52,29 +52,31 @@ public class Telefone implements Serializable{
 		this.id = id;
 	}
 
-	public String getNumero() {
-		return numero;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setNumero(String numero) {
-		this.numero = numero;
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public TipoTelefone getTipoTelefone() {
+		return tipoTelefone;
+	}
+
+	public void setTipoTelefone(TipoTelefone tipoTelefone) {
+		this.tipoTelefone = tipoTelefone;
 	}
 	
-	public Contato getContato() {
-		return contato;
+	public Pessoa getPessoa() {
+		return pessoa;
 	}
 
-	public void setContato(Contato contato) {
-		this.contato = contato;
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
-
-	public TipoTelefone getTiposTelefones() {
-		return tiposTelefones;
-	}
-
-	public void setTiposTelefones(TipoTelefone tiposTelefones) {
-		this.tiposTelefones = tiposTelefones;
-	}
+	
+	
 
 	@Override
 	public int hashCode() {
@@ -100,6 +102,8 @@ public class Telefone implements Serializable{
 			return false;
 		return true;
 	}
+	
+	
 	
 	
 	
