@@ -223,7 +223,7 @@ public class AlunoRecurso {
 		modelAndView.addObject("escolas",escolas);
 		modelAndView.addObject("alunos",alunoDTOs);
 		modelAndView.addObject("alunoobj",new Aluno());
-		modelAndView.addObject("msgdeerro","Deletado com sucesso !!");
+		modelAndView.addObject("msg","Deletado com sucesso !!");
 		return modelAndView;
 	}
 	

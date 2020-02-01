@@ -3,6 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <title>Bem vindo</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css"  media="screen,projection"/>
+<link type="text/css" rel="stylesheet" href="/materialize/css/materialize.css"  media="screen,projection"/>
+
+<style type="text/css">
+
+form input[type=submit]{
+	color : white;
+}
+header h1 {
+	text-align: center;
+	font-size: 30px;
+}
+
+form label {
+	color: black;
+}
+</style>
 </head>
 <body>
 	<header>
@@ -10,50 +28,7 @@
 	</header>
 	
 	<main>
-		<section class="sessao-00">
-			<article>
-				<form action="salvardisciplina" method="post" th:object = "${disciplinaobj}">
-					<table>
-						<tr>
-							<td><label for="id">Id:</label></td>
-							<td><input id="id" type="text" name="id" readonly="readonly" th:field = "*{id}"></td>
-						</tr>
-						<tr>
-							<td><label for="nome">Nome:</label></td>
-							<td><input id="nome" type="text" name="nome" th:field = "*{nome}"></td>
-						</tr>
-						<tr>
-							<td><input type="submit" value="Enviar"></td>
-						</tr>
-					</table>
-				</form>
-			</article>
-		</section>
-		<section class="sessao-pesquisa">
-			<div id="pesquisar-nome">
-				<form action="/procurarnomedadisciplina" method="post">
-					<table>
-						<tr>
-							<td><label for="nome">Procurar pelo nome:</label></td>
-							<td><input type="text" id="nome" name="procurarnomedisciplina"></td>
-						</tr>
-						<tr>
-							<td><input type="submit" value = "Procurar"></td>
-						</tr>
-					</table>
-				</form>
-			</div>
-		</section>
 		
-		<section class="sessao-01">
-			<div id="listar-disciplina">
-				<p><a href="/listadisciplina">Listar curso</a></p>
-			</div>
-			<div id="voltar-menu">
-				<p><a href="/index">Voltar para o menu</a></p>
-			</div>
-		</section>
-			
 		<section class="sessao-03">
 			<article>
 				<div id="erro-2" th:each = "m : ${msgdeerro}" >
@@ -61,7 +36,54 @@
 				</div>
 			</article>
 		</section>
+	
+		<section class="row">
+			<article>
+				<form id="formDisciplina"class="col s12"  action="salvardisciplina" method="post" th:object = "${disciplinaobj}">
+					<table>
+						<tr class="input-field col s6">
+							<td><label for="id" class="active">Id:</label></td>
+							<td><input id="id" type="text" name="id" readonly="readonly" th:field = "*{id}" class="validate"></td>
+						</tr>
+						<tr class="input-field col s6">
+							<td><label for="nome" class="active">Nome:</label></td>
+							<td><input id="nome" type="text" name="nome" th:field = "*{nome}" class="validate"></td>
+						</tr>
+						<tr class="input-field col s6">
+							<td><input class="waves-effect waves-light btn" type="submit" value="Enviar"></td>
+						</tr>
+						<tr class="input-field col s6">
+							<td><button class="waves-effect waves-light btn" onclick="document.getElementById('formDisciplina').reset()">Limpar</button></td>
+						</tr>
+					</table>
+				</form>
+			</article>
+		</section>
+		<section class="row">
+			<div id="pesquisar-nome">
+				<form action="/procurarnomedadisciplina" method="post" class="col s12">
+					<table>
+						<tr class="input-field col s12">
+							<td><label for="nomeDisciplina">Procurar pelo nome:</label></td>
+							<td><input type="text" id="nomeDisciplina" name="procurarnomedisciplina" class="validate"></td>
+						</tr>
+						<tr class="input-field col s6">
+							<td><input class="waves-effect waves-light btn" type="submit" value = "Procurar"></td>
+						</tr>
+						<tr class="input-field col s6">
+							<td><a class="waves-effect waves-light btn" href="/listadisciplina">Listar disciplina</a></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</section>
 		
+		<section class="row">
+			<div id="voltar-aluno">
+				<p class="input-field col s12"><a href="/index">Voltar para o menu</a></p>
+			</div>
+		</section>
+				
 		<section class="sessao-04">
 			<article>
 				<div id="sucesso" th:each = "m : ${msg}" >
@@ -72,7 +94,7 @@
 		
 		<section>
 			<article>
-				<table border="1">
+				<table class="striped">
 					<thead>
 						<tr>
 							<th>Id</th>
@@ -81,24 +103,20 @@
                     		<th>Deletar</th>
 						</tr>
 					</thead>
-					<tfoot>
-                		<tr>
-                    		<td colspan="4">
-                        		Valores sujeitos a alteracões sem prévio aviso
-                    		</td>
-                		</tr>
-                	</tfoot>
                 	<tbody>
                 		<tr th:each = "d : ${disciplinas}">
                 			<td th:text = "${d.id}"></td>
                 			<td th:text = "${d.nome}"></td>
-                			<td><a th:href="@{/editardisciplina/{iddisciplina}(iddisciplina=${d.id})}">Editar</a></td>
-                			<td><a th:href="@{/deletardisciplina/{iddisciplina}(iddisciplina=${d.id})}">Deletar</a></td>
+                			<td><a  class="material-icons" th:href="@{/editardisciplina/{iddisciplina}(iddisciplina=${d.id})}">create</a></td>
+                			<td><a   class="material-icons"th:href="@{/deletardisciplina/{iddisciplina}(iddisciplina=${d.id})}">delete</a></td>
                 		</tr>
                 	</tbody>
 				</table>
 			</article>
 		</section>
 	</main>
+	
+	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
 </body>
 </html>

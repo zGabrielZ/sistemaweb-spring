@@ -3,6 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <title>Bem vindo</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css"  media="screen,projection"/>
+<link type="text/css" rel="stylesheet" href="/materialize/css/materialize.css"  media="screen,projection"/>
+
+<style type="text/css">
+
+form input[type=submit]{
+	color : white;
+}
+header h1 {
+	text-align: center;
+	font-size: 30px;
+}
+
+form label {
+	color: black;
+}
+</style>
 </head>
 <body>
 	<header>
@@ -10,59 +28,33 @@
 	</header>
 	
 	<main>
-		<section class="sessao-00">
+		<section class="row">
 			<article>	
 				<div th:each = "a : ${alunoobj}">
-					<p>Id: <span th:text = "${a.id}"></span></p>
-					<p>Nome: <span  th:text = "${a.nome}"></span></p>
-					<p>Sobrenome: <span th:text = "${a.sobrenome}" ></span></p>
-					<p>Cpf: <span th:text = "${a.cpf}"></span></p>
-					<p>Número Da Matricula: <span th:text = "${a.numeroDamatricula}"></span></p>
-					<p>Ra: <span th:text = "${a.ra}"></span></p>
+					<p class="input-field col s6">Id: <span th:text = "${a.id}"></span></p>
+					<p class="input-field col s6">Nome: <span  th:text = "${a.nome}"></span></p>
+					<p class="input-field col s6">Sobrenome: <span th:text = "${a.sobrenome}" ></span></p>
+					<p class="input-field col s6">Cpf: <span th:text = "${a.cpf}"></span></p>
+					<p class="input-field col s6">Número Da Matricula: <span th:text = "${a.numeroDamatricula}"></span></p>
+					<p class="input-field col s6">Ra: <span th:text = "${a.ra}"></span></p>
 				</div>
 			</article>
 		</section>
-		<section>
+		<section class="row">
 			<div id="voltar-aluno">
-				<p><a href="/cadastroaluno">Voltar para o cadastro do aluno</a></p>
+				<p class="input-field col s12"><a href="/cadastroaluno">Voltar para o cadastro do aluno</a></p>
 			</div>
 		</section>
-		
-		<section class="sessao-03">
-			<article>
-				<div id="erro-2" th:each = "msg : ${msgdeerrotelefone}" >
-					<strong th:text = ${msg}></strong>
-				</div>
-				<div id="erro-3" th:each = "msg2 : ${msgdeerro2}" >
-					<strong th:text = ${msg2}></strong>
-				</div>
-			</article>
-		</section>
-		
-		<section class="sessao-04">
-			<article>
-				<div id="sucesso" th:each = "msg3 : ${msg}" >
-					<strong th:text = ${msg3}></strong>
-				</div>
-			</article>
-		</section>
-		
+				
 		<section>
 			<article>
-				<table border="1">
+				<table class="striped">
 					<thead>
 						<tr>
 							<th>Id</th>
                     		<th>Disciplina</th>
 						</tr>
 					</thead>
-					<tfoot>
-                		<tr>
-                    		<td colspan="2">
-                        		Valores sujeitos a alteracões sem prévio aviso
-                    		</td>
-                		</tr>
-                	</tfoot>
                 	<tbody>
                 		<tr th:each = "d : ${disciplinas}">
                 			<td th:text = "${d.id}"></td>
@@ -72,7 +64,9 @@
 				</table>
 			</article>
 		</section>
-		
 	</main>
+	
+	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
 </body>
 </html>

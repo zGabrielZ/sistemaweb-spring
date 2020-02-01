@@ -3,6 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <title>Bem vindo</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css"  media="screen,projection"/>
+<link type="text/css" rel="stylesheet" href="/materialize/css/materialize.css"  media="screen,projection"/>
+
+<style type="text/css">
+
+form input[type=submit]{
+	color : white;
+}
+header h1 {
+	text-align: center;
+	font-size: 30px;
+}
+
+form label {
+	color: black;
+}
+</style>
 </head>
 <body>
 	<header>
@@ -10,32 +28,41 @@
 	</header>
 	
 	<main>
-	<section class="sessao-00">
+	
+	<section class="sessao-03">
 			<article>
-				<form action="salvaraluno" method="post" th:object="${alunoobj}">
+				<div id="erro-2" th:each = "m : ${msgdeerro}" >
+					<strong th:text = ${m}></strong>
+				</div>
+			</article>
+	</section>
+	
+	<section class="row">
+			<article>
+				<form id="formAluno" action="salvaraluno" method="post" th:object="${alunoobj}">
 					<table>
-						<tr>
-							<td><label for="tipo">Tipo:</label></td>
-							<td><input type="text" name="@type" id="tipo" value="Aluno" readonly="readonly"></td>
+						<tr class="input-field col s6">
+							<td><label for="tipo" class="active">Tipo:</label></td>
+							<td><input type="text" name="@type" id="tipo" value="Aluno" readonly="readonly" class="validate"></td>
 						</tr>
-						<tr>
-							<td><label for="id">Id:</label></td>
-							<td><input type="text" name="id" id="id" readonly="readonly" th:field = "*{id}"></td>
+						<tr class="input-field col s6">
+							<td><label for="id" class="active">Id:</label></td>
+							<td><input type="text" name="id" id="id" readonly="readonly" th:field = "*{id}" class="validate"></td>
 						</tr>
-						<tr>
-							<td><label for="nome">Nome:</label></td>
-							<td><input type="text" name="nome" id="nome" th:field = "*{nome}"></td>
+						<tr class="input-field col s6">
+							<td><label for="nome" class="active">Nome:</label></td>
+							<td><input type="text" name="nome" id="nome" th:field = "*{nome}" class="validate"></td>
 						</tr>
-						<tr>
-							<td><label for="sobrenome">Sobrenome:</label></td>
-							<td><input type="text" name="sobrenome" id="sobrenome" th:field = "*{sobrenome}"></td>
+						<tr class="input-field col s6">
+							<td><label for="sobrenome" class="active">Sobrenome:</label></td>
+							<td><input type="text" name="sobrenome" id="sobrenome" th:field = "*{sobrenome}" class="validate"></td>
 						</tr>
-						<tr>
-							<td><label for="cpf">Cpf:</label></td>
-							<td><input type="text" name="cpf" id="cpf" th:field = "*{cpf}"></td>
+						<tr class="input-field col s6">
+							<td><label for="cpf" class="active">Cpf:</label></td>
+							<td><input type="text" name="cpf" id="cpf" th:field = "*{cpf}" class="validate"></td>
 						</tr>
-						<tr>
-							<td><label for="sexo">Sexo:</label></td>
+						<tr class="input-field col s6">
+							<td><label for="sexo" class="active">Sexo:</label></td>
 							<td>
 								<select id="sexo" th:field = "*{sexo}">	
 									<option value="">Selecione</option>
@@ -44,32 +71,32 @@
 								</select>
 							</td>
 						</tr>
-						<tr>
-							<td><label for="logra">Logradouro:</label></td>
-							<td><input type="text" name="logradouro" id="logra" th:field = "*{endereco.logradouro}"></td>
+						<tr class="input-field col s6">
+							<td><label for="logra" class="active">Logradouro:</label></td>
+							<td><input type="text" name="logradouro" id="logra" th:field = "*{endereco.logradouro}" class="validate"></td>
 						</tr>
-						<tr>
-							<td><label for="numero">Número:</label></td>
-							<td><input type="text" name="numero" id="numero" th:field = "*{endereco.numero}"></td>
+						<tr class="input-field col s6">
+							<td><label for="numero" class="active">Número:</label></td>
+							<td><input type="text" name="numero" id="numero" th:field = "*{endereco.numero}" class="validate"></td>
 						</tr>
-						<tr>
-							<td><label for="complemento">Complemento:</label></td>
-							<td><input type="text" name="complemento" id="complemento" th:field = "*{endereco.complemento}"></td>
+						<tr class="input-field col s6">
+							<td><label for="complemento" class="active">Complemento:</label></td>
+							<td><input type="text" name="complemento" id="complemento" th:field = "*{endereco.complemento}" class="validate"></td>
 						</tr>
-						<tr>
-							<td><label for="bairro">Bairro:</label></td>
-							<td><input type="text" name="bairro" id="bairro" th:field = "*{endereco.bairro}"></td>
+						<tr class="input-field col s6">
+							<td><label for="bairro" class="active">Bairro:</label></td>
+							<td><input type="text" name="bairro" id="bairro" th:field = "*{endereco.bairro}" class="validate"></td>
 						</tr>
-						<tr>
-							<td><label for="cep">Cep:</label></td>
-							<td><input type="text" name="cep" id="cep" th:field = "*{endereco.cep}"></td>
+						<tr class="input-field col s6">
+							<td><label for="cep" class="active">Cep:</label></td>
+							<td><input type="text" name="cep" id="cep" th:field = "*{endereco.cep}" class="validate"></td>
 						</tr>
-						<tr>
-							<td><label for="cidade">Cidade:</label></td>
-							<td><input type="text" name="cidade" id="cidade" th:field = "*{endereco.cidade.nomeCidade}"></td>
+						<tr class="input-field col s6">
+							<td><label for="cidade" class="active">Cidade:</label></td>
+							<td><input type="text" name="cidade" id="cidade" th:field = "*{endereco.cidade.nomeCidade}" class="validate"></td>
 						</tr>
-						<tr>
-							<td><label for="estado">Estado:</label></td>
+						<tr class="input-field col s6">
+							<td><label for="estado" class="active">Estado:</label></td>
 							<td>
 								<select id="estado" th:field = "*{endereco.cidade.estado}">	
 									<option value="">Selecione</option>
@@ -78,8 +105,8 @@
 								</select>
 							</td>
 						</tr>
-						<tr>
-							<td><label for="curso">Curso:</label></td>
+						<tr class="input-field col s6">
+							<td><label for="curso" class="active">Curso:</label></td>
 							<td>
 								<select id="curso" th:field = "*{curso}">	
 									<option value="">Selecione</option>
@@ -88,8 +115,8 @@
 								</select>
 							</td>
 						</tr>
-						<tr>
-							<td><label for="escola">Escola:</label></td>
+						<tr class="input-field col s6">
+							<td><label for="escola" class="active">Escola:</label></td>
 							<td>
 								<select id="escola"  th:field = "*{escola}">
 									<option value="">Selecione</option>
@@ -99,55 +126,47 @@
 								</select>
 							</td>
 						</tr>
-						<tr>
-							<td><label for="numeroDamatricula">N. Da Matricula:</label></td>
-							<td><input type="text" name="numeroDamatricula" id="numeroDamatricula" th:field = "*{numeroDamatricula}"></td>
+						<tr class="input-field col s6">
+							<td><label for="numeroDamatricula" class="active">N. Da Matricula:</label></td>
+							<td><input type="text" name="numeroDamatricula" id="numeroDamatricula" th:field = "*{numeroDamatricula}" class="validate"></td>
 						</tr>
-						<tr>
-							<td><label for="ra">Ra:</label></td>
-							<td><input type="text" name="ra" id="ra" th:field = "*{ra}"></td>
+						<tr class="input-field col s12">
+							<td><label for="ra" class="active">Ra:</label></td>
+							<td><input type="text" name="ra" id="ra" th:field = "*{ra}" class="validate"></td>
 						</tr>
-						<tr>
-							<td><input type="submit" value="Enviar"></td>
+						<tr class="input-field col s6">
+							<td><input class="waves-effect waves-light btn" type="submit" value="Enviar"></td>
+						</tr>
+						<tr class="input-field col s6">
+							<td><button class="waves-effect waves-light btn" onclick="document.getElementById('formAluno').reset()">Limpar</button></td>
 						</tr>
 					</table>
 				</form>
 			</article>
-		</section>
-	<section class="sessao-01">
-			<div id="listar-aluno">
-				<p><a href="/listaaluno">Listar aluno</a></p>
-			</div>
-			<div id="voltar-menu">
-				<p><a href="/index">Voltar para o menu</a></p>
-			</div>
-	</section>
-	
-	<section class="sessao-pesquisa">
+		</section>	
+	<section class="row">
 			<div id="pesquisar-nome">
-				<form action="/procurarnomedoaluno" method="post">
+				<form action="/procurarnomedoaluno" method="post" class="col s12">
 					<table>
-						<tr>
-							<td><label for="nome">Procurar pelo nome:</label></td>
-							<td><input type="text" id="nome" name="procurarnomealuno"></td>
+						<tr class="input-field col s12">
+							<td><label for="nomeAluno">Procurar pelo nome:</label></td>
+							<td><input type="text" id="nomeAluno" name="procurarnomealuno" class="validate"></td>
 						</tr>
-						<tr>
-							<td><input type="submit" value = "Procurar"></td>
+						<tr class="input-field col s6">
+							<td><input class="waves-effect waves-light btn" type="submit" value = "Procurar"></td>
+						</tr>
+						<tr class="input-field col s6">
+							<td><a class="waves-effect waves-light btn" href="/listaaluno">Listar aluno</a></td>
 						</tr>
 					</table>
 				</form>
 			</div>
 		</section>
 		
-		<section class="sessao-03">
-			<article>
-				<div id="erro-2" th:each = "msg : ${msgdeerro}" >
-					<strong th:text = ${msg}></strong>
-				</div>
-				<div id="erro-3" th:each = "msg2 : ${msgdeerro2}" >
-					<strong th:text = ${msg2}></strong>
-				</div>
-			</article>
+		<section class="row">
+			<div id="voltar-aluno">
+				<p class="input-field col s12"><a href="/index">Voltar para o menu</a></p>
+			</div>
 		</section>
 		
 		<section class="sessao-04">
@@ -160,7 +179,7 @@
 		
 		<section>
 			<article>
-				<table border="1">
+				<table class="striped">
 					<thead>
 						<tr>
 							<th>Id</th>
@@ -170,7 +189,7 @@
                     		<th>Sexo</th>
                     		<th>Curso</th>
                     		<th>Escola</th>
-                    		<th>NúmeroDaMatricula</th>
+                    		<th>Número da Matricula</th>
                     		<th>Ra</th>
                     		<th>Contato</th>
                     		<th>Disciplina</th>
@@ -179,13 +198,6 @@
                     		<th>Deletar</th>
 						</tr>
 					</thead>
-					<tfoot>
-                		<tr>
-                    		<td colspan="14">
-                        		Valores sujeitos a alteracões sem prévio aviso
-                    		</td>
-                		</tr>
-                	</tfoot>
                 	<tbody>
                 		<tr th:each = "a : ${alunos}">
                 			<td th:text = "${a.id}"></td>
@@ -200,13 +212,23 @@
                 			<td><a th:href="@{/contatoaluno/{idaluno}(idaluno=${a.id})}">Add</a></td>
                 			<td><a th:href="@{/disciplinaaluno/{idaluno}(idaluno=${a.id})}">Visualizar</a></td>
                 			<td><a th:href="@{/enderecoaluno/{idaluno}(idaluno=${a.id})}">Visualizar</a></td>
-                			<td><a th:href="@{/editaraluno/{idaluno}(idaluno=${a.id})}">Editar</a></td>
-                			<td><a th:href="@{/deletaraluno/{idaluno}(idaluno=${a.id})}">Deletar</a></td>
+                			<td><a class="material-icons" th:href="@{/editaraluno/{idaluno}(idaluno=${a.id})}">create</a></td>
+                			<td><a class="material-icons" th:href="@{/deletaraluno/{idaluno}(idaluno=${a.id})}">delete</a></td>
                 		</tr>
                 	</tbody>
 				</table>
 			</article>
 		</section>
 	</main>
+	
+	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function () {
+	    $('select').material_select();
+	});
+	</script>
 </body>
 </html>

@@ -3,6 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <title>Bem vindo</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css"  media="screen,projection"/>
+<link type="text/css" rel="stylesheet" href="/materialize/css/materialize.css"  media="screen,projection"/>
+
+<style type="text/css">
+
+form input[type=submit]{
+	color : white;
+}
+header h1 {
+	text-align: center;
+	font-size: 30px;
+}
+
+form label {
+	color: black;
+}
+</style>
 </head>
 <body>
 	<header>
@@ -10,38 +28,49 @@
 	</header>
 	
 	<main>
-		<section class="sessao-00">
-			<article>	
-				<div th:each = "a : ${alunoobj}">
-					<p>Id: <span th:text = "${a.id}"></span></p>
-					<p>Nome: <span  th:text = "${a.nome}"></span></p>
-					<p>Sobrenome: <span th:text = "${a.sobrenome}" ></span></p>
-					<p>Cpf: <span th:text = "${a.cpf}"></span></p>
-					<p>Número Da Matricula: <span th:text = "${a.numeroDamatricula}"></span></p>
-					<p>Ra: <span th:text = "${a.ra}"></span></p>
+		
+		<section class="sessao-03">
+			<article>
+				<div id="erro-2" th:each = "m : ${msgdeerrotelefone}" >
+					<strong th:text = ${m}></strong>
 				</div>
 			</article>
 		</section>
-		<section>
+	
+		<section class="row">
+			<article>	
+				<div th:each = "a : ${alunoobj}">
+					<p  class="input-field col s6">Id: <span th:text = "${a.id}"></span></p>
+					<p  class="input-field col s6">Nome: <span  th:text = "${a.nome}"></span></p>
+					<p  class="input-field col s6">Sobrenome: <span th:text = "${a.sobrenome}" ></span></p>
+					<p  class="input-field col s6">Cpf: <span th:text = "${a.cpf}"></span></p>
+					<p  class="input-field col s6">Número Da Matricula: <span th:text = "${a.numeroDamatricula}"></span></p>
+					<p  class="input-field col s6">Ra: <span th:text = "${a.ra}"></span></p>
+				</div>
+			</article>
+		</section>
+		<section class="row">
 			<div id="voltar-aluno">
-				<p><a href="/cadastroaluno">Voltar para o cadastro do aluno</a></p>
+				<p class="input-field col s12"><a href="/cadastroaluno">Voltar para o cadastro</a></p>
 			</div>
 		</section>
-		<section>
+		<section class="row">
 			<article>
-				<form th:action="@{/addcontato/{alunoid}(alunoid=${alunoobj.id})}" method="post" th:object = "${telefoneobj}">
+				<form  id="formContato" th:action="@{/addcontato/{alunoid}(alunoid=${alunoobj.id})}" method="post" th:object = "${telefoneobj}">
+					
 					<h2>Cadastro de telefone</h2>
+					
 					<table>
-						<tr>
-							<td><label for="id">Id:</label></td>
-							<td><input id="id" type="text" name="id" th:field = "*{id}" readonly="readonly" ></td>
+						<tr class="input-field col s6">
+							<td><label for="id" class="active">Id:</label></td>
+							<td><input id="id" type="text" name="id" th:field = "*{id}" readonly="readonly" class="validate" ></td>
 						</tr>
-						<tr>
-							<td><label for="telefone">Telefone:</label></td>
-							<td><input id="telefone" type="text" name="nome" th:field = "*{nome}"></td>
+						<tr class="input-field col s6">
+							<td><label for="telefone" class="active">Telefone:</label></td>
+							<td><input id="telefone" type="text" name="nome" th:field = "*{nome}" class="validate"></td>
 						</tr>
-						<tr>
-							<td><label for="tipo">Tipo:</label></td>
+						<tr class="input-field col s12">
+							<td><label for="tipo" class="active">Tipo:</label></td>
 							<td>
 								<select id="tipo" name="tipoTelefone" th:field = "*{tipoTelefone}">	
 									<option value="">Selecione</option>
@@ -50,23 +79,15 @@
 								</select>
 							</td>
 						</tr>
-						<tr>
-							<td><input type="submit" value="Enviar"></td>
+						<tr class="input-field col s6">
+							<td><input class="waves-effect waves-light btn" type="submit" value="Enviar"></td>
+						</tr>
+						<tr class="input-field col s6">
+							<td><button class="waves-effect waves-light btn" onclick="document.getElementById('formContato').reset()">Limpar</button></td>
 						</tr>
 					</table>
 				</form>			
 			</article>		
-		</section>
-		
-		<section class="sessao-03">
-			<article>
-				<div id="erro-2" th:each = "msg : ${msgdeerrotelefone}" >
-					<strong th:text = ${msg}></strong>
-				</div>
-				<div id="erro-3" th:each = "msg2 : ${msgdeerro2}" >
-					<strong th:text = ${msg2}></strong>
-				</div>
-			</article>
 		</section>
 		
 		<section class="sessao-04">
@@ -79,7 +100,7 @@
 		
 		<section>
 			<article>
-				<table border="1">
+				<table class="striped">
 					<thead>
 						<tr>
 							<th>Id</th>
@@ -89,26 +110,28 @@
                     		<th>Deletar</th>
 						</tr>
 					</thead>
-					<tfoot>
-                		<tr>
-                    		<td colspan="5">
-                        		Valores sujeitos a alteracões sem prévio aviso
-                    		</td>
-                		</tr>
-                	</tfoot>
                 	<tbody>
                 		<tr th:each = "t : ${telefones}">
                 			<td th:text = "${t.id}"></td>
                 			<td th:text = "${t.nome}"></td>
                 			<td th:text = "${t.tipoTelefone.nome}"></td>
-                			<td><a th:href="@{/editarcontato/{idcontato}(idcontato=${t.id})}">Editar</a></td>
-                			<td><a th:href="@{/deletarcontato/{idcontato}(idcontato=${t.id})}">Deletar</a></td>
+                			<td><a class="material-icons" th:href="@{/editarcontato/{idcontato}(idcontato=${t.id})}">create</a></td>
+                			<td><a class="material-icons" th:href="@{/deletarcontato/{idcontato}(idcontato=${t.id})}">delete</a></td>
                 		</tr>
                 	</tbody>
 				</table>
 			</article>
 		</section>
-		
 	</main>
+	
+	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function () {
+	    $('select').material_select();
+	});
+	</script>
 </body>
 </html>
