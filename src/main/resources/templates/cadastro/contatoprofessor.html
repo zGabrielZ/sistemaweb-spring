@@ -25,7 +25,7 @@ form label {
 </head>
 <body>
 	<header>
-		<h1>Relatório do aluno</h1>
+		<h1>Relatório do professor</h1>
 	</header>
 	
 	<main>
@@ -40,24 +40,23 @@ form label {
 	
 		<section class="row">
 			<article>	
-				<div th:each = "a : ${alunoobj}">
-					<p  class="input-field col s6">Id: <span th:text = "${a.id}"></span></p>
-					<p  class="input-field col s6">Nome: <span  th:text = "${a.nome}"></span></p>
-					<p  class="input-field col s6">Sobrenome: <span th:text = "${a.sobrenome}" ></span></p>
-					<p  class="input-field col s6">Cpf: <span th:text = "${a.cpf}"></span></p>
-					<p  class="input-field col s6">Número Da Matricula: <span th:text = "${a.numeroDamatricula}"></span></p>
-					<p  class="input-field col s6">Ra: <span th:text = "${a.ra}"></span></p>
+				<div th:each = "p : ${professorobj}">
+					<p  class="input-field col s12">Id: <span th:text = "${p.id}"></span></p>
+					<p  class="input-field col s6">Nome: <span  th:text = "${p.nome}"></span></p>
+					<p  class="input-field col s6">Sobrenome: <span th:text = "${p.sobrenome}" ></span></p>
+					<p  class="input-field col s6">Cpf: <span th:text = "${p.cpf}"></span></p>
+					<p  class="input-field col s6">Salário: <span th:text = "${p.salario}"></span></p>
 				</div>
 			</article>
 		</section>
 		<section class="row">
-			<div id="voltar-aluno">
-				<p class="input-field col s12"><a href="/cadastroaluno">Voltar para o cadastro</a></p>
+			<div id="voltar-professor">
+				<p class="input-field col s12"><a href="/cadastroprofessor">Voltar para o cadastro</a></p>
 			</div>
 		</section>
 		<section class="row">
 			<article>
-				<form  id="formContato" th:action="@{/addcontato/{alunoid}(alunoid=${alunoobj.id})}" method="post" th:object = "${telefoneobj}">
+				<form  id="formContato" th:action="@{/addcontatoprofessor/{professorid}(professorid=${professorobj.id})}" method="post" th:object = "${telefoneobj}">
 					
 					<h2>Cadastro de telefone</h2>
 					
@@ -116,8 +115,8 @@ form label {
                 			<td th:text = "${t.id}"></td>
                 			<td th:text = "${t.nome}"></td>
                 			<td th:text = "${t.tipoTelefone.nome}"></td>
-                			<td><a class="material-icons" th:href="@{/editarcontato/{idcontato}(idcontato=${t.id})}">create</a></td>
-                			<td><a class="material-icons" th:href="@{/deletarcontato/{idcontato}(idcontato=${t.id})}">delete</a></td>
+                			<td><a class="material-icons" th:href="@{/editarcontatoprofessor/{idcontato}(idcontato=${t.id})}">create</a></td>
+                			<td><a class="material-icons" th:href="@{/deletarcontatoprofessor/{idcontato}(idcontato=${t.id})}">delete</a></td>
                 		</tr>
                 	</tbody>
 				</table>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Bem vindo</title>
+</head>
+<body>	
+<script th:inline="javascript">
+/*<![CDATA[*/
+window.onload = function() {
+    var grafico = /*[[${grafico}]]*/ 'default';
+    
+    //  Only a test
+    grafico.forEach(myFunction);
+    function myFunction(value, index, array) {
+    	console.log(value); 
+    }    
+    
+    var chart = new CanvasJS.Chart("chartContainer", {
+    	animationEnabled: true,
+    	title: {
+    		text: "Quantidade de pessoas"
+    	},
+    	data: [{        
+    		type: "pie",
+    		startAngle: 240,
+    		yValueFormatString: "##0.00\"\"",
+    		indexLabel: "{label} {y}",     
+    		dataPoints: []
+    	}]
+    });
+
+    /* Update dataPoints from AJAX and render the chart*/	
+    chart.options.data[0].dataPoints = grafico;	
+    chart.render();		
+    	
+}	
+/*]]>*/
+</script>
+
+ <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>

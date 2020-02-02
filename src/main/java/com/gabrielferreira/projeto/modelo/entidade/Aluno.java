@@ -5,6 +5,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @Entity
@@ -19,6 +21,7 @@ public class Aluno extends Pessoa {
 	
 	@NotEmpty(message = "Ra não pode ser vazio")
 	@NotNull(message = "Ra não pode ser nulo")
+	@Length(max = 10,message = "Tamanho do ra deve ser até 10 caracteres")
 	private String ra;
 	
 	public Aluno() {}

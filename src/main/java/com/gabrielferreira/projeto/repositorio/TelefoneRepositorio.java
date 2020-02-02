@@ -12,7 +12,7 @@ import com.gabrielferreira.projeto.modelo.entidade.Telefone;
 public interface TelefoneRepositorio extends JpaRepository<Telefone,Integer> {
 
 	@Query("select t from Telefone t where t.pessoa.id = ?1")
-	public List<Telefone> getTelefones(Integer alunoid);
+	public List<Telefone> getTelefones(Integer id);
 	
 
 	

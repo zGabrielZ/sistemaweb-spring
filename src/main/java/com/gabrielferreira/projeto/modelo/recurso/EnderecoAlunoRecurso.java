@@ -10,7 +10,7 @@ import com.gabrielferreira.projeto.modelo.entidade.Aluno;
 import com.gabrielferreira.projeto.service.AlunoService;
 
 @Controller
-public class EnderecoRecurso {
+public class EnderecoAlunoRecurso {
 
 	@Autowired
 	private AlunoService alunoService;

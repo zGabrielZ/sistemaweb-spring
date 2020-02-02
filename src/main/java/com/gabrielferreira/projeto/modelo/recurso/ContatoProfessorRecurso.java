@@ -13,18 +13,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import com.gabrielferreira.projeto.modelo.entidade.Aluno;
+import com.gabrielferreira.projeto.modelo.entidade.Professor;
 import com.gabrielferreira.projeto.modelo.entidade.Telefone;
 import com.gabrielferreira.projeto.modelo.entidade.TipoTelefone;
-import com.gabrielferreira.projeto.service.AlunoService;
+import com.gabrielferreira.projeto.service.ProfessorService;
 import com.gabrielferreira.projeto.service.TelefoneService;
 import com.gabrielferreira.projeto.service.TipoTelefoneService;
 
 @Controller
-public class ContatoRecurso {
+public class ContatoProfessorRecurso {
 
 	@Autowired
-	private AlunoService alunoService;
+	private ProfessorService professorService;
 
 	@Autowired
 	private TipoTelefoneService tipoService;
@@ -32,57 +32,57 @@ public class ContatoRecurso {
 	@Autowired
 	private TelefoneService telefoneService;
 	
-	@RequestMapping(method = RequestMethod.GET,value = "/contatoaluno/{idaluno}")
-	public ModelAndView editar(@PathVariable("idaluno") Integer id) {
-		Aluno aluno = alunoService.consultarPorId(id);
-		ModelAndView modelAndView = new ModelAndView("cadastro/contatoaluno");
+	@RequestMapping(method = RequestMethod.GET,value = "/contatoprofessor/{idprofessor}")
+	public ModelAndView editar(@PathVariable("idprofessor") Integer id) {
+		Professor professor = professorService.consultarPorId(id);
+		ModelAndView modelAndView = new ModelAndView("cadastro/contatoprofessor");
 		Iterable<TipoTelefone> tipos = tipoService.consultarTodos();	
 		Iterable<Telefone> telefones = telefoneService.consultarTodos(id);
 		modelAndView.addObject("tipos",tipos);
-		modelAndView.addObject("alunoobj",aluno);
+		modelAndView.addObject("professorobj",professor);
 		modelAndView.addObject("telefones",telefones);
 		modelAndView.addObject("telefoneobj",new Telefone());
 		return modelAndView;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET,value = "/deletarcontato/{idcontato}")
+	@RequestMapping(method = RequestMethod.GET,value = "/deletarcontatoprofessor/{idcontato}")
 	public ModelAndView deletar(@PathVariable("idcontato") Integer id) {
-		ModelAndView modelAndView = new ModelAndView("cadastro/contatoaluno");
-		Aluno aluno = (Aluno) telefoneService.consultarPorId(id).get().getPessoa();
+		ModelAndView modelAndView = new ModelAndView("cadastro/contatoprofessor");
+		Professor professor = (Professor) telefoneService.consultarPorId(id).get().getPessoa();
 		telefoneService.deletar(id);
 		Iterable<TipoTelefone> tipos = tipoService.consultarTodos();	
 		modelAndView.addObject("tipos",tipos);
-		modelAndView.addObject("alunoobj",aluno);
+		modelAndView.addObject("professorobj",professor);
 		modelAndView.addObject("telefoneobj",new Telefone());
 		modelAndView.addObject("msg","Telefone removido com sucesso !!");
 		return modelAndView;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET,value = "/editarcontato/{idcontato}")
+	@RequestMapping(method = RequestMethod.GET,value = "/editarcontatoprofessor/{idcontato}")
 	public ModelAndView editarcontato(@PathVariable("idcontato") Integer id) {
-		Aluno aluno = (Aluno) telefoneService.consultarPorId(id).get().getPessoa();
-		ModelAndView modelAndView = new ModelAndView("cadastro/contatoaluno");
+		Professor professor = (Professor) telefoneService.consultarPorId(id).get().getPessoa();
+		ModelAndView modelAndView = new ModelAndView("cadastro/contatoprofessor");
 		Telefone telefone = telefoneService.consultarPorId(id).get();
 		Iterable<TipoTelefone> tipos = tipoService.consultarTodos();	
 		modelAndView.addObject("tipos",tipos);
-		modelAndView.addObject("alunoobj",aluno);
+		modelAndView.addObject("professorobj",professor);
 		modelAndView.addObject("telefoneobj",telefone);
 		return modelAndView;
 	}
 	
 	
-	@RequestMapping(method = RequestMethod.POST,value = "**/addcontato/{alunoid}")
+	@RequestMapping(method = RequestMethod.POST,value = "**/addcontatoprofessor/{professorid}")
 	public ModelAndView salvar(@Valid @ModelAttribute("telefone") Telefone telefone , BindingResult bindingResult, 
-			@PathVariable ("alunoid") Integer alunoid) {
+			@PathVariable ("professorid") Integer professorid) {
 		
 		if(bindingResult.hasErrors()) {
-			ModelAndView modeAndView = new ModelAndView("cadastro/contatoaluno");
+			ModelAndView modeAndView = new ModelAndView("cadastro/contatoprofessor");
 			Iterable<TipoTelefone> tipos = tipoService.consultarTodos();
-			Iterable<Telefone> telefones = telefoneService.consultarTodos(alunoid);
-			Aluno aluno = alunoService.consultarPorId(alunoid);
+			Iterable<Telefone> telefones = telefoneService.consultarTodos(professorid);
+			Professor professor = professorService.consultarPorId(professorid);
 			modeAndView.addObject("tipos",tipos);
 			modeAndView.addObject("telefones",telefones);
-			modeAndView.addObject("alunoobj",aluno);
+			modeAndView.addObject("professorobj",professor);
 			modeAndView.addObject("telefoneobj",new Telefone());
 			
 			List<String> msg = new ArrayList<String>();
@@ -94,16 +94,16 @@ public class ContatoRecurso {
 		}
 		
 		if(telefone.getId() == null) {
-			Aluno aluno = alunoService.consultarPorId(alunoid);
+			Professor professor = professorService.consultarPorId(professorid);
 			TipoTelefone tipoTelefone = new TipoTelefone();
 			tipoTelefone.getTelefones().add(telefone);
-			telefone.setPessoa(aluno);
+			telefone.setPessoa(professor);
 			telefoneService.inserir(telefone);
-			ModelAndView modelAndView = new ModelAndView("cadastro/contatoaluno");
-			modelAndView.addObject("alunoobj",aluno);
+			ModelAndView modelAndView = new ModelAndView("cadastro/contatoprofessor");
+			modelAndView.addObject("professorobj",professor);
 			Iterable<TipoTelefone> tipos = tipoService.consultarTodos();
 			modelAndView.addObject("tipos",tipos);
-			Iterable<Telefone> telefones = telefoneService.consultarTodos(alunoid);
+			Iterable<Telefone> telefones = telefoneService.consultarTodos(professorid);
 			modelAndView.addObject("telefones",telefones);
 			modelAndView.addObject("msg","Telefone cadastrado com sucesso");
 			modelAndView.addObject("telefoneobj",new Telefone());
@@ -111,16 +111,16 @@ public class ContatoRecurso {
 		}
 		
 		else {
-			Aluno aluno = alunoService.consultarPorId(alunoid);
+			Professor professor = professorService.consultarPorId(professorid);
 			TipoTelefone tipoTelefone = new TipoTelefone();
 			tipoTelefone.getTelefones().add(telefone);
-			telefone.setPessoa(aluno);
+			telefone.setPessoa(professor);
 			telefoneService.inserir(telefone);
-			ModelAndView modelAndView = new ModelAndView("cadastro/contatoaluno");
-			modelAndView.addObject("alunoobj",aluno);
+			ModelAndView modelAndView = new ModelAndView("cadastro/contatoprofessor");
+			modelAndView.addObject("professorobj",professor);
 			Iterable<TipoTelefone> tipos = tipoService.consultarTodos();
 			modelAndView.addObject("tipos",tipos);
-			Iterable<Telefone> telefones = telefoneService.consultarTodos(alunoid);
+			Iterable<Telefone> telefones = telefoneService.consultarTodos(professorid);
 			modelAndView.addObject("telefones",telefones);
 			modelAndView.addObject("msg","Telefone atualizado com sucesso");
 			modelAndView.addObject("telefoneobj",new Telefone());

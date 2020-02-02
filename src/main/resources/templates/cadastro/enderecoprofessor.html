@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Bem vindo</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css"  media="screen,projection"/>
+<link type="text/css" rel="stylesheet" href="/materialize/css/materialize.css"  media="screen,projection"/>
+
+<style type="text/css">
+
+form input[type=submit]{
+	color : white;
+}
+header h1 {
+	text-align: center;
+	font-size: 30px;
+}
+
+form label {
+	color: black;
+}
+</style>
+</head>
+<body>
+	<header>
+		<h1>Endereço do professor</h1>
+	</header>
+	
+	<main>
+		<section class="row">
+			<article>	
+				<div th:each = "p : ${professorobj}">
+					<p class="input-field col s12">Id: <span th:text = "${p.id}"></span></p>
+					<p class="input-field col s6">Nome: <span  th:text = "${p.nome}"></span></p>
+					<p class="input-field col s6">Sobrenome: <span th:text = "${p.sobrenome}" ></span></p>
+					<p class="input-field col s6">Cpf: <span th:text = "${p.cpf}"></span></p>
+					<p class="input-field col s6">Salário: <span th:text = "${p.salario}"></span></p>
+				</div>
+			</article>
+		</section>
+		<section class="row">
+			<div id="voltar-professor">
+				<p class="input-field col s12"><a href="/cadastroprofessor">Voltar para o cadastro</a></p>
+			</div>
+		</section>
+		<section>
+			<article>
+				<table class="striped">
+					<thead>
+						<tr>
+							<th>Id</th>
+                    		<th>Logradouro</th>
+                    		<th>Número</th>
+                    		<th>Complemento</th>
+                    		<th>Bairro</th>
+                    		<th>Cep</th>
+                    		<th>Cidade</th>
+                    		<th>Estado</th>
+               			</tr>
+					</thead>
+					<tbody>
+						<tr th:each="p : ${professorobj}">
+							<td th:text="${p.endereco.id}"></td>
+							<td th:text="${p.endereco.logradouro}"></td>
+							<td th:text="${p.endereco.numero}"></td>
+							<td th:text="${p.endereco.complemento}"></td>
+							<td th:text="${p.endereco.bairro}"></td>
+							<td th:text="${p.endereco.cep}"></td>
+							<td th:text="${p.endereco.cidade.nomeCidade}"></td>
+							<td th:text="${p.endereco.cidade.estado.nomeEstado}"></td>
+						</tr>
+					</tbody>
+					</table>
+			</article>
+		</section>
+	</main>
+	
+	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
+</body>
+</html>

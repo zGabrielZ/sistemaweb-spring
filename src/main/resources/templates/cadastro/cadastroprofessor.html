@@ -25,7 +25,7 @@ form label {
 </head>
 <body>
 	<header>
-		<h1>Cadastro de aluno</h1>
+		<h1>Cadastro de professor</h1>
 	</header>
 	
 	<main>
@@ -40,11 +40,11 @@ form label {
 	
 	<section class="row">
 			<article>
-				<form id="formAluno" action="salvaraluno" method="post" th:object="${alunoobj}">
+				<form id="formProfessor" action="salvarprofessor" method="post" th:object="${professorobj}">
 					<table>
 						<tr class="input-field col s6">
 							<td><label for="tipo" class="active">Tipo:</label></td>
-							<td><input type="text" name="@type" id="tipo" value="Aluno" readonly="readonly" class="validate"></td>
+							<td><input type="text" name="@type" id="tipo" value="Professor" readonly="readonly" class="validate"></td>
 						</tr>
 						<tr class="input-field col s6">
 							<td><label for="id" class="active">Id:</label></td>
@@ -128,12 +128,8 @@ form label {
 							</td>
 						</tr>
 						<tr class="input-field col s6">
-							<td><label for="numeroDamatricula" class="active">N. Da Matricula:</label></td>
-							<td><input type="text" name="numeroDamatricula" id="numeroDamatricula" th:field = "*{numeroDamatricula}" class="validate"></td>
-						</tr>
-						<tr class="input-field col s12">
-							<td><label for="ra" class="active">Ra:</label></td>
-							<td><input type="text" name="ra" id="ra" th:field = "*{ra}" class="validate"></td>
+							<td><label for="salario" class="active">Salário:</label></td>
+							<td><input type="text" name="salario" id="salario" th:field = "*{salario}" class="validate"></td>
 						</tr>
 						<tr class="input-field col s6">
 							<td><input class="waves-effect waves-light btn" type="submit" value="Enviar"></td>
@@ -147,17 +143,17 @@ form label {
 		</section>	
 	<section class="row">
 			<div id="pesquisar-nome">
-				<form action="/procurarnomedoaluno" method="post" class="col s12">
+				<form action="/procurarnomedoprofessor" method="post" class="col s12">
 					<table>
 						<tr class="input-field col s12">
-							<td><label for="nomeAluno">Procurar pelo nome:</label></td>
-							<td><input type="text" id="nomeAluno" name="procurarnomealuno" class="validate"></td>
+							<td><label for="nomeProfessor">Procurar pelo nome:</label></td>
+							<td><input type="text" id="nomeAluno" name="procurarnomeprofessor" class="validate"></td>
 						</tr>
 						<tr class="input-field col s6">
 							<td><input class="waves-effect waves-light btn" type="submit" value = "Procurar"></td>
 						</tr>
 						<tr class="input-field col s6">
-							<td><a class="waves-effect waves-light btn" href="/listaaluno">Listar aluno</a></td>
+							<td><a class="waves-effect waves-light btn" href="/listaprofessor">Listar professor</a></td>
 						</tr>
 					</table>
 				</form>
@@ -165,8 +161,11 @@ form label {
 		</section>
 		
 		<section class="row">
-			<div id="voltar-aluno">
+			<div id="voltar-professor">
 				<p class="input-field col s12"><a href="/index">Voltar para o menu</a></p>
+			</div>
+			<div id="salarios" th:each = "s : ${salarios}">
+				<p  class="input-field col s12"><span th:text = "${s}"></span></p>
 			</div>
 		</section>
 		
@@ -190,8 +189,7 @@ form label {
                     		<th>Sexo</th>
                     		<th>Curso</th>
                     		<th>Escola</th>
-                    		<th>Número da Matricula</th>
-                    		<th>Ra</th>
+                    		<th>Salário</th>
                     		<th>Contato</th>
                     		<th>Disciplina</th>
                     		<th>Endereço</th>
@@ -200,28 +198,27 @@ form label {
 						</tr>
 					</thead>
                 	<tbody>
-                		<tr th:each = "a : ${alunos}">
-                			<td th:text = "${a.id}"></td>
-                			<td th:text = "${a.nome}"></td>
-                			<td th:text = "${a.sobrenome}"></td>
-                			<td th:text = "${a.cpf}"></td>
-                			<td th:text = "${a.sexo}"></td>
-                			<td th:text = "${a.curso}"></td>
-                			<td th:text = "${a.escola}"></td>
-                			<td th:text = "${a.numeroDamatricula}"></td>
-                			<td th:text = "${a.ra}"></td>
-                			<td><a th:href="@{/contatoaluno/{idaluno}(idaluno=${a.id})}">Add</a></td>
-                			<td><a th:href="@{/disciplinaaluno/{idaluno}(idaluno=${a.id})}">Visualizar</a></td>
-                			<td><a th:href="@{/enderecoaluno/{idaluno}(idaluno=${a.id})}">Visualizar</a></td>
-                			<td><a class="material-icons" th:href="@{/editaraluno/{idaluno}(idaluno=${a.id})}">create</a></td>
-                			<td><a class="material-icons" th:href="@{/deletaraluno/{idaluno}(idaluno=${a.id})}">delete</a></td>
+                		<tr th:each = "p : ${professores}">
+                			<td th:text = "${p.id}"></td>
+                			<td th:text = "${p.nome}"></td>
+                			<td th:text = "${p.sobrenome}"></td>
+                			<td th:text = "${p.cpf}"></td>
+                			<td th:text = "${p.sexo}"></td>
+                			<td th:text = "${p.curso}"></td>
+                			<td th:text = "${p.escola}"></td>
+                			<td th:text = "${p.salario}"></td>
+                			<td><a th:href="@{/contatoprofessor/{idprofessor}(idprofessor=${p.id})}">Add</a></td>
+                			<td><a th:href="@{/disciplinaprofessor/{idprofessor}(idprofessor=${p.id})}">Visualizar</a></td>
+                			<td><a th:href="@{/enderecoprofessor/{idprofessor}(idprofessor=${p.id})}">Visualizar</a></td>
+                			<td><a class="material-icons" th:href="@{/editarprofessor/{idprofessor}(idprofessor=${p.id})}">create</a></td>
+                			<td><a class="material-icons" th:href="@{/deletarprofessor/{idprofessor}(idprofessor=${p.id})}">delete</a></td>
                 		</tr>
                 	</tbody>
 				</table>
 			</article>
 		</section>
 	</main>
-	
+		
 	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
 	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
@@ -233,6 +230,7 @@ form label {
 	$(document).ready(function () {
 		$("#cpf").mask("000.000.000-00")
 		$("#cep").mask("00.000-000")
+		$('#salario').mask("#,##0.00", {reverse: true});
 	});
 	</script>
 </body>

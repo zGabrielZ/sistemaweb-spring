@@ -34,7 +34,6 @@ import com.gabrielferreira.projeto.repositorio.TipoTelefoneRepositorio;
 
 @Configuration
 public class TesteConfig implements CommandLineRunner{
-
 	
 	@Autowired
 	private EstadoRepositorio estadoRepositorio;
@@ -106,11 +105,12 @@ public class TesteConfig implements CommandLineRunner{
 		Cidade cidade1 = new Cidade(null,"São Paulo",estado25);
 		Cidade cidade2 = new Cidade(null,"Campinas",estado25);
 		Cidade cidade3 = new Cidade(null,"Ouro Preto",estado13);
+		Cidade cidade4 = new Cidade(null,"Mogi-Mirim",estado25);
 		
 		Sexo sexo1 = new Sexo(null,"Masculino");
 		Sexo sexo2 = new Sexo(null,"Feminino");
 		
-		estado25.getCidades().addAll(Arrays.asList(cidade1,cidade2));
+		estado25.getCidades().addAll(Arrays.asList(cidade1,cidade2,cidade4));
 		estado13.getCidades().addAll(Arrays.asList(cidade3));
 		
 		Escola escola1 = new Escola(null,"São Judas");
@@ -154,25 +154,27 @@ public class TesteConfig implements CommandLineRunner{
 		Aluno aluno2 = (Aluno) pessoa2;
 		
 		Pessoa pessoa3 = new Professor(null,"Gabriel","Ferreira","123321",sexo2,
-				curso2,escola2,2000.00);
+				curso2,escola2,"2000.00");
 		Pessoa pessoa4 = new Professor(null,"João","Pereira","12999",sexo2,
-			curso3,escola3,2000.00);
+			curso3,escola3,"2000.00");
 		
 		Professor professor1 = (Professor) pessoa3;
 		Professor professor2 = (Professor) pessoa4;
 		
 		sexo1.getPessoa().addAll(Arrays.asList(aluno1));
 		sexo2.getPessoa().addAll(Arrays.asList(aluno2,professor1,professor2));
+		
 		Endereco endereco1 = new Endereco(null,"bla","bla","bla","bla","bla",cidade3);
-		Endereco endereco2 = new Endereco(null,"111","111","111","111","122",cidade2);
-		Endereco endereco3 = new Endereco(null,"111","111","111","111","122",cidade1);
-		Endereco endereco4 = new Endereco(null,"111","111","111","111","122",cidade1);
+		Endereco endereco2 = new Endereco(null,"111","111","111","111","122",cidade1);
 			
 		aluno1.setEndereco(endereco1);
 		endereco1.setPessoa(aluno1);
 		
 		aluno2.setEndereco(endereco2);
 		endereco2.setPessoa(aluno2);
+		
+		Endereco endereco3 = new Endereco(null,"111","111","111","111","122",cidade2);
+		Endereco endereco4 = new Endereco(null,"111","111","111","111","122",cidade4);
 		
 		professor1.setEndereco(endereco3);
 		endereco3.setPessoa(professor1);
@@ -232,7 +234,7 @@ public class TesteConfig implements CommandLineRunner{
 		alunoRepositorio.saveAll(Arrays.asList(aluno1,aluno2));
 		professorRepositorio.saveAll(Arrays.asList(professor1,professor2));
 		enderecoRepositorio.saveAll(Arrays.asList(endereco1,endereco2,endereco3,endereco4));
-		cidadeRepositorio.saveAll(Arrays.asList(cidade1,cidade2,cidade3));	
+		cidadeRepositorio.saveAll(Arrays.asList(cidade1,cidade2,cidade3,cidade4));	
 		telefoneRepositorio.saveAll(Arrays.asList(telefone1,telefone2,telefone3,
 				telefone4,telefone5,telefone6,telefone7,telefone8));
 	}

@@ -21,7 +21,6 @@ import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @Entity

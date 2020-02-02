@@ -1,5 +1,4 @@
 package com.gabrielferreira.projeto.service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -8,9 +7,9 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-import com.gabrielferreira.projeto.modelo.entidade.Aluno;
+import com.gabrielferreira.projeto.modelo.entidade.Professor;
 import com.gabrielferreira.projeto.modelo.entidade.Pessoa;
-import com.gabrielferreira.projeto.repositorio.AlunoRepositorio;
+import com.gabrielferreira.projeto.repositorio.ProfessorRepositorio;
 import com.gabrielferreira.projeto.repositorio.CidadeRepositorio;
 import com.gabrielferreira.projeto.repositorio.CursoRepositorio;
 import com.gabrielferreira.projeto.repositorio.EnderecoRepositorio;
@@ -22,10 +21,10 @@ import com.gabrielferreira.projeto.service.exceptions.DatabaseException;
 import com.gabrielferreira.projeto.service.exceptions.RecursoNotFoundException;
 
 @Service
-public class AlunoService {
+public class ProfessorService {
 
 	@Autowired
-	private AlunoRepositorio alunoRepositorio;
+	private ProfessorRepositorio professorRepositorio;
 	
 	@Autowired
 	private PessoaRepositorio pessoaRepositorio;
@@ -48,33 +47,33 @@ public class AlunoService {
 	@Autowired
 	private EstadoRepositorio estadoRepositorio;
 	
-	public Aluno consultarPorId(Integer id) {
-		Optional<Aluno> aluno = alunoRepositorio.findById(id);
-		return aluno.orElseThrow(() -> new RecursoNotFoundException(id));
+	public Professor consultarPorId(Integer id) {
+		Optional<Professor> professor = professorRepositorio.findById(id);
+		return professor.orElseThrow(() -> new RecursoNotFoundException(id));
 	}
 	
 	
-	public List<Aluno> consultarTodos(){
-		return alunoRepositorio.findAll();
+	public List<Professor> consultarTodos(){
+		return professorRepositorio.findAll();
 	}
 	
 	public Long quantidade(){
-		return alunoRepositorio.quantidadeAluno();
+		return professorRepositorio.quantidadeProfessor();
 	}
 	
-	public Pessoa inserir(Pessoa aluno) {
-		if(aluno.getId() == null) {
-			cursoRepositorio.save(aluno.getCurso());
-			escolaRepositorio.save(aluno.getEscola());
-			sexoRepositorio.save(aluno.getSexo());
-			estadoRepositorio.save(aluno.getEndereco().getCidade().getEstado());
-			cidadeRepositorio.save(aluno.getEndereco().getCidade());
-			pessoaRepositorio.save(aluno);
-			enderecoRepositorio.save(aluno.getEndereco());
-			return aluno;
+	public Pessoa inserir(Pessoa professor) {
+		if(professor.getId() == null) {
+			cursoRepositorio.save(professor.getCurso());
+			escolaRepositorio.save(professor.getEscola());
+			sexoRepositorio.save(professor.getSexo());
+			estadoRepositorio.save(professor.getEndereco().getCidade().getEstado());
+			cidadeRepositorio.save(professor.getEndereco().getCidade());
+			pessoaRepositorio.save(professor);
+			enderecoRepositorio.save(professor.getEndereco());
+			return professor;
 		}
 		else {
-			return (Aluno) atualizar(aluno.getId(), aluno);
+			return (Professor) atualizar(professor.getId(), professor);
 		}
 	}
 	
@@ -86,34 +85,31 @@ public class AlunoService {
 		}
 	}
 	
-	public Pessoa atualizar(Integer id,Pessoa aluno) {
+	public Pessoa atualizar(Integer id,Pessoa professor) {
 		try {
-			Pessoa entidade = alunoRepositorio.getOne(id);
-			updateData(entidade,aluno);
+			Pessoa entidade = professorRepositorio.getOne(id);
+			updateData(entidade,professor);
 			return pessoaRepositorio.save(entidade);
 		} catch (EntityNotFoundException e) {
 			throw new EntityNotFoundException(e.getMessage());
 		}
 	}
 	
-	private void updateData(Pessoa entidade,Pessoa aluno) {
-		entidade.setNome(aluno.getNome());
-		entidade.setSobrenome(aluno.getSobrenome());
-		entidade.setCpf(aluno.getCpf());
-		Aluno aluno2 = (Aluno) entidade;
-		Aluno aluno3 = (Aluno) aluno;
-		aluno2.setNumeroDamatricula(aluno3.getNumeroDamatricula());
-		Aluno aluno4 = (Aluno) entidade;
-		Aluno aluno5 = (Aluno) aluno;
-		aluno4.setRa(aluno5.getRa());
-		entidade.setEscola(aluno.getEscola());
-		entidade.setCurso(aluno.getCurso());
-		entidade.setEndereco(aluno.getEndereco());
-		entidade.setSexo(aluno.getSexo());
+	private void updateData(Pessoa entidade,Pessoa professor) {
+		entidade.setNome(professor.getNome());
+		entidade.setSobrenome(professor.getSobrenome());
+		entidade.setCpf(professor.getCpf());
+		Professor professor2 = (Professor) entidade;
+		Professor professor3 = (Professor) professor;
+		professor2.setSalario(professor3.getSalario());
+		entidade.setEscola(professor.getEscola());
+		entidade.setCurso(professor.getCurso());
+		entidade.setEndereco(professor.getEndereco());
+		entidade.setSexo(professor.getSexo());
 	}
 	
-	public List<Aluno> buscarNome(String nome){
-		return alunoRepositorio.findAlunoByName(nome);
+	public List<Professor> buscarNome(String nome){
+		return professorRepositorio.findProfessorByName(nome);
 	}
 	
 }

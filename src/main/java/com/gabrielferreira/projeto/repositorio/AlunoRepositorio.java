@@ -13,4 +13,7 @@ public interface AlunoRepositorio extends JpaRepository<Aluno,Integer> {
 
 	@Query("select a from Aluno a where a.nome like %?1%")
 	public List<Aluno> findAlunoByName(String nome);
+	
+	@Query("select count(a) from Aluno a")
+	public Long quantidadeAluno();
 }
