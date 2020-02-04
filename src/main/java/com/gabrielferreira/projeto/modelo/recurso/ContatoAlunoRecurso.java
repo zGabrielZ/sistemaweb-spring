@@ -54,6 +54,7 @@ public class ContatoAlunoRecurso {
 		modelAndView.addObject("tipos",tipos);
 		modelAndView.addObject("alunoobj",aluno);
 		modelAndView.addObject("telefoneobj",new Telefone());
+		modelAndView.addObject("telefones",telefoneService.consultarTodos(aluno.getId()));
 		modelAndView.addObject("msg","Telefone removido com sucesso !!");
 		return modelAndView;
 	}

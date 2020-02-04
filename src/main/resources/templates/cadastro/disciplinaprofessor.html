@@ -41,10 +41,41 @@ form label {
 		</section>
 		<section class="row">
 			<div id="voltar-professor">
-				<p class="input-field col s12"><a href="/cadastroprofessor">Voltar para o cadastro do aluno</a></p>
+				<p class="input-field col s12"><a href="/cadastroprofessor">Voltar para o cadastro do professor</a></p>
 			</div>
 		</section>
-				
+		
+		<section class="row">
+			<article>
+				<form  id="formDisciplina" th:action="@{/adddisciplinaprofessor/{professorid}(professorid=${professorobj.id})}" method="post" th:object = "${disciplinaobj}">
+					
+					<h2>Cadastro de disciplina</h2>
+					
+					<table>
+						<tr class="input-field col s12">
+							<td><label for="disciplina" class="active">Disciplina:</label></td>
+							<td>
+								<select id="tipo" name="nome" th:field = "*{disciplina}">	
+									<option  th:each = "d : ${disciplinas}" 	th:value = "${d.id}" 
+									th:text = "${d.nome}"></option>	
+								</select>
+							</td>
+						</tr>
+						<tr class="input-field col s12">
+							<td><input class="waves-effect waves-light btn" type="submit" value="Enviar"></td>
+						</tr>
+					</table>
+				</form>			
+			</article>		
+		</section>
+		
+		<section class="sessao-04">
+			<article>
+				<div id="sucesso" th:each = "msg3 : ${msg}" >
+					<strong th:text = ${msg3}></strong>
+				</div>
+			</article>
+		</section>
 		<section>
 			<article>
 				<table class="striped">
@@ -55,7 +86,7 @@ form label {
 						</tr>
 					</thead>
                 	<tbody>
-                		<tr th:each = "d : ${disciplinas}">
+                		<tr th:each = "d : ${disciplinas2}">
                 			<td th:text = "${d.id}"></td>
                 			<td th:text = "${d.nome}"></td>
                 		</tr>
@@ -67,5 +98,12 @@ form label {
 	
 	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
 	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function () {
+	    $('select').material_select();
+	});
+	</script>
 </body>
 </html>

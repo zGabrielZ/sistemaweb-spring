@@ -15,4 +15,6 @@ public interface PessoaRepositorio extends JpaRepository<Pessoa,Integer> {
 	@Query("select p from Pessoa p where p.cpf = :cpf and p.id <> :id")
 	public Pessoa findPessoaByCpfAtualizado(@Param("cpf")String cpf,
 			@Param("id")Integer id);
+	
+	
 }

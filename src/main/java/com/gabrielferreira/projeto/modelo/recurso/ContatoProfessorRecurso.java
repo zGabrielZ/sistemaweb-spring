@@ -54,6 +54,7 @@ public class ContatoProfessorRecurso {
 		modelAndView.addObject("tipos",tipos);
 		modelAndView.addObject("professorobj",professor);
 		modelAndView.addObject("telefoneobj",new Telefone());
+		modelAndView.addObject("telefones",telefoneService.consultarTodos(professor.getId()));
 		modelAndView.addObject("msg","Telefone removido com sucesso !!");
 		return modelAndView;
 	}

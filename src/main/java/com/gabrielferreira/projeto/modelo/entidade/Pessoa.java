@@ -171,6 +171,14 @@ public abstract class Pessoa implements Serializable{
 	public void setDisciplinas(List<Disciplina> disciplinas) {
 		this.disciplinas = disciplinas;
 	}
+	
+	public void addDisciplina(Disciplina disciplina) {
+		this.disciplinas.add(disciplina);
+	}
+	
+	public void removeDisciplina(Disciplina disciplina) {
+		this.disciplinas.remove(disciplina);
+	}
 
 	@Override
 	public int hashCode() {
@@ -196,6 +204,17 @@ public abstract class Pessoa implements Serializable{
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Pessoa [disciplinas=");
+		builder.append(disciplinas);
+		builder.append("]");
+		return builder.toString();
+	}
+	
+	
 	
 	
 	

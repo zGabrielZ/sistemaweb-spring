@@ -194,10 +194,10 @@ public class TesteConfig implements CommandLineRunner{
 		aluno2.getDisciplinas().addAll(Arrays.asList(disciplina3));
 		professor1.getDisciplinas().addAll(Arrays.asList(disciplina1,disciplina2,
 				disciplina3));
-		professor2.getDisciplinas().addAll(Arrays.asList(disciplina3));
+		professor2.getDisciplinas().addAll(Arrays.asList(disciplina3,disciplina2));
 		
 		disciplina1.getPessoas().addAll(Arrays.asList(aluno1,professor1));
-		disciplina2.getPessoas().addAll(Arrays.asList(aluno1,professor1));
+		disciplina2.getPessoas().addAll(Arrays.asList(aluno1,professor1,professor2));
 		disciplina3.getPessoas().addAll(Arrays.asList(aluno2,professor1,professor2));
 		
 		

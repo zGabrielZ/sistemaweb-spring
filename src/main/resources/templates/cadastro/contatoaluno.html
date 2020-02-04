@@ -55,6 +55,7 @@ form label {
 				<p class="input-field col s12"><a href="/cadastroaluno">Voltar para o cadastro</a></p>
 			</div>
 		</section>
+		
 		<section class="row">
 			<article>
 				<form  id="formContato" th:action="@{/addcontato/{alunoid}(alunoid=${alunoobj.id})}" method="post" th:object = "${telefoneobj}">
