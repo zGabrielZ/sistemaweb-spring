@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.gabrielferreira.projeto.modelo.dto.PessoaDisciplinaDTO;
 import com.gabrielferreira.projeto.modelo.entidade.Aluno;
 import com.gabrielferreira.projeto.modelo.entidade.Disciplina;
-import com.gabrielferreira.projeto.repositorio.PessoaRepositorio;
 import com.gabrielferreira.projeto.service.AlunoService;
 import com.gabrielferreira.projeto.service.DisciplinaService;
 
@@ -24,9 +23,6 @@ public class DisciplinaAlunoRecurso {
 
 	@Autowired
 	private AlunoService alunoService;
-
-	@Autowired
-	private PessoaRepositorio alunoRepositorio;
 
 	@Autowired
 	private DisciplinaService disciplinaService;
@@ -55,7 +51,7 @@ public class DisciplinaAlunoRecurso {
 		aluno = alunoService.consultarPorId(alunoid);
 		if (!aluno.getDisciplinas().contains(disciplina)) {
 			aluno.addDisciplina(disciplina);
-			alunoRepositorio.save(aluno);
+			alunoService.inserir(aluno);
 			ModelAndView modelAndView = new ModelAndView("cadastro/disciplinaaluno");
 			modelAndView.addObject("alunoobj", aluno);
 			Iterable<Disciplina> disciplinas = disciplinaService.consultarTodos();
@@ -77,6 +73,5 @@ public class DisciplinaAlunoRecurso {
 			modelAndView.addObject("disciplinaobj", new PessoaDisciplinaDTO());
 			return modelAndView;
 		}
-		
 	}
 }

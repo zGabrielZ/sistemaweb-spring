@@ -75,8 +75,8 @@ public abstract class Pessoa implements Serializable{
 	
 	@ManyToMany()
 	@JoinTable(name = "tab_pessoa_disciplina",
-	joinColumns = @JoinColumn(name = "disciplina_id"),
-	inverseJoinColumns = @JoinColumn(name = "pessoa_id"))
+	joinColumns = @JoinColumn(name = "pessoa_id"),
+	inverseJoinColumns = @JoinColumn(name = "disciplina_id"))
 	private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
 	
 	public Pessoa() {}
