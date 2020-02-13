@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -73,11 +71,9 @@ public abstract class Pessoa implements Serializable{
 	@JoinColumn(name = "escola_id")
 	private Escola escola;
 	
-	@ManyToMany()
-	@JoinTable(name = "tab_pessoa_disciplina",
-	joinColumns = @JoinColumn(name = "pessoa_id"),
-	inverseJoinColumns = @JoinColumn(name = "disciplina_id"))
-	private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
+	@OneToMany(mappedBy = "pessoa")
+	private List<Itens> itens = new ArrayList<Itens>();
+	
 	
 	public Pessoa() {}
 	
@@ -164,20 +160,12 @@ public abstract class Pessoa implements Serializable{
 		this.escola = escola;
 	}
 	
-	public List<Disciplina> getDisciplinas() {
-		return disciplinas;
+	public List<Itens> getItens() {
+		return itens;
 	}
 
-	public void setDisciplinas(List<Disciplina> disciplinas) {
-		this.disciplinas = disciplinas;
-	}
-	
-	public void addDisciplina(Disciplina disciplina) {
-		this.disciplinas.add(disciplina);
-	}
-	
-	public void removeDisciplina(Disciplina disciplina) {
-		this.disciplinas.remove(disciplina);
+	public void setItens(List<Itens> itens) {
+		this.itens = itens;
 	}
 
 	@Override
@@ -205,18 +193,5 @@ public abstract class Pessoa implements Serializable{
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Pessoa [disciplinas=");
-		builder.append(disciplinas);
-		builder.append("]");
-		return builder.toString();
-	}
-	
-	
-	
-	
-	
 	
 }

@@ -1,21 +1,18 @@
 package com.gabrielferreira.projeto.modelo.entidade;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "tab_disciplina")
-public class Disciplina implements Serializable {
+@Table(name = "tab_itens")
+public class Itens implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -23,19 +20,20 @@ public class Disciplina implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@NotNull(message = "Nome não pode ser nulo")
-	@NotEmpty(message = "Nome não pode ser vazio")
-	private String nome;
+	@ManyToOne()
+	@JoinColumn(name = "pessoa_id")
+	private Pessoa pessoa;
 	
+	@ManyToOne()
+	@JoinColumn(name = "disciplina_id")
+	private Disciplina disciplina;
 	
-	@OneToMany(mappedBy = "disciplina")
-	private List<Itens> itens = new ArrayList<Itens>();
-	
-	public Disciplina() {}
+	public Itens() {}
 
-	public Disciplina(Integer id, String nome) {
+	public Itens(Integer id, Pessoa pessoa, Disciplina disciplina) {
 		this.id = id;
-		this.nome = nome;
+		this.pessoa = pessoa;
+		this.disciplina = disciplina;
 	}
 
 	public Integer getId() {
@@ -46,20 +44,20 @@ public class Disciplina implements Serializable {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public Pessoa getPessoa() {
+		return pessoa;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	
-	public List<Itens> getItens() {
-		return itens;
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
-	public void setItens(List<Itens> itens) {
-		this.itens = itens;
+	public Disciplina getDisciplina() {
+		return disciplina;
+	}
+
+	public void setDisciplina(Disciplina disciplina) {
+		this.disciplina = disciplina;
 	}
 
 	@Override
@@ -78,7 +76,7 @@ public class Disciplina implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Disciplina other = (Disciplina) obj;
+		Itens other = (Itens) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

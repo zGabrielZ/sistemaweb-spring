@@ -18,6 +18,8 @@ import com.gabrielferreira.projeto.modelo.entidade.Curso;
 import com.gabrielferreira.projeto.modelo.entidade.Disciplina;
 import com.gabrielferreira.projeto.modelo.entidade.Escola;
 import com.gabrielferreira.projeto.modelo.entidade.Estado;
+import com.gabrielferreira.projeto.modelo.entidade.Itens;
+import com.gabrielferreira.projeto.modelo.entidade.Pessoa;
 import com.gabrielferreira.projeto.modelo.entidade.Professor;
 import com.gabrielferreira.projeto.modelo.entidade.Sexo;
 import com.gabrielferreira.projeto.service.AlunoService;
@@ -25,6 +27,8 @@ import com.gabrielferreira.projeto.service.CursoService;
 import com.gabrielferreira.projeto.service.DisciplinaService;
 import com.gabrielferreira.projeto.service.EscolaService;
 import com.gabrielferreira.projeto.service.EstadoService;
+import com.gabrielferreira.projeto.service.ItensService;
+import com.gabrielferreira.projeto.service.PessoaService;
 import com.gabrielferreira.projeto.service.ProfessorService;
 import com.gabrielferreira.projeto.service.SexoService;
 
@@ -52,6 +56,12 @@ public class IndexRecurso {
 	@Autowired
 	private DisciplinaService disciplinaService;
 	
+	@Autowired
+	private ItensService itensService;
+	
+	@Autowired
+	private PessoaService pessoaService;
+
 	@RequestMapping(value = "/index",method = RequestMethod.GET)
 	public String index() {
 		return "index";
@@ -137,6 +147,18 @@ public class IndexRecurso {
 		modelAndView.addObject("escolas",escolas);
 		modelAndView.addObject("professores",professorDTOs);
 		modelAndView.addObject("professorobj",new Professor());
+		return modelAndView;
+	}
+	
+	@RequestMapping(method = RequestMethod.GET,value = "/cadastrodeaula")
+	public ModelAndView cadastroItens() {
+		ModelAndView modelAndView = new ModelAndView("cadastro/cadastrodeaula");
+		Iterable<Pessoa> pessoa = pessoaService.consultarTodos();
+		Iterable<Disciplina> disciplina = disciplinaService.consultarTodos();
+		modelAndView.addObject("pessoas", pessoa);
+		modelAndView.addObject("disciplinas", disciplina);
+		modelAndView.addObject("itens", itensService.consultarTodos());
+		modelAndView.addObject("itensobj", new Itens());
 		return modelAndView;
 	}
 }

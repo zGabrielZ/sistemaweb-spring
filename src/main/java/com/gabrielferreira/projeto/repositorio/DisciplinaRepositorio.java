@@ -12,8 +12,8 @@ import com.gabrielferreira.projeto.modelo.entidade.Disciplina;
 @Repository
 public interface DisciplinaRepositorio extends JpaRepository<Disciplina,Integer> {
 
-	@Query("select d from Disciplina d inner join d.pessoas p where p.id = ?1")
-	public List<Disciplina> getDisciplinas(Integer alunoid);
+	@Query("select d from Disciplina d inner join d.itens p where p.pessoa.id = ?1")
+	public List<Disciplina> getDisciplinas(Integer pessoaid);
 	
 	@Query("select d from Disciplina d where d.nome like %?1%")
 	public List<Disciplina> findDisciplinaByNameDisciplina(String nome);
