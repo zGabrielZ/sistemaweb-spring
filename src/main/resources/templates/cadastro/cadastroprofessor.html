@@ -44,7 +44,7 @@ form label {
 					<table>
 						<tr class="input-field col s6">
 							<td><label for="tipo" class="active">Tipo:</label></td>
-							<td><input type="text" name="@type" id="tipo" value="Professor" readonly="readonly" class="validate"></td>
+							<td><input type="text" name="@type" id="tipo" readonly="readonly" class="validate"></td>
 						</tr>
 						<tr class="input-field col s6">
 							<td><label for="id" class="active">Id:</label></td>
@@ -132,7 +132,7 @@ form label {
 							<td><input type="text" name="salario" id="salario" th:field = "*{salario}" class="validate"></td>
 						</tr>
 						<tr class="input-field col s6">
-							<td><input class="waves-effect waves-light btn" type="submit" value="Enviar"></td>
+							<td><input class="waves-effect waves-light btn" type="submit" onclick="nome()" value="Enviar"></td>
 						</tr>
 						<tr class="input-field col s6">
 							<td><button class="waves-effect waves-light btn" onclick="document.getElementById('formAluno').reset()">Limpar</button></td>
@@ -232,6 +232,10 @@ form label {
 		$("#cep").mask("00.000-000")
 		$('#salario').mask("#,##0.00", {reverse: true});
 	});
+	function nome(){
+		var nome = documento.getElementById("tipo").value;
+		nome.value = "Professor";
+	}
 	</script>
 </body>
 </html>
