@@ -163,9 +163,9 @@ public abstract class Pessoa implements Serializable{
 	public List<Itens> getItens() {
 		return itens;
 	}
-
-	public void setItens(List<Itens> itens) {
-		this.itens = itens;
+	
+	public String statusPessoa() {
+		return this.nome+" "+this.sobrenome;
 	}
 
 	@Override

@@ -42,11 +42,10 @@ form label {
 			<article>
 				<form id="formAluno" action="salvaraluno" method="post" th:object="${alunoobj}">
 					<table>
-						<tr class="input-field col s6">
-							<td><label for="tipo" class="active">Tipo:</label></td>
-							<td><input type="text" name="@type" id="tipo"  readonly="readonly" class="validate"></td>
+						<tr>
+							<td><input type="hidden" name="@type" id="tipo"  readonly="readonly" class="validate"></td>
 						</tr>
-						<tr class="input-field col s6">
+						<tr class="input-field col s12">
 							<td><label for="id" class="active">Id:</label></td>
 							<td><input type="text" name="id" id="id" readonly="readonly" th:field = "*{id}" class="validate"></td>
 						</tr>
