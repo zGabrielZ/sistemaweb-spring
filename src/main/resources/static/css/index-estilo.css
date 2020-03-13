@@ -1,0 +1,57 @@
+body {
+	background-color: gray;
+}
+
+.brand-logo {
+	margin-left: 30px;
+}
+
+img {
+	width: 380px;
+	height: 250px;
+}
+
+header h1 {
+	font-size: 50px;
+	font-family: sans-serif;
+	color: white;
+	text-align: center;
+}
+
+.aluno {
+	border: 1px solid black;
+	width: 400px;
+	margin-right: 20px;
+	box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3);
+}
+
+.aluno img{
+	background-color: rgb(85, 224, 252);
+}
+
+.aluno p {
+	font-family: sans-serif;
+	font-size: 20px;
+	text-align: center;
+	padding: 5px;
+}
+
+.professor p {
+	font-family: sans-serif;
+	font-size: 20px;
+	text-align: center;
+	padding: 5px;
+}
+
+.professor {
+	border: 1px solid black;
+	width: 400px;
+	margin-left: 20px;
+	box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3);
+}
+
+.container {
+	display: flex;
+	width: 800px;
+	position: relative;
+}

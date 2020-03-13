@@ -134,9 +134,16 @@ form label {
 	    $('select').material_select();
 	});
 	
-	$(document).ready(function () {
-		$('#telefone').mask('(00) 0000-0000');
-	});
+	$('#tipo').change(function(){
+        var e = $(this).find('option:selected').attr('value')//Exemplo
+        if(e == 3){
+            $("#telefone").mask("(00) 00000-0000")
+        }
+        else if(e == 2 || e == 1){
+            $("#telefone").mask("(00) 0000-0000")
+        }
+    });
+	
 	</script>
 </body>
 </html>
