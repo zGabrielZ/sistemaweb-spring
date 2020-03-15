@@ -42,7 +42,7 @@ form label {
 							<td>
 								<select id="pessoa" th:field = "*{pessoa}">	
 									<option  th:each = "p : ${pessoas}" th:value = "${p.id}" 
-									th:text = "${p.nome}" ></option>		
+									th:text = "${p.sobrenome} + ',' + ${p.nome}" ></option>		
 								</select>
 							</td>
 						</tr>
@@ -109,7 +109,7 @@ form label {
                 	<tbody>
                 		<tr th:each = "i : ${itens}">
                 			<td th:text = "${i.id}"></td>
-                			<td th:text = "${i.pessoa.nome}"></td>
+                			<td th:text = "${i.pessoa.sobrenome} + ',' + ${i.pessoa.nome}"></td>
                 			<td th:text = "${i.disciplina.nome}"></td>
                 			<td><a  class="material-icons" th:href="@{/deletaritens/{iditens}(iditens=${i.id})}">delete</a></td>
                 		</tr>

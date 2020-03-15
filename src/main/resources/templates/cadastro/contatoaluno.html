@@ -63,15 +63,11 @@ form label {
 					<h2>Cadastro de telefone</h2>
 					
 					<table>
-						<tr class="input-field col s6">
+						<tr class="input-field col s12">
 							<td><label for="id" class="active">Id:</label></td>
 							<td><input id="id" type="text" name="id" th:field = "*{id}" readonly="readonly" class="validate" ></td>
 						</tr>
 						<tr class="input-field col s6">
-							<td><label for="telefone" class="active">Telefone:</label></td>
-							<td><input id="telefone" type="text" name="nome" th:field = "*{nome}" class="validate"></td>
-						</tr>
-						<tr class="input-field col s12">
 							<td><label for="tipo" class="active">Tipo:</label></td>
 							<td>
 								<select id="tipo" name="tipoTelefone" th:field = "*{tipoTelefone}">	
@@ -80,6 +76,10 @@ form label {
 									th:text = "${t.nome}"></option>	
 								</select>
 							</td>
+						</tr>
+						<tr class="input-field col s6">
+							<td><label for="telefone" class="active">Telefone:</label></td>
+							<td><input id="telefone" type="text" name="nome" th:field = "*{nome}" class="validate"></td>
 						</tr>
 						<tr class="input-field col s6">
 							<td><input class="waves-effect waves-light btn" type="submit" value="Enviar"></td>
