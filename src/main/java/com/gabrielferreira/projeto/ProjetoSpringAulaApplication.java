@@ -6,10 +6,10 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.gabrielferreira.projeto.*"})
-public class ProjetoSpringHerancaApplication {
+public class ProjetoSpringAulaApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ProjetoSpringHerancaApplication.class, args);
+		SpringApplication.run(ProjetoSpringAulaApplication.class, args);
 	}
 
 }
