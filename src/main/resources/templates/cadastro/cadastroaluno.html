@@ -72,8 +72,20 @@ form label {
 							</td>
 						</tr>
 						<tr class="input-field col s6">
+							<td><label for="cep" class="active">Cep:</label></td>
+							<td><input type="text" name="cep" id="cep" th:field = "*{endereco.cep}" class="validate"></td>
+						</tr>
+						<tr class="input-field col s6">
 							<td><label for="logra" class="active">Logradouro:</label></td>
 							<td><input type="text" name="logradouro" id="logra" th:field = "*{endereco.logradouro}" class="validate"></td>
+						</tr>
+						<tr class="input-field col s6">
+							<td><label for="bairro" class="active">Bairro:</label></td>
+							<td><input type="text" name="bairro" id="bairro" th:field = "*{endereco.bairro}" class="validate"></td>
+						</tr>
+						<tr class="input-field col s6">
+							<td><label for="cidade" class="active">Cidade:</label></td>
+							<td><input type="text" name="cidade" id="cidade" th:field = "*{endereco.cidade.nomeCidade}" class="validate"></td>
 						</tr>
 						<tr class="input-field col s6">
 							<td><label for="numero" class="active">Número:</label></td>
@@ -82,18 +94,6 @@ form label {
 						<tr class="input-field col s6">
 							<td><label for="complemento" class="active">Complemento:</label></td>
 							<td><input type="text" name="complemento" id="complemento" th:field = "*{endereco.complemento}" class="validate"></td>
-						</tr>
-						<tr class="input-field col s6">
-							<td><label for="bairro" class="active">Bairro:</label></td>
-							<td><input type="text" name="bairro" id="bairro" th:field = "*{endereco.bairro}" class="validate"></td>
-						</tr>
-						<tr class="input-field col s6">
-							<td><label for="cep" class="active">Cep:</label></td>
-							<td><input type="text" name="cep" id="cep" th:field = "*{endereco.cep}" class="validate"></td>
-						</tr>
-						<tr class="input-field col s6">
-							<td><label for="cidade" class="active">Cidade:</label></td>
-							<td><input type="text" name="cidade" id="cidade" th:field = "*{endereco.cidade.nomeCidade}" class="validate"></td>
 						</tr>
 						<tr class="input-field col s6">
 							<td><label for="estado" class="active">Estado:</label></td>
@@ -238,6 +238,29 @@ form label {
 		var nome = documento.getElementById("tipo").value;
 		nome.value = "Aluno";
 	}
+	
+	$(document).ready(function(){
+		$("#cep").blur(function(){
+			  var cep = $(this).val().replace(/\D/g, '');
+			  if(cep!=""){
+				  var validacep = /^[0-9]{8}$/;
+				  
+				  if(validacep.test(cep)){
+					  $("#logra").val("...");
+                      $("#bairro").val("...");
+                      $("#cidade").val("...");
+                     
+                      $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?",function(dados){
+                    	  if(!("erro" in dados)){
+                    		  $("#logra").val(dados.logradouro);
+                              $("#bairro").val(dados.bairro);
+                              $("#cidade").val(dados.localidade);
+                    	  }
+                      })
+				  }
+			  }
+		})
+	})
 	
 	</script>
 </body>
