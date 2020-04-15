@@ -6,12 +6,11 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 
 @Configuration
 public class InMemorySecurityConfig {
-	
+
 	@Autowired
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
 		auth
 		.inMemoryAuthentication()
-		.withUser("admin").password("{noop}admin").roles("PG_PROJETOS","PG_PROJETOS_ALUNO","PG_PROJETOS_PROFESSOR");
+		.withUser("admin").password("{noop}admin").roles("PG_INDEX");
 	}
-	
 }

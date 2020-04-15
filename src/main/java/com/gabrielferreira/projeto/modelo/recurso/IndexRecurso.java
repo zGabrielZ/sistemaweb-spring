@@ -44,6 +44,11 @@ public class IndexRecurso {
 	
 	@Autowired
 	private PessoaService pessoaService;
+	
+	@RequestMapping(value = "/entrar",method = RequestMethod.GET)
+	public String entrar() {
+		return "entrar";
+	}
 
 	@RequestMapping(value = "/index",method = RequestMethod.GET)
 	public String index() {
