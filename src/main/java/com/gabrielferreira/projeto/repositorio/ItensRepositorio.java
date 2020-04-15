@@ -11,7 +11,7 @@ import com.gabrielferreira.projeto.modelo.entidade.Itens;
 @Repository
 public interface ItensRepositorio extends JpaRepository<Itens,Integer> {
 	
-	@Query("select i From Itens i inner join i.pessoa p inner join i.disciplina d where p.nome = :nome")
+	@Query("select i From Itens i inner join i.pessoa p inner join i.disciplina d where p.nome =:nome")
 	public List<Itens> getItens(@Param("nome")String nome);
 }
 

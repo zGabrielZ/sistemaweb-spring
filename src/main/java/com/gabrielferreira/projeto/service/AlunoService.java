@@ -14,10 +14,7 @@ import com.gabrielferreira.projeto.repositorio.AlunoRepositorio;
 import com.gabrielferreira.projeto.repositorio.CidadeRepositorio;
 import com.gabrielferreira.projeto.repositorio.CursoRepositorio;
 import com.gabrielferreira.projeto.repositorio.EnderecoRepositorio;
-import com.gabrielferreira.projeto.repositorio.EscolaRepositorio;
-import com.gabrielferreira.projeto.repositorio.EstadoRepositorio;
 import com.gabrielferreira.projeto.repositorio.PessoaRepositorio;
-import com.gabrielferreira.projeto.repositorio.SexoRepositorio;
 import com.gabrielferreira.projeto.service.exceptions.DatabaseException;
 import com.gabrielferreira.projeto.service.exceptions.RecursoNotFoundException;
 
@@ -34,25 +31,15 @@ public class AlunoService {
 	private EnderecoRepositorio enderecoRepositorio;
 	
 	@Autowired
-	private EscolaRepositorio escolaRepositorio;
-	
-	@Autowired
 	private CursoRepositorio cursoRepositorio;
 	
 	@Autowired
-	private SexoRepositorio sexoRepositorio;
-	
-	@Autowired
 	private CidadeRepositorio cidadeRepositorio;
-	
-	@Autowired
-	private EstadoRepositorio estadoRepositorio;
 	
 	public Aluno consultarPorId(Integer id) {
 		Optional<Aluno> aluno = alunoRepositorio.findById(id);
 		return aluno.orElseThrow(() -> new RecursoNotFoundException(id));
 	}
-	
 	
 	public List<Aluno> consultarTodos(){
 		return alunoRepositorio.findAll();
@@ -65,9 +52,6 @@ public class AlunoService {
 	public Pessoa inserir(Pessoa aluno) {
 		if(aluno.getId() == null) {
 			cursoRepositorio.save(aluno.getCurso());
-			escolaRepositorio.save(aluno.getEscola());
-			sexoRepositorio.save(aluno.getSexo());
-			estadoRepositorio.save(aluno.getEndereco().getCidade().getEstado());
 			cidadeRepositorio.save(aluno.getEndereco().getCidade());
 			pessoaRepositorio.save(aluno);
 			enderecoRepositorio.save(aluno.getEndereco());
@@ -100,13 +84,9 @@ public class AlunoService {
 		entidade.setNome(aluno.getNome());
 		entidade.setSobrenome(aluno.getSobrenome());
 		entidade.setCpf(aluno.getCpf());
-		Aluno aluno2 = (Aluno) entidade;
-		Aluno aluno3 = (Aluno) aluno;
-		aluno2.setNumeroDamatricula(aluno3.getNumeroDamatricula());
 		Aluno aluno4 = (Aluno) entidade;
 		Aluno aluno5 = (Aluno) aluno;
 		aluno4.setRa(aluno5.getRa());
-		entidade.setEscola(aluno.getEscola());
 		entidade.setCurso(aluno.getCurso());
 		entidade.setEndereco(aluno.getEndereco());
 		entidade.setSexo(aluno.getSexo());

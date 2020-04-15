@@ -2,16 +2,19 @@ package com.gabrielferreira.projeto.modelo.entidade;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import com.gabrielferreira.projeto.modelo.entidade.enums.Estado;
 
 @Entity
 @Table(name = "tab_cidade")
@@ -23,14 +26,13 @@ public class Cidade implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@NotNull(message = "Cidade não pode ser nulo")
 	@NotEmpty(message = "Cidade não pode ser vazio")
+	@Column(name="nome_cidade",nullable = false,length = 80)
 	private String nomeCidade;
 	
 	@Valid
 	@NotNull(message = "Tem que selecionar o Estado da pessoa")
-	@ManyToOne()
-	@JoinColumn(name = "estado_id")
+	@Enumerated(EnumType.STRING)
 	private Estado estado;
 	
 	public Cidade() {}

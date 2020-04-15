@@ -3,6 +3,7 @@ package com.gabrielferreira.projeto.modelo.entidade;
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,7 +13,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tab_endereco")
@@ -24,24 +24,20 @@ public class Endereco implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@NotNull(message = "Logradouro não pode ser nulo")
 	@NotEmpty(message = "Logradouro não pode ser vazio")
+	@Column(name="logradouro",nullable = false,length = 150)
 	private String logradouro;
 	
-	@NotNull(message = "Número da casa ou apartamento não pode ser nulo")
 	@NotEmpty(message = "Número da casa ou apartamento não pode ser vazio")
+	@Column(name="numero",nullable = false,length = 80)
 	private String numero;
 	
-	@NotNull(message = "Complemento não pode ser nulo")
-	@NotEmpty(message = "Complemento não pode ser vazio")
-	private String complemento;
-	
-	@NotNull(message = "Bairro não pode ser nulo")
 	@NotEmpty(message = "Bairro não pode ser vazio")
+	@Column(name="bairro",nullable = false,length = 150)
 	private String bairro;
 	
-	@NotNull(message = "Cep não pode ser nulo")
 	@NotEmpty(message = "Cep não pode ser vazio")
+	@Column(name="cep",nullable = false)
 	private String cep;
 	
 	@Valid
@@ -54,12 +50,11 @@ public class Endereco implements Serializable{
 	
 	public Endereco() {}
 
-	public Endereco(Integer id, String logradouro, String numero, String complemento, String bairro, String cep,
+	public Endereco(Integer id, String logradouro, String numero, String bairro, String cep,
 			Cidade cidade) {
 		this.id = id;
 		this.logradouro = logradouro;
 		this.numero = numero;
-		this.complemento = complemento;
 		this.bairro = bairro;
 		this.cep = cep;
 		this.cidade = cidade;
@@ -87,14 +82,6 @@ public class Endereco implements Serializable{
 
 	public void setNumero(String numero) {
 		this.numero = numero;
-	}
-
-	public String getComplemento() {
-		return complemento;
-	}
-
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
 	}
 
 	public String getBairro() {

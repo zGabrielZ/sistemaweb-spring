@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +22,11 @@ import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.br.CPF;
+
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.gabrielferreira.projeto.modelo.entidade.enums.Sexo;
 
 @Entity
 @Table(name = "tab_pessoa")
@@ -33,22 +40,21 @@ public abstract class Pessoa implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@NotNull(message = "Nome não pode ser nulo")
 	@NotEmpty(message = "Nome não pode ser vazio")
+	@Column(name="nome",nullable = false,length = 80)
 	private String nome;
 	
-	@NotNull(message = "Sobrenome não pode ser nulo")
 	@NotEmpty(message = "Sobrenome não pode ser vazio")
+	@Column(name="sobrenome",nullable = false,length = 80)
 	private String sobrenome;
 	
-	@NotNull(message = "Cpf não pode ser nulo")
-	@NotEmpty(message = "Cpf não pode ser vazio")
+	@CPF(message = "Cpf inválido")
+	@Column(name="cpf",nullable = false,length = 14)
 	private String cpf;
 	
 	@Valid
 	@NotNull(message = "Tem que selecionar o Sexo da pessoa")
-	@ManyToOne()
-	@JoinColumn(name = "sexo_id")
+	@Enumerated(EnumType.STRING)
 	private Sexo sexo;
 	
 	@Valid
@@ -65,27 +71,19 @@ public abstract class Pessoa implements Serializable{
 	@OneToMany(mappedBy = "pessoa",cascade = CascadeType.ALL)
 	private List<Telefone> telefones = new ArrayList<Telefone>();
 	
-	@Valid
-	@NotNull(message = "Tem que selecionar a Escola da pessoa")
-	@ManyToOne()
-	@JoinColumn(name = "escola_id")
-	private Escola escola;
-	
 	@OneToMany(mappedBy = "pessoa")
 	private List<Itens> itens = new ArrayList<Itens>();
 	
 	
 	public Pessoa() {}
 	
-	public Pessoa(Integer id, String nome, String sobrenome, String cpf, Sexo sexo,Curso curso,
-			Escola escola) {
+	public Pessoa(Integer id, String nome, String sobrenome, String cpf, Sexo sexo,Curso curso) {
 		this.id = id;
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.cpf = cpf;
 		this.sexo = sexo;
 		this.curso = curso;
-		this.escola = escola;
 	}
 
 	public Integer getId() {
@@ -150,14 +148,6 @@ public abstract class Pessoa implements Serializable{
 
 	public void setTelefones(List<Telefone> telefones) {
 		this.telefones = telefones;
-	}
-
-	public Escola getEscola() {
-		return escola;
-	}
-
-	public void setEscola(Escola escola) {
-		this.escola = escola;
 	}
 	
 	public List<Itens> getItens() {

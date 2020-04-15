@@ -55,3 +55,10 @@ header h1 {
 	width: 800px;
 	position: relative;
 }
+
+aside{
+	margin: 0px 30px;
+	position: fixed;
+	bottom:20px;
+	right: 0px;
+}

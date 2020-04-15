@@ -1,7 +1,11 @@
 package com.gabrielferreira.projeto.modelo.entidade;
 
 import java.io.Serializable;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +15,8 @@ import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import com.gabrielferreira.projeto.modelo.entidade.enums.TipoTelefone;
 
 @Entity
 @Table(name = "tab_telefone")
@@ -22,8 +28,8 @@ public class Telefone implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@NotNull(message = "Telefone não pode ser nulo")
 	@NotEmpty(message = "Telefone não pode ser vazio")
+	@Column(name="numero",nullable = false)
 	private String nome;
 	
 	@ManyToOne()
@@ -32,9 +38,8 @@ public class Telefone implements Serializable {
 	
 	@Valid
 	@NotNull(message = "Tem que selecionar o tipo de telefone")
-	@ManyToOne()
-	@JoinColumn(name = "tipo_telefone_id")
-	private TipoTelefone tipoTelefone;
+	@Enumerated(EnumType.STRING)
+	private TipoTelefone  tipoTelefone;
 	
 	public Telefone() {}
 

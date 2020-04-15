@@ -11,7 +11,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import com.gabrielferreira.projeto.modelo.entidade.Telefone;
 import com.gabrielferreira.projeto.repositorio.TelefoneRepositorio;
-import com.gabrielferreira.projeto.repositorio.TipoTelefoneRepositorio;
 import com.gabrielferreira.projeto.service.exceptions.DatabaseException;
 
 @Service
@@ -19,9 +18,6 @@ public class TelefoneService {
 	
 	@Autowired
 	private TelefoneRepositorio telefoneRepositorio;
-	
-	@Autowired
-	private TipoTelefoneRepositorio tipoTelefoneRepositorio;
 	
 	public List<Telefone> consultarTodos(Integer id){
 		return telefoneRepositorio.getTelefones(id);
@@ -41,7 +37,6 @@ public class TelefoneService {
 	
 	public Telefone inserir(Telefone telefone) {
 		if(telefone.getId() == null) {
-			tipoTelefoneRepositorio.save(telefone.getTipoTelefone());
 			telefoneRepositorio.save(telefone);
 			return telefone;
 		}

@@ -20,6 +20,9 @@ header h1 {
 form label {
 	color: black;
 }
+.sessao-2{
+	text-align: center;
+}
 </style>
 </head>
 <body>
@@ -28,25 +31,37 @@ form label {
 	</header>
 	
 	<main>
-		<section class="row">
-			<article>	
-				<div th:each = "p : ${professorobj}">
-					<p  class="input-field col s12">Id: <span th:text = "${p.id}"></span></p>
-					<p  class="input-field col s6">Nome: <span  th:text = "${p.nome}"></span></p>
-					<p  class="input-field col s6">Sobrenome: <span th:text = "${p.sobrenome}" ></span></p>
-					<p  class="input-field col s6">Cpf: <span th:text = "${p.cpf}"></span></p>
-					<p  class="input-field col s6">Salário: <span th:text = "${p.salario}"></span></p>
+		<section class="sessao-1">
+			<article class="row">	
+				<div th:each = "p : ${professorobj}" class="col s6 offset-s3">
+					<div class="row card-panel">
+						<p class="input-field col s12">
+							Id: <span th:text="${p.id}"></span>
+						</p>
+						<p class="input-field col s6">
+							Nome: <span th:text="${p.nome}"></span>
+						</p>
+						<p class="input-field col s6">
+							Sobrenome: <span th:text="${p.sobrenome}"></span>
+						</p>
+						<p class="input-field col s6">
+							Cpf: <span th:text="${p.cpf}"></span>
+						</p>
+						<p class="input-field col s6">
+							Salário: <span th:text="${p.salario}"></span>
+						</p>
+					</div>
 				</div>
 			</article>
 		</section>
-		<section class="row">
+		<section class="sessao-2">
 			<div id="voltar-professor">
 				<p class="input-field col s12"><a href="/cadastroprofessor">Voltar para o cadastro do professor</a></p>
 			</div>
 		</section>
 		<section>
 			<article>
-				<table class="striped">
+				<table class="centered responsive-table">
 					<thead>
 						<tr>
 							<th>Id</th>

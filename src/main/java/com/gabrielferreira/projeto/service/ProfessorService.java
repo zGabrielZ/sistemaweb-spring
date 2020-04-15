@@ -13,10 +13,7 @@ import com.gabrielferreira.projeto.repositorio.ProfessorRepositorio;
 import com.gabrielferreira.projeto.repositorio.CidadeRepositorio;
 import com.gabrielferreira.projeto.repositorio.CursoRepositorio;
 import com.gabrielferreira.projeto.repositorio.EnderecoRepositorio;
-import com.gabrielferreira.projeto.repositorio.EscolaRepositorio;
-import com.gabrielferreira.projeto.repositorio.EstadoRepositorio;
 import com.gabrielferreira.projeto.repositorio.PessoaRepositorio;
-import com.gabrielferreira.projeto.repositorio.SexoRepositorio;
 import com.gabrielferreira.projeto.service.exceptions.DatabaseException;
 import com.gabrielferreira.projeto.service.exceptions.RecursoNotFoundException;
 
@@ -33,19 +30,10 @@ public class ProfessorService {
 	private EnderecoRepositorio enderecoRepositorio;
 	
 	@Autowired
-	private EscolaRepositorio escolaRepositorio;
-	
-	@Autowired
 	private CursoRepositorio cursoRepositorio;
 	
 	@Autowired
-	private SexoRepositorio sexoRepositorio;
-	
-	@Autowired
 	private CidadeRepositorio cidadeRepositorio;
-	
-	@Autowired
-	private EstadoRepositorio estadoRepositorio;
 	
 	public Professor consultarPorId(Integer id) {
 		Optional<Professor> professor = professorRepositorio.findById(id);
@@ -64,9 +52,6 @@ public class ProfessorService {
 	public Pessoa inserir(Pessoa professor) {
 		if(professor.getId() == null) {
 			cursoRepositorio.save(professor.getCurso());
-			escolaRepositorio.save(professor.getEscola());
-			sexoRepositorio.save(professor.getSexo());
-			estadoRepositorio.save(professor.getEndereco().getCidade().getEstado());
 			cidadeRepositorio.save(professor.getEndereco().getCidade());
 			pessoaRepositorio.save(professor);
 			enderecoRepositorio.save(professor.getEndereco());
@@ -102,7 +87,6 @@ public class ProfessorService {
 		Professor professor2 = (Professor) entidade;
 		Professor professor3 = (Professor) professor;
 		professor2.setSalario(professor3.getSalario());
-		entidade.setEscola(professor.getEscola());
 		entidade.setCurso(professor.getCurso());
 		entidade.setEndereco(professor.getEndereco());
 		entidade.setSexo(professor.getSexo());

@@ -21,6 +21,29 @@ header h1 {
 form label {
 	color: black;
 }
+.sessao-03{
+	text-align: center;
+	margin-bottom: 20px;
+}
+.ip {
+	text-align: center;
+	font-size: 20px;
+}
+.ende{
+	text-align: center;
+	font-size: 20px;
+}
+
+.ou{
+	text-align: center;
+	font-size: 20px;
+}
+.sessao-5{
+	text-align: center;
+}
+.sessao-04{
+	text-align: center;
+}
 </style>
 </head>
 <body>
@@ -38,112 +61,137 @@ form label {
 			</article>
 	</section>
 	
-	<section class="row">
+	<section class="sessao-03">
 			<article>
-				<form id="formProfessor" action="salvarprofessor" method="post" th:object="${professorobj}">
-					<table>
-						<tr>
-							<td><input type="hidden" name="@type" id="tipo" readonly="readonly" class="validate"></td>
+				<div id="erro-2" th:each = "m : ${msgdeerro2}" >
+					<strong th:text = ${m}></strong>
+				</div>
+			</article>
+	</section>
+	
+	<section class="sessao-1">
+			<article class="row">
+				<form id="formProfessor" action="salvarprofessor" method="post"
+					th:object="${professorobj}" class="col s6 offset-s3">
+					<div class="row card-panel">
+						<table>
+							<tr>
+							<td><p class="ip">Informações pessoais</p></td>
+							<td><input type="hidden" name="@type" id="tipo"
+								readonly="readonly" class="validate"></td>
 						</tr>
-						<tr class="input-field col s12">
+						<tr class="input-field col s6">
 							<td><label for="id" class="active">Id:</label></td>
-							<td><input type="text" name="id" id="id" readonly="readonly" th:field = "*{id}" class="validate"></td>
+							<td><input type="text" name="id" id="id" readonly="readonly"
+								th:field="*{id}" class="validate"></td>
 						</tr>
 						<tr class="input-field col s6">
 							<td><label for="nome" class="active">Nome:</label></td>
-							<td><input type="text" name="nome" id="nome" th:field = "*{nome}" class="validate"></td>
+							<td><input type="text" name="nome" id="nome"
+								th:field="*{nome}" class="validate"></td>
 						</tr>
 						<tr class="input-field col s6">
 							<td><label for="sobrenome" class="active">Sobrenome:</label></td>
-							<td><input type="text" name="sobrenome" id="sobrenome" th:field = "*{sobrenome}" class="validate"></td>
+							<td><input type="text" name="sobrenome" id="sobrenome"
+								th:field="*{sobrenome}" class="validate"></td>
 						</tr>
 						<tr class="input-field col s6">
 							<td><label for="cpf" class="active">Cpf:</label></td>
-							<td><input type="text" name="cpf" id="cpf" th:field = "*{cpf}" class="validate"></td>
+							<td><input type="text" name="cpf" id="cpf" th:field="*{cpf}"
+								class="validate"></td>
 						</tr>
 						<tr class="input-field col s6">
 							<td><label for="sexo" class="active">Sexo:</label></td>
-							<td>
-								<select id="sexo" th:field = "*{sexo}">	
+							<td><select id="sexo" th:field="*{sexo}">
 									<option value="">Selecione</option>
-									<option  th:each = "sexo : ${sexos}" th:value = "${sexo.id}" 
-									th:text = "${sexo.nome}" ></option>		
-								</select>
-							</td>
+									<option th:each="sexo : ${sexos}" th:value="${sexo}"
+										th:text="${sexo.descricao}"></option>
+							</select></td>
 						</tr>
-						<tr class="input-field col s6">
+						</table>
+					</div>
+					<div class="row card-panel">
+						<table>
+							<tr>
+								<td><p class="ende">Endereço</p></td>
+							</tr>
+							<tr class="input-field col s6">
 							<td><label for="cep" class="active">Cep:</label></td>
-							<td><input type="text" name="cep" id="cep" th:field = "*{endereco.cep}" class="validate"></td>
+							<td><input type="text" name="cep" id="cep"
+								th:field="*{endereco.cep}" class="validate"></td>
 						</tr>
 						<tr class="input-field col s6">
 							<td><label for="logra" class="active">Logradouro:</label></td>
-							<td><input type="text" name="logradouro" id="logra" th:field = "*{endereco.logradouro}" class="validate"></td>
+							<td><input type="text" name="logradouro" id="logra"
+								th:field="*{endereco.logradouro}" class="validate"></td>
 						</tr>
 						<tr class="input-field col s6">
 							<td><label for="bairro" class="active">Bairro:</label></td>
-							<td><input type="text" name="bairro" id="bairro" th:field = "*{endereco.bairro}" class="validate"></td>
+							<td><input type="text" name="bairro" id="bairro"
+								th:field="*{endereco.bairro}" class="validate"></td>
 						</tr>
 						<tr class="input-field col s6">
 							<td><label for="cidade" class="active">Cidade:</label></td>
-							<td><input type="text" name="cidade" id="cidade" th:field = "*{endereco.cidade.nomeCidade}" class="validate"></td>
+							<td><input type="text" name="cidade" id="cidade"
+								th:field="*{endereco.cidade.nomeCidade}" class="validate"></td>
 						</tr>
 						<tr class="input-field col s6">
 							<td><label for="numero" class="active">Número:</label></td>
-							<td><input type="text" name="numero" id="numero" th:field = "*{endereco.numero}" class="validate"></td>
-						</tr>
-						<tr class="input-field col s6">
-							<td><label for="complemento" class="active">Complemento:</label></td>
-							<td><input type="text" name="complemento" id="complemento" th:field = "*{endereco.complemento}" class="validate"></td>
+							<td><input type="text" name="numero" id="numero"
+								th:field="*{endereco.numero}" class="validate"></td>
 						</tr>
 						<tr class="input-field col s6">
 							<td><label for="estado" class="active">Estado:</label></td>
-							<td>
-								<select id="estado" th:field = "*{endereco.cidade.estado}">	
+							<td><select id="estado" th:field="*{endereco.cidade.estado}">
 									<option value="">Selecione</option>
-									<option  th:each = "estado : ${estados}" th:value = "${estado.id}" 
-									th:text = "${estado.nomeEstado}" ></option>		
-								</select>
-							</td>
+									<option th:each="estado : ${estados}" th:value="${estado}"
+										th:text="${estado.descricao}"></option>
+							</select></td>
 						</tr>
-						<tr class="input-field col s6">
+						</table>
+					</div>
+					<div class="row card-panel">
+						<table>
+							<tr>
+								<td class="ou">Outros</td>
+							</tr>
+							<tr class="input-field col s6">
 							<td><label for="curso" class="active">Curso:</label></td>
-							<td>
-								<select id="curso" th:field = "*{curso}">	
+							<td><select id="curso" th:field="*{curso}">
 									<option value="">Selecione</option>
-									<option  th:each = "c : ${cursos}" th:value = "${c.id}" 
-									th:text = "${c.nome}" ></option>		
-								</select>
-							</td>
-						</tr>
-						<tr class="input-field col s6">
-							<td><label for="escola" class="active">Escola:</label></td>
-							<td>
-								<select id="escola"  th:field = "*{escola}">
-									<option value="">Selecione</option>
-									<option  th:each = "escola : ${escolas}" th:value = "${escola.id}" 
-									th:text = "${escola.nome}"></option>
-											
-								</select>
-							</td>
+									<option th:each="c : ${cursos}" th:value="${c.id}"
+										th:text="${c.nome}"></option>
+							</select></td>
 						</tr>
 						<tr class="input-field col s6">
 							<td><label for="salario" class="active">Salário:</label></td>
-							<td><input type="text" name="salario" id="salario" th:field = "*{salario}" class="validate"></td>
+							<td><input type="text" name="salario" id="salario"
+								th:field="*{salario}" class="validate"></td>
+						</tr>
+						</table>
+					</div>
+					<div class="row card-panel">
+						<table>
+						<tr class="input-field col s6">
+							<td><input class="waves-effect waves-light btn"
+								type="submit" onclick="nome()" value="Enviar"></td>
 						</tr>
 						<tr class="input-field col s6">
-							<td><input class="waves-effect waves-light btn" type="submit" onclick="nome()" value="Enviar"></td>
-						</tr>
-						<tr class="input-field col s6">
-							<td><button class="waves-effect waves-light btn" onclick="document.getElementById('formAluno').reset()">Limpar</button></td>
+							<td><button class="waves-effect waves-light btn"
+									onclick="document.getElementById('formAluno').reset()">Limpar</button></td>
 						</tr>
 					</table>
+					</div>
 				</form>
 			</article>
 		</section>	
-	<section class="row">
+	<section class="sessao-6">
+		
+		<div class="row">
 			<div id="pesquisar-nome">
-				<form action="/procurarnomedoprofessor" method="post" class="col s12">
-					<table>
+				<form action="/procurarnomedoprofessor" method="post" class="col s6 offset-s3">
+					<div class="row card-panel">
+						<table>
 						<tr class="input-field col s12">
 							<td><label for="nomeProfessor">Procurar pelo nome:</label></td>
 							<td><input type="text" id="nomeAluno" name="procurarnomeprofessor" class="validate"></td>
@@ -155,16 +203,17 @@ form label {
 							<td><a class="waves-effect waves-light btn" href="/listaprofessor">Listar professor</a></td>
 						</tr>
 					</table>
+					</div>
 				</form>
 			</div>
-		</section>
 		
-		<section class="row">
+		</div>
+		
+	</section>
+		
+		<section class="sessao-5">
 			<div id="voltar-professor">
 				<p class="input-field col s12"><a href="/index">Voltar para o menu</a></p>
-			</div>
-			<div id="salarios" th:each = "s : ${salarios}">
-				<p  class="input-field col s12"><span th:text = "${s}"></span></p>
 			</div>
 		</section>
 		
@@ -178,7 +227,7 @@ form label {
 		
 		<section>
 			<article>
-				<table class="striped">
+				<table class="centered responsive-table">
 					<thead>
 						<tr>
 							<th>Id</th>
@@ -187,7 +236,6 @@ form label {
                     		<th>Cpf</th>
                     		<th>Sexo</th>
                     		<th>Curso</th>
-                    		<th>Escola</th>
                     		<th>Salário</th>
                     		<th>Contato</th>
                     		<th>Disciplina</th>
@@ -203,8 +251,7 @@ form label {
                 			<td th:text = "${p.sobrenome}"></td>
                 			<td th:text = "${p.cpf}"></td>
                 			<td th:text = "${p.sexo}"></td>
-                			<td th:text = "${p.curso}"></td>
-                			<td th:text = "${p.escola}"></td>
+                			<td th:text = "${p.curso.nome}"></td>
                 			<td th:text = "${p.salario}"></td>
                 			<td><a th:href="@{/contatoprofessor/{idprofessor}(idprofessor=${p.id})}">Add</a></td>
                 			<td><a th:href="@{/disciplinaprofessor/{idprofessor}(idprofessor=${p.id})}">Visualizar</a></td>
@@ -252,9 +299,14 @@ form label {
                     		  $("#logra").val(dados.logradouro);
                               $("#bairro").val(dados.bairro);
                               $("#cidade").val(dados.localidade);
+                    	  }else{
+                    		  alert("CEP nao encontrado");
                     	  }
                       })
 				  }
+				  else{
+            		  alert("CEP nao encontrado");
+            	  }
 			  }
 		})
 	})
