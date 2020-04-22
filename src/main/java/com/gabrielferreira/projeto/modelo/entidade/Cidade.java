@@ -16,6 +16,11 @@ import javax.validation.constraints.NotNull;
 
 import com.gabrielferreira.projeto.modelo.entidade.enums.Estado;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "tab_cidade")
 public class Cidade implements Serializable{
@@ -40,30 +45,6 @@ public class Cidade implements Serializable{
 	public Cidade(Integer id, String nomeCidade,Estado estado) {
 		this.id = id;
 		this.nomeCidade = nomeCidade;
-		this.estado = estado;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getNomeCidade() {
-		return nomeCidade;
-	}
-
-	public void setNomeCidade(String nomeCidade) {
-		this.nomeCidade = nomeCidade;
-	}
-
-	public Estado getEstado() {
-		return estado;
-	}
-
-	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
 

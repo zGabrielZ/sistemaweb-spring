@@ -15,7 +15,7 @@ import com.gabrielferreira.projeto.service.exceptions.RecursoNotFoundException;
 
 @Service
 public class DisciplinaService {
-
+	
 	@Autowired
 	private DisciplinaRepositorio disciplinaRepositorio;
 	

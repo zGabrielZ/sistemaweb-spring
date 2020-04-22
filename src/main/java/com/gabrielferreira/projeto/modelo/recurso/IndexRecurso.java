@@ -49,7 +49,7 @@ public class IndexRecurso {
 	public String entrar() {
 		return "entrar";
 	}
-
+	
 	@RequestMapping(value = "/index",method = RequestMethod.GET)
 	public String index() {
 		return "index";

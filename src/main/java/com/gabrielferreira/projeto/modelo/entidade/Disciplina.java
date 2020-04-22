@@ -13,6 +13,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "tab_disciplina")
 public class Disciplina implements Serializable {
@@ -35,30 +40,6 @@ public class Disciplina implements Serializable {
 	public Disciplina(Integer id, String nome) {
 		this.id = id;
 		this.nome = nome;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	
-	public List<Itens> getItens() {
-		return itens;
-	}
-
-	public void setItens(List<Itens> itens) {
-		this.itens = itens;
 	}
 
 	@Override

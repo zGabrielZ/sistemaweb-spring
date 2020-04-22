@@ -7,6 +7,11 @@ import javax.validation.constraints.NotEmpty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.gabrielferreira.projeto.modelo.entidade.enums.Sexo;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "tab_professor")
 @JsonTypeName("Professor") 
@@ -23,14 +28,6 @@ public class Professor extends Pessoa{
 	public Professor(Integer id, String nome, String sobrenome, String cpf, Sexo sexo,
 			Curso curso,String salario) {
 		super(id, nome, sobrenome, cpf, sexo,curso);
-		this.salario = salario;
-	}
-
-	public String getSalario() {
-		return salario;
-	}
-
-	public void setSalario(String salario) {
 		this.salario = salario;
 	}
 

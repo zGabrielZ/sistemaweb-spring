@@ -18,6 +18,11 @@ import javax.validation.constraints.NotNull;
 
 import com.gabrielferreira.projeto.modelo.entidade.enums.TipoTelefone;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "tab_telefone")
 public class Telefone implements Serializable {
@@ -48,40 +53,6 @@ public class Telefone implements Serializable {
 		this.nome = nome;
 		this.tipoTelefone = tipoTelefone;
 	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public TipoTelefone getTipoTelefone() {
-		return tipoTelefone;
-	}
-
-	public void setTipoTelefone(TipoTelefone tipoTelefone) {
-		this.tipoTelefone = tipoTelefone;
-	}
-	
-	public Pessoa getPessoa() {
-		return pessoa;
-	}
-
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
-	}
-	
-	
 
 	@Override
 	public int hashCode() {

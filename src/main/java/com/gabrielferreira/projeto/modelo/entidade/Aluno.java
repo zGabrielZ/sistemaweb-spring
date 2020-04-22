@@ -8,6 +8,11 @@ import javax.validation.constraints.NotEmpty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.gabrielferreira.projeto.modelo.entidade.enums.Sexo;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "tab_aluno")
 @JsonTypeName("Aluno") 
@@ -26,18 +31,5 @@ public class Aluno extends Pessoa {
 		super(id, nome, sobrenome, cpf, sexo,curso);
 		this.ra = ra;
 	}
-
-	public String getRa() {
-		return ra;
-	}
-
-	public void setRa(String ra) {
-		this.ra = ra;
-	}
-	
-	
-	
-	
-	
 	
 }

@@ -2,7 +2,6 @@ package com.gabrielferreira.projeto.modelo.recurso;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
