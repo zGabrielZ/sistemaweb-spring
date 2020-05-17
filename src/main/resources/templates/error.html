@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Bem vindo</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css"  media="screen,projection"/>
+<link type="text/css" rel="stylesheet" href="/materialize/css/materialize.css"  media="screen,projection"/>
+
+<style type="text/css">
+
+form input[type=submit]{
+	color : white;
+}
+header h1 {
+	text-align: center;
+	font-size: 30px;
+}
+
+form label {
+	color: black;
+}
+
+.sessao-2{
+	text-align: center;
+}
+</style>
+</head>
+<body>
+	<header>
+		<h1 class="h3 mb-3 font-weight-normal">
+			                <i class="oi oi-warning"></i>
+			                <span th:text="${status}"></span>
+		</h1>
+	</header>
+	
+	<main>
+		<section class="sessao-1">
+			<article class="row">	
+				<div>
+					<div class="row card-panel">
+						<i class="fas fa-user-lock"></i>
+			            <h5 class="text-danger" th:text="${error}"></h5>
+						 <span th:text="${message}"></span><br/><br/>
+					</div>
+				</div>
+			</article>
+		</section>
+		<section class="sessao-2">
+			<div id="voltar-aluno">
+				<p class="input-field col s12"><a href="javascript:history.back()">Voltar a página anterior</a></p>
+			</div>
+		</section>				
+	</main>
+	
+	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+</body>
+</html>
