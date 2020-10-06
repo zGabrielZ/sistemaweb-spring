@@ -4,8 +4,8 @@ public class EntidadeNotFoundException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 	
-	 public EntidadeNotFoundException(Object msg) {
-		 super("Entidade não achada. Id "+msg);
+	 public EntidadeNotFoundException(String msg) {
+		 super(msg);
 	 }
 
 }
