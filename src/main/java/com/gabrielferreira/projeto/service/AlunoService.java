@@ -84,6 +84,7 @@ public class AlunoService {
 		Aluno aluno3 = (Aluno) aluno;
 		aluno2.setRa(aluno3.getRa());
 		aluno2.setEmail(aluno3.getEmail());
+		aluno2.setSenha(aluno3.getSenha());
 		entidade.setSexo(aluno.getSexo());
 	}
 	
@@ -106,7 +107,7 @@ public class AlunoService {
 	}
 	
 	public Pessoa fromDto(AlunoAlterarDTO alunoDTO) {
-		Pessoa pessoa = new Aluno(null,alunoDTO.getNomeCompleto(),null,alunoDTO.getSexo(),alunoDTO.getRa(),alunoDTO.getEmail(), null);
+		Pessoa pessoa = new Aluno(null,alunoDTO.getNomeCompleto(),null,alunoDTO.getSexo(),alunoDTO.getRa(),alunoDTO.getEmail(), alunoDTO.getSenha());
 		return pessoa;
 	}
 }

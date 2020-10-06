@@ -65,9 +65,9 @@ public class AlunoController {
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<Aluno> alterarQuantidade(
-			@Valid @RequestBody AlunoAlterarDTO alterarQuantidadeDTO,
+			@Valid @RequestBody AlunoAlterarDTO alunoDTO,
 			@PathVariable Long id) {
-		Pessoa pessoa = alunoService.fromDto(alterarQuantidadeDTO);
+		Pessoa pessoa = alunoService.fromDto(alunoDTO);
 		alunoService.atualizar(id, pessoa);
 		return ResponseEntity.noContent().build();
 	}

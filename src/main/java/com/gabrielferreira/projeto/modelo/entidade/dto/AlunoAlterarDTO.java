@@ -32,6 +32,10 @@ public class AlunoAlterarDTO implements Serializable{
 	@NotBlank(message = "Campo do email não pode ser vazio")
 	private String email;
 	
+	@NotBlank(message = "Campo da senha não pode ser vazia")
+	@Size(max = 150,message = "Não pode passa de 150 caracteres")
+	private String senha;
+	
 	@NotNull(message = "Tem que escolher o sexo")
 	@Enumerated(EnumType.STRING)
 	private Sexo sexo;
