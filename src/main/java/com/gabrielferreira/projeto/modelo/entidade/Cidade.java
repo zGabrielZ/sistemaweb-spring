@@ -2,51 +2,37 @@ package com.gabrielferreira.projeto.modelo.entidade;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
+
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 import com.gabrielferreira.projeto.modelo.entidade.enums.Estado;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "tab_cidade")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Cidade implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
-	@NotEmpty(message = "Cidade não pode ser vazio")
-	@Column(name="nome_cidade",nullable = false,length = 80)
-	private String nomeCidade;
-	
-	@Valid
-	@NotNull(message = "Tem que selecionar o Estado da pessoa")
-	@Enumerated(EnumType.STRING)
-	private Estado estado;
-	
-	public Cidade() {}
+	private String cidade;
 
-	public Cidade(Integer id, String nomeCidade,Estado estado) {
-		this.id = id;
-		this.nomeCidade = nomeCidade;
-		this.estado = estado;
-	}
+	private Estado estado;
 
 	@Override
 	public int hashCode() {
