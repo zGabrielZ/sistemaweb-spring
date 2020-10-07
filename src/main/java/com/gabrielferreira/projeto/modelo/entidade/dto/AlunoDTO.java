@@ -28,4 +28,6 @@ public class AlunoDTO implements Serializable{
 	private Sexo sexo;
 	
 	private String ra;
+	
+	private CursoDTO curso;
 }

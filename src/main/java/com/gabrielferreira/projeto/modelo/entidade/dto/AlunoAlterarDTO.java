@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -34,4 +35,8 @@ public class AlunoAlterarDTO implements Serializable{
 	@NotBlank(message = "Campo do ra não pode ser vazio")
 	@Size(max = 10,message = "Não pode passa de 10 caracteres")
 	private String ra;
+	
+	@Valid
+	@NotNull(message = "Curso não pode ser nulo")
+	private Long curso;
 }

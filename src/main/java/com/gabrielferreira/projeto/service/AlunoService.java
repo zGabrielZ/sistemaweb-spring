@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.gabrielferreira.projeto.modelo.entidade.Aluno;
 import com.gabrielferreira.projeto.modelo.entidade.Cidade;
+import com.gabrielferreira.projeto.modelo.entidade.Curso;
 import com.gabrielferreira.projeto.modelo.entidade.Endereco;
 import com.gabrielferreira.projeto.modelo.entidade.Pessoa;
 import com.gabrielferreira.projeto.modelo.entidade.dto.AlunoAlterarDTO;
@@ -28,6 +29,9 @@ public class AlunoService {
 
 	@Autowired
 	private AlunoRepositorio alunoRepositorio;
+	
+	@Autowired
+	private CursoService cursoService;
 	
 	@Autowired
 	private PessoaRepositorio pessoaRepositorio;
@@ -83,12 +87,22 @@ public class AlunoService {
 		Aluno aluno2 = (Aluno) entidade;
 		Aluno aluno3 = (Aluno) aluno;
 		aluno2.setRa(aluno3.getRa());
+		aluno2.setCurso(aluno3.getCurso());
 		entidade.setSexo(aluno.getSexo());
 	}
 	
 	public Pessoa fromDto(AlunoInserirDTO alunoDTO) {
+		
 		Pessoa pessoa = new Aluno(null,alunoDTO.getNomeCompleto(),alunoDTO.getCpf(),alunoDTO.getSexo(),
 				alunoDTO.getRa());
+		
+		Aluno aluno2 = (Aluno) pessoa;
+		Curso curso = new Curso(alunoDTO.getCurso(),null);
+		curso = cursoService.consultarPorId(curso.getId());
+		
+		aluno2.setCurso(curso);
+		curso.getAlunos().add(aluno2);
+		
 		
 		Endereco endereco = new Endereco(null,alunoDTO.getEndereco().getLogradouro(),alunoDTO.getEndereco().getNumero(),
 				alunoDTO.getEndereco().getBairro(),alunoDTO.getEndereco().getCep());
@@ -106,6 +120,14 @@ public class AlunoService {
 	
 	public Pessoa fromDto(AlunoAlterarDTO alunoDTO) {
 		Pessoa pessoa = new Aluno(null,alunoDTO.getNomeCompleto(),null,alunoDTO.getSexo(),alunoDTO.getRa());
+		
+		Aluno aluno2 = (Aluno) pessoa;
+		Curso curso = new Curso(alunoDTO.getCurso(),null);
+		curso = cursoService.consultarPorId(curso.getId());
+		
+		aluno2.setCurso(curso);
+		curso.getAlunos().add(aluno2);
+		
 		return pessoa;
 	}
 }

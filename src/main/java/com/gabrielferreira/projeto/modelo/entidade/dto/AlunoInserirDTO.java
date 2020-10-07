@@ -43,6 +43,10 @@ public class AlunoInserirDTO implements Serializable{
 	private String ra;
 	
 	@Valid
+	@NotNull(message = "Curso não pode ser nulo")
+	private Long curso;
+	
+	@Valid
 	@NotNull(message = "Endereço do aluno não pode ser vazio")
 	private EnderecoInserirDTO endereco;
 }
