@@ -15,6 +15,7 @@ public class EnderecoDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
+	private Long id;
 	private String logradouro;
 	private String numero;
 	private String bairro;

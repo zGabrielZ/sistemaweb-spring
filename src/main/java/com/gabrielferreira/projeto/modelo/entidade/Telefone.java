@@ -32,6 +32,8 @@ public class Telefone implements Serializable{
 	private Long id;
 	
 	private String nomeContato;
+	
+	private String numero;
 
 	private TipoTelefone tipoTelefone;
 	

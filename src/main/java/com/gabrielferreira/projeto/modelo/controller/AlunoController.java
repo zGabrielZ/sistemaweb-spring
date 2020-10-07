@@ -22,13 +22,17 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.gabrielferreira.projeto.modelo.entidade.Aluno;
 import com.gabrielferreira.projeto.modelo.entidade.Endereco;
 import com.gabrielferreira.projeto.modelo.entidade.Pessoa;
+import com.gabrielferreira.projeto.modelo.entidade.Telefone;
 import com.gabrielferreira.projeto.modelo.entidade.dto.AlunoAlterarDTO;
 import com.gabrielferreira.projeto.modelo.entidade.dto.AlunoDTO;
 import com.gabrielferreira.projeto.modelo.entidade.dto.AlunoInserirDTO;
 import com.gabrielferreira.projeto.modelo.entidade.dto.EnderecoAlterarDTO;
 import com.gabrielferreira.projeto.modelo.entidade.dto.EnderecoDTO;
+import com.gabrielferreira.projeto.modelo.entidade.dto.TelefoneDTO;
+import com.gabrielferreira.projeto.modelo.entidade.dto.TelefoneInserirDTO;
 import com.gabrielferreira.projeto.service.AlunoService;
 import com.gabrielferreira.projeto.service.EnderecoService;
+import com.gabrielferreira.projeto.service.TelefoneService;
 
 @RestController
 @RequestMapping(value = "/alunos")
@@ -39,6 +43,9 @@ public class AlunoController {
 	
 	@Autowired
 	private EnderecoService enderecoService;
+	
+	@Autowired
+	private TelefoneService telefoneService;
 	
 	@Autowired
 	private ModelMapper modelMapper;
@@ -101,6 +108,37 @@ public class AlunoController {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@GetMapping("/{idAluno}/telefones")
+	public ResponseEntity<List<TelefoneDTO>> listagemDeTelefones(@PathVariable Long idAluno){
+		Aluno aluno = alunoService.buscarPorId(idAluno);
+		return ResponseEntity.ok().body(paraListaDtoTelefone(aluno.getTelefones()));
+	}
+	
+	@GetMapping("/{idAluno}/telefones/{idTelefone}")
+	public ResponseEntity<TelefoneDTO> consultarIdDoTelefone(@PathVariable Long idAluno,@PathVariable Long idTelefone){
+		Telefone telefone = telefoneService.consultarPorId(idTelefone, idAluno);
+		return ResponseEntity.ok().body(paraVisualizacaoDto(telefone));
+	}
+	
+	@PostMapping("/{idAluno}/telefones")
+	public ResponseEntity<Telefone> inserir(@Valid @RequestBody TelefoneInserirDTO telefoneInserirDTO,@PathVariable Long idAluno) {
+		Telefone telefone = paraInserirDto(telefoneInserirDTO);
+		telefone = telefoneService.inserir(telefone,idAluno);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(telefone.getId()).toUri();
+		return ResponseEntity.created(uri).build();
+	}
+	
+	@PutMapping("/{idAluno}/telefones/{idTelefone}")
+	public ResponseEntity<Endereco> alterarTelefone(
+			@Valid @RequestBody TelefoneInserirDTO telefoneDTO,
+			@PathVariable Long idAluno,@PathVariable Long idTelefone) {
+		Telefone telefone = telefoneService.consultarPorId(idTelefone, idAluno);
+		telefone = paraInserirDto(telefoneDTO);
+		telefoneService.atualizar(idTelefone, telefone, idAluno);
+		return ResponseEntity.noContent().build();
+	}
+	
 	private Endereco paraAtualizarEndereco(EnderecoAlterarDTO dto) {
 		return modelMapper.map(dto,Endereco.class);
 	}
@@ -113,10 +151,24 @@ public class AlunoController {
 		return modelMapper.map(endereco,EnderecoDTO.class);
 	}
 	
+	public TelefoneDTO paraVisualizacaoDto(Telefone telefone) {
+		return modelMapper.map(telefone,TelefoneDTO.class);
+	}
+	
 	private List<AlunoDTO> paraListaDto(List<Aluno> alunos) {
 		return alunos.stream()
 				.map(aluno -> paraVisualizacaoDto(aluno))
 				.collect(Collectors.toList());
+	}
+	
+	private List<TelefoneDTO> paraListaDtoTelefone(List<Telefone> telefones) {
+		return telefones.stream()
+				.map(telefone -> paraVisualizacaoDto(telefone))
+				.collect(Collectors.toList());
+	}
+	
+	public Telefone paraInserirDto(TelefoneInserirDTO inserirDTO) {
+		return modelMapper.map(inserirDTO,Telefone.class);
 	}
 	
 }
