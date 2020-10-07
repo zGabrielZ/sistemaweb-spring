@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,15 +26,7 @@ public class AlunoAlterarDTO implements Serializable{
 	@NotBlank(message = "Campo do nome não pode ser vazio")
 	@Size(max = 150,message = "Não pode passa de 150 caracteres")
 	private String nomeCompleto;
-	
-	@Email(message = "Email inválido")
-	@NotBlank(message = "Campo do email não pode ser vazio")
-	private String email;
-	
-	@NotBlank(message = "Campo da senha não pode ser vazia")
-	@Size(max = 150,message = "Não pode passa de 150 caracteres")
-	private String senha;
-	
+		
 	@NotNull(message = "Tem que escolher o sexo")
 	@Enumerated(EnumType.STRING)
 	private Sexo sexo;

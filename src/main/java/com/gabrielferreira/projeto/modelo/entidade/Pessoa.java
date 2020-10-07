@@ -1,6 +1,8 @@
 package com.gabrielferreira.projeto.modelo.entidade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -42,6 +45,9 @@ public abstract class Pessoa implements Serializable{
 	
 	@OneToOne(cascade = CascadeType.ALL,mappedBy = "pessoa")
 	private Endereco endereco;
+	
+	@OneToMany(mappedBy = "pessoa")
+	private List<Telefone> telefones = new ArrayList<Telefone>();
 		
 	public Pessoa(Long id, String nomeCompleto, String cpf, Sexo sexo) {
 		this.id = id;

@@ -21,6 +21,5 @@ public class AlunoDTO implements Serializable{
 	private String nomeCompleto;
 	private String cpf;
 	private Sexo sexo;
-	private String email;
 	private String ra;
 }

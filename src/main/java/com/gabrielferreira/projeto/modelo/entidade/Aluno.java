@@ -22,15 +22,9 @@ public class Aluno extends Pessoa {
 	
 	private String ra;
 	
-	private String email;
-	
-	private String senha;
-
-	public Aluno(Long id, String nomeCompleto, String cpf, Sexo sexo, String ra, String email, String senha) {
+	public Aluno(Long id, String nomeCompleto, String cpf, Sexo sexo, String ra) {
 		super(id, nomeCompleto, cpf, sexo);
 		this.ra = ra;
-		this.email = email;
-		this.senha = senha;
 	}
 	
 }

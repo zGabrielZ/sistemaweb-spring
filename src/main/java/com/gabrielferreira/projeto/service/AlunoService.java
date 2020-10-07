@@ -83,14 +83,12 @@ public class AlunoService {
 		Aluno aluno2 = (Aluno) entidade;
 		Aluno aluno3 = (Aluno) aluno;
 		aluno2.setRa(aluno3.getRa());
-		aluno2.setEmail(aluno3.getEmail());
-		aluno2.setSenha(aluno3.getSenha());
 		entidade.setSexo(aluno.getSexo());
 	}
 	
 	public Pessoa fromDto(AlunoInserirDTO alunoDTO) {
 		Pessoa pessoa = new Aluno(null,alunoDTO.getNomeCompleto(),alunoDTO.getCpf(),alunoDTO.getSexo(),
-				alunoDTO.getRa(),alunoDTO.getEmail(),alunoDTO.getSenha());
+				alunoDTO.getRa());
 		
 		Endereco endereco = new Endereco(null,alunoDTO.getEndereco().getLogradouro(),alunoDTO.getEndereco().getNumero(),
 				alunoDTO.getEndereco().getBairro(),alunoDTO.getEndereco().getCep());
@@ -107,7 +105,7 @@ public class AlunoService {
 	}
 	
 	public Pessoa fromDto(AlunoAlterarDTO alunoDTO) {
-		Pessoa pessoa = new Aluno(null,alunoDTO.getNomeCompleto(),null,alunoDTO.getSexo(),alunoDTO.getRa(),alunoDTO.getEmail(), alunoDTO.getSenha());
+		Pessoa pessoa = new Aluno(null,alunoDTO.getNomeCompleto(),null,alunoDTO.getSexo(),alunoDTO.getRa());
 		return pessoa;
 	}
 }

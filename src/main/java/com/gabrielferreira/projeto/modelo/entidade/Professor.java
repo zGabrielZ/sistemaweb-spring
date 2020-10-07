@@ -21,15 +21,9 @@ public class Professor extends Pessoa{
 	
 	private Double salario;
 	
-	private String email;
-	
-	private String senha;
-
-	public Professor(Long id, String nomeCompleto, String cpf, Sexo sexo, Double salario, String email, String senha) {
+	public Professor(Long id, String nomeCompleto, String cpf, Sexo sexo, Double salario) {
 		super(id, nomeCompleto, cpf, sexo);
 		this.salario = salario;
-		this.email = email;
-		this.senha = senha;
 	}
 
 
