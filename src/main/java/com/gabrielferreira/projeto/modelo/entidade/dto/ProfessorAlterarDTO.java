@@ -31,6 +31,6 @@ public class ProfessorAlterarDTO implements Serializable{
 	@Enumerated(EnumType.STRING)
 	private Sexo sexo;
 		
-	@NotNull(message = "Campo do salário não pode ser vazio")
-	private Double salario;
+	@NotNull(message = "Campo da quantidade de horas não pode ser vazio")
+	private Integer qtdHoras;
 }

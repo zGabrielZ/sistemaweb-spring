@@ -11,12 +11,14 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import com.gabrielferreira.projeto.modelo.entidade.Cidade;
 import com.gabrielferreira.projeto.modelo.entidade.Endereco;
+import com.gabrielferreira.projeto.modelo.entidade.Graduacao;
 import com.gabrielferreira.projeto.modelo.entidade.Pessoa;
 import com.gabrielferreira.projeto.modelo.entidade.Professor;
 import com.gabrielferreira.projeto.modelo.entidade.dto.ProfessorAlterarDTO;
 import com.gabrielferreira.projeto.modelo.entidade.dto.ProfessorInserirDTO;
 import com.gabrielferreira.projeto.repositorio.CidadeRepositorio;
 import com.gabrielferreira.projeto.repositorio.EnderecoRepositorio;
+import com.gabrielferreira.projeto.repositorio.GraduacaoRepositorio;
 import com.gabrielferreira.projeto.repositorio.PessoaRepositorio;
 import com.gabrielferreira.projeto.repositorio.ProfessorRepositorio;
 import com.gabrielferreira.projeto.service.exceptions.DatabaseException;
@@ -36,6 +38,9 @@ public class ProfessorService {
 	
 	@Autowired
 	private EnderecoRepositorio enderecoRepositorio;
+	
+	@Autowired
+	private GraduacaoRepositorio graduacaoRepositorio;
 		
 	public Pessoa inserir(Pessoa pessoa) {
 		cidadeRepositorio.save(pessoa.getEndereco().getCidade());
@@ -81,14 +86,23 @@ public class ProfessorService {
 		entidade.setNomeCompleto(professor.getNomeCompleto());
 		Professor professor2 = (Professor) entidade;
 		Professor professor3 = (Professor) professor;
-		professor2.setSalario(professor3.getSalario());
+		professor2.setQtdHoras(professor3.getQtdHoras());
 		entidade.setSexo(professor.getSexo());
 	}
 	
 	public Pessoa fromDto(ProfessorInserirDTO professorDTO) {
 		
-		Pessoa pessoa = new Professor(null,professorDTO.getNomeCompleto(),professorDTO.getCpf(),professorDTO.getSexo(), 
-				professorDTO.getSalario());
+		Pessoa pessoa = new Professor(null, professorDTO.getNomeCompleto(),professorDTO.getCpf(),
+				professorDTO.getSexo(),professorDTO.getAnoAdmissao(),professorDTO.getQtdHoras());
+		
+		Graduacao graduacao = new Graduacao(null, professorDTO.getGraduacao().getNomeGraduacao());
+		
+		Professor professor2 = (Professor) pessoa;
+		
+		professor2.setGraduacao(graduacao);
+		graduacao.getProfessores().add(professor2);
+		
+		graduacaoRepositorio.save(professor2.getGraduacao());
 			
 		Endereco endereco = new Endereco(null,professorDTO.getEndereco().getLogradouro(),professorDTO.getEndereco().getNumero(),
 				professorDTO.getEndereco().getBairro(),professorDTO.getEndereco().getCep());
@@ -105,8 +119,7 @@ public class ProfessorService {
 	}
 	
 	public Pessoa fromDto(ProfessorAlterarDTO professorDTO) {
-		Pessoa pessoa = new Professor(null,professorDTO.getNomeCompleto(), null,professorDTO.getSexo(),
-				professorDTO.getSalario());
+		Pessoa pessoa = new Professor(null,professorDTO.getNomeCompleto(),null,professorDTO.getSexo(),null,professorDTO.getQtdHoras());
 		return pessoa;
 	}
 }
