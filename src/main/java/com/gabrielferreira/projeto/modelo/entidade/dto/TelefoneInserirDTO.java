@@ -1,13 +1,9 @@
 package com.gabrielferreira.projeto.modelo.entidade.dto;
 
 import java.io.Serializable;
-
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import com.gabrielferreira.projeto.modelo.entidade.enums.TipoTelefone;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,6 +26,5 @@ public class TelefoneInserirDTO implements Serializable{
 	private String numero;
 	
 	@NotNull(message = "Tem que escolher o tipo de telefone")
-	@Enumerated(EnumType.STRING)
-	private TipoTelefone tipoTelefone;
+	private Integer tipoTelefone;
 }

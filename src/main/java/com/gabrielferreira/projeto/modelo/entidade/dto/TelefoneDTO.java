@@ -24,7 +24,7 @@ public class TelefoneDTO implements Serializable{
 	private String nomeContato;
 	private String numero;
 	
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.ORDINAL)
 	private TipoTelefone tipoTelefone;
 	
 

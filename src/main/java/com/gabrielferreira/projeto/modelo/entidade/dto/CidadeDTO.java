@@ -24,6 +24,6 @@ public class CidadeDTO implements Serializable{
 	
 	private String cidade;
 	
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.ORDINAL)
 	private Estado estado;
 }

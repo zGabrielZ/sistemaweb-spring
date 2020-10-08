@@ -41,7 +41,7 @@ public abstract class Pessoa implements Serializable{
 	
 	private String cpf;
 	
-	private Sexo sexo;
+	private Integer sexo;
 	
 	@OneToOne(cascade = CascadeType.ALL,mappedBy = "pessoa")
 	private Endereco endereco;
@@ -53,9 +53,16 @@ public abstract class Pessoa implements Serializable{
 		this.id = id;
 		this.nomeCompleto = nomeCompleto;
 		this.cpf = cpf;
-		this.sexo = sexo;
+		this.sexo = (sexo == null)?null:sexo.getCodigo();
 	}
 	
+	public Sexo getSexo() {
+		return Sexo.converterParaEnum(sexo);
+	}
+
+	public void setSexo(Sexo sexo) {
+		this.sexo = sexo.getCodigo();
+	}
 
 	@Override
 	public int hashCode() {

@@ -29,7 +29,7 @@ public class AlunoDTO implements Serializable{
 	private String nomeCompleto;
 	private String cpf;
 	
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.ORDINAL)
 	private Sexo sexo;
 	
 	private String ra;

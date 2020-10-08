@@ -1,16 +1,10 @@
 package com.gabrielferreira.projeto.modelo.entidade.dto;
 
 import java.io.Serializable;
-
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import com.gabrielferreira.projeto.modelo.entidade.enums.Sexo;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,8 +23,7 @@ public class AlunoAlterarDTO implements Serializable{
 	private String nomeCompleto;
 		
 	@NotNull(message = "Tem que escolher o sexo")
-	@Enumerated(EnumType.STRING)
-	private Sexo sexo;
+	private Integer sexo;
 	
 	@NotBlank(message = "Campo do ra não pode ser vazio")
 	@Size(max = 10,message = "Não pode passa de 10 caracteres")

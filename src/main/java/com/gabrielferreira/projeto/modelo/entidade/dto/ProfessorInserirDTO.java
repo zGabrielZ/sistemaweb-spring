@@ -2,9 +2,6 @@ package com.gabrielferreira.projeto.modelo.entidade.dto;
 
 import java.io.Serializable;
 import java.util.Date;
-
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -13,7 +10,6 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.gabrielferreira.projeto.modelo.entidade.enums.Sexo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,8 +35,7 @@ public class ProfessorInserirDTO implements Serializable{
 	private String cpf;
 	
 	@NotNull(message = "Tem que escolher o sexo")
-	@Enumerated(EnumType.STRING)
-	private Sexo sexo;
+	private Integer sexo;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy",timezone =MY_TIME_ZONE)
 	@NotNull(message = "Campo do ano admissão não pode ser vazio ou digitado incorretamente")

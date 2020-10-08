@@ -11,8 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import com.gabrielferreira.projeto.modelo.entidade.enums.TipoTelefone;
-
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,7 +19,6 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "tab_telefone")
-@AllArgsConstructor
 @NoArgsConstructor
 public class Telefone implements Serializable{
 
@@ -35,11 +32,27 @@ public class Telefone implements Serializable{
 	
 	private String numero;
 
-	private TipoTelefone tipoTelefone;
+	private Integer tipoTelefone;
 	
 	@ManyToOne
 	@JoinColumn(name = "pessoa_id")
 	private Pessoa pessoa;
+	
+	public Telefone(Long id, String nomeContato, String numero, TipoTelefone tipoTelefone, Pessoa pessoa) {
+		this.id = id;
+		this.nomeContato = nomeContato;
+		this.numero = numero;
+		this.tipoTelefone = (tipoTelefone == null)?null:tipoTelefone.getCodigo();
+		this.pessoa = pessoa;
+	}
+	
+	public TipoTelefone getTipoTelefone() {
+		return TipoTelefone.converterParaEnum(tipoTelefone);
+	}
+
+	public void setTipoTelefone(TipoTelefone tipoTelefone) {
+		this.tipoTelefone = tipoTelefone.getCodigo();
+	}
 
 	@Override
 	public int hashCode() {
@@ -65,8 +78,5 @@ public class Telefone implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
-	
 	
 }

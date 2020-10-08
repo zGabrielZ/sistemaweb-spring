@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.gabrielferreira.projeto.modelo.entidade.Pessoa;
 import com.gabrielferreira.projeto.modelo.entidade.Telefone;
+import com.gabrielferreira.projeto.modelo.entidade.dto.TelefoneInserirDTO;
+import com.gabrielferreira.projeto.modelo.entidade.enums.TipoTelefone;
 import com.gabrielferreira.projeto.repositorio.PessoaRepositorio;
 import com.gabrielferreira.projeto.repositorio.TelefoneRepositorio;
 import com.gabrielferreira.projeto.service.exceptions.EntidadeNotFoundException;
@@ -61,5 +63,13 @@ public class TelefoneService {
 		entidade.setTipoTelefone(telefone.getTipoTelefone());
 	}
 
+	public Telefone fromDto(TelefoneInserirDTO telefoneInserirDTO) {
+		
+		Telefone telefone = new Telefone(null,telefoneInserirDTO.getNomeContato(),telefoneInserirDTO.getNumero(),
+				TipoTelefone.converterParaEnum(telefoneInserirDTO.getTipoTelefone()),null);
+		
+				
+		return telefone;
+	}
 }
 

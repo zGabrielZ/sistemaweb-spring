@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.gabrielferreira.projeto.modelo.entidade.enums.Estado;
-
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,7 +18,6 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "tab_cidade")
-@AllArgsConstructor
 @NoArgsConstructor
 public class Cidade implements Serializable{
 
@@ -32,7 +29,21 @@ public class Cidade implements Serializable{
 	
 	private String cidade;
 
-	private Estado estado;
+	private Integer estado;
+	
+	public Cidade(Long id, String cidade, Estado estado) {
+		this.id = id;
+		this.cidade = cidade;
+		this.estado = (estado == null)?null:estado.getCodigo();
+	}
+	
+	public Estado getEstado() {
+		return Estado.converterParaEnum(estado);
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado.getCodigo();
+	}
 
 	@Override
 	public int hashCode() {
@@ -58,8 +69,5 @@ public class Cidade implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
-	
 	
 }

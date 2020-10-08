@@ -16,6 +16,8 @@ import com.gabrielferreira.projeto.modelo.entidade.Pessoa;
 import com.gabrielferreira.projeto.modelo.entidade.Professor;
 import com.gabrielferreira.projeto.modelo.entidade.dto.ProfessorAlterarDTO;
 import com.gabrielferreira.projeto.modelo.entidade.dto.ProfessorInserirDTO;
+import com.gabrielferreira.projeto.modelo.entidade.enums.Estado;
+import com.gabrielferreira.projeto.modelo.entidade.enums.Sexo;
 import com.gabrielferreira.projeto.repositorio.CidadeRepositorio;
 import com.gabrielferreira.projeto.repositorio.EnderecoRepositorio;
 import com.gabrielferreira.projeto.repositorio.GraduacaoRepositorio;
@@ -93,7 +95,7 @@ public class ProfessorService {
 	public Pessoa fromDto(ProfessorInserirDTO professorDTO) {
 		
 		Pessoa pessoa = new Professor(null, professorDTO.getNomeCompleto(),professorDTO.getCpf(),
-				professorDTO.getSexo(),professorDTO.getAnoAdmissao(),professorDTO.getQtdHoras());
+				Sexo.converterParaEnum(professorDTO.getSexo()),professorDTO.getAnoAdmissao(),professorDTO.getQtdHoras());
 		
 		Graduacao graduacao = new Graduacao(null, professorDTO.getGraduacao().getNomeGraduacao());
 		
@@ -111,7 +113,7 @@ public class ProfessorService {
 		endereco.setPessoa(pessoa);
 		
 		Cidade cidade = new Cidade(null,professorDTO.getEndereco().getCidade().getCidade(),
-				professorDTO.getEndereco().getCidade().getEstado());
+				Estado.converterParaEnum(professorDTO.getEndereco().getCidade().getEstado()));
 		
 		endereco.setCidade(cidade);
 		
@@ -119,7 +121,7 @@ public class ProfessorService {
 	}
 	
 	public Pessoa fromDto(ProfessorAlterarDTO professorDTO) {
-		Pessoa pessoa = new Professor(null,professorDTO.getNomeCompleto(),null,professorDTO.getSexo(),null,professorDTO.getQtdHoras());
+		Pessoa pessoa = new Professor(null,professorDTO.getNomeCompleto(),null,Sexo.converterParaEnum(professorDTO.getSexo()),null,professorDTO.getQtdHoras());
 		return pessoa;
 	}
 }

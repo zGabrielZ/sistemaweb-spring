@@ -6,8 +6,11 @@ import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.gabrielferreira.projeto.modelo.entidade.Cidade;
 import com.gabrielferreira.projeto.modelo.entidade.Endereco;
 import com.gabrielferreira.projeto.modelo.entidade.Pessoa;
+import com.gabrielferreira.projeto.modelo.entidade.dto.EnderecoAlterarDTO;
+import com.gabrielferreira.projeto.modelo.entidade.enums.Estado;
 import com.gabrielferreira.projeto.repositorio.EnderecoRepositorio;
 import com.gabrielferreira.projeto.repositorio.PessoaRepositorio;
 import com.gabrielferreira.projeto.service.exceptions.EntidadeNotFoundException;
@@ -50,6 +53,17 @@ public class EnderecoService {
 		entidade.setCep(endereco.getCep());
 		entidade.getCidade().setCidade(endereco.getCidade().getCidade());
 		entidade.getCidade().setEstado(endereco.getCidade().getEstado());
+	}
+	
+	public Endereco fromDto(EnderecoAlterarDTO enderecoDTO) {
+		Endereco endereco = new Endereco(null,enderecoDTO.getLogradouro(),enderecoDTO.getNumero(),enderecoDTO.getBairro(),
+				enderecoDTO.getCep());
+		
+		Cidade cidade = new Cidade(null,enderecoDTO.getCidade().getCidade(),
+				Estado.converterParaEnum(enderecoDTO.getCidade().getEstado()));
+		
+		endereco.setCidade(cidade);
+		return endereco;
 	}
 
 }

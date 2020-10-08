@@ -99,11 +99,11 @@ public class AlunoController {
 	}
 	
 	@PutMapping("/{idAluno}/enderecos/{idEndereco}")
-	public ResponseEntity<Endereco> alterarEnderco(
+	public ResponseEntity<Endereco> alterarEndereco(
 			@Valid @RequestBody EnderecoAlterarDTO enderecoDTO,
 			@PathVariable Long idAluno,@PathVariable Long idEndereco) {
 		Endereco endereco = enderecoService.consultarPorId(idEndereco, idAluno);
-		endereco = paraAtualizarEndereco(enderecoDTO);
+		endereco = enderecoService.fromDto(enderecoDTO);
 		enderecoService.atualizar(idEndereco, endereco, idAluno);
 		return ResponseEntity.noContent().build();
 	}
@@ -122,7 +122,7 @@ public class AlunoController {
 	
 	@PostMapping("/{idAluno}/telefones")
 	public ResponseEntity<Telefone> inserir(@Valid @RequestBody TelefoneInserirDTO telefoneInserirDTO,@PathVariable Long idAluno) {
-		Telefone telefone = paraInserirDto(telefoneInserirDTO);
+		Telefone telefone = telefoneService.fromDto(telefoneInserirDTO);
 		telefone = telefoneService.inserir(telefone,idAluno);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(telefone.getId()).toUri();
@@ -134,15 +134,11 @@ public class AlunoController {
 			@Valid @RequestBody TelefoneInserirDTO telefoneDTO,
 			@PathVariable Long idAluno,@PathVariable Long idTelefone) {
 		Telefone telefone = telefoneService.consultarPorId(idTelefone, idAluno);
-		telefone = paraInserirDto(telefoneDTO);
+		telefone = telefoneService.fromDto(telefoneDTO);
 		telefoneService.atualizar(idTelefone, telefone, idAluno);
 		return ResponseEntity.noContent().build();
 	}
-	
-	private Endereco paraAtualizarEndereco(EnderecoAlterarDTO dto) {
-		return modelMapper.map(dto,Endereco.class);
-	}
-	
+		
 	public AlunoDTO paraVisualizacaoDto(Aluno aluno) {
 		return modelMapper.map(aluno,AlunoDTO.class);
 	}
