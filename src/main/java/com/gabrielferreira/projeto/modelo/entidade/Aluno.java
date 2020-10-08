@@ -1,5 +1,7 @@
 package com.gabrielferreira.projeto.modelo.entidade;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -28,9 +30,12 @@ public class Aluno extends Pessoa {
 	@JoinColumn(name = "curso_id")
 	private Curso curso;
 	
-	public Aluno(Long id, String nomeCompleto, String cpf, Sexo sexo, String ra) {
+	private Date anoIngresso;
+	
+	public Aluno(Long id, String nomeCompleto, String cpf, Sexo sexo, String ra,Date anoIngresso) {
 		super(id, nomeCompleto, cpf, sexo);
 		this.ra = ra;
+		this.anoIngresso = anoIngresso;
 	}
 	
 }

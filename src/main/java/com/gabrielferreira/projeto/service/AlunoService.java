@@ -94,7 +94,7 @@ public class AlunoService {
 	public Pessoa fromDto(AlunoInserirDTO alunoDTO) {
 		
 		Pessoa pessoa = new Aluno(null,alunoDTO.getNomeCompleto(),alunoDTO.getCpf(),alunoDTO.getSexo(),
-				alunoDTO.getRa());
+				alunoDTO.getRa(),alunoDTO.getAnoIngresso());
 		
 		Aluno aluno2 = (Aluno) pessoa;
 		Curso curso = new Curso(alunoDTO.getCurso(),null);
@@ -119,7 +119,7 @@ public class AlunoService {
 	}
 	
 	public Pessoa fromDto(AlunoAlterarDTO alunoDTO) {
-		Pessoa pessoa = new Aluno(null,alunoDTO.getNomeCompleto(),null,alunoDTO.getSexo(),alunoDTO.getRa());
+		Pessoa pessoa = new Aluno(null,alunoDTO.getNomeCompleto(),null,alunoDTO.getSexo(),alunoDTO.getRa(),null);
 		
 		Aluno aluno2 = (Aluno) pessoa;
 		Curso curso = new Curso(alunoDTO.getCurso(),null);

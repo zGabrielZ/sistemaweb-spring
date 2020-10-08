@@ -1,13 +1,13 @@
 package com.gabrielferreira.projeto.modelo.entidade.dto;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.gabrielferreira.projeto.modelo.entidade.enums.Sexo;
 
 import lombok.AllArgsConstructor;
@@ -19,24 +19,18 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AlunoDTO implements Serializable{
+public class ProfessorAlterarDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	
-	private static final String MY_TIME_ZONE="GMT-3";
-	
-	private Long id;
+
+	@NotBlank(message = "Campo do nome não pode ser vazio")
+	@Size(max = 150,message = "Não pode passa de 150 caracteres")
 	private String nomeCompleto;
-	private String cpf;
-	
+		
+	@NotNull(message = "Tem que escolher o sexo")
 	@Enumerated(EnumType.STRING)
 	private Sexo sexo;
-	
-	private String ra;
-	
-	@JsonFormat(pattern = "dd/MM/yyyy",timezone =MY_TIME_ZONE)
-	@NotNull(message = "Campo do ano ingresso não pode ser vazio ou digitado incorretamente")
-	private Date anoIngresso;
-	
-	private CursoDTO curso;
+		
+	@NotNull(message = "Campo do salário não pode ser vazio")
+	private Double salario;
 }
