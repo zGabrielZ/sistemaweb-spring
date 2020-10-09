@@ -1,10 +1,13 @@
 package com.gabrielferreira.projeto.modelo.entidade;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -31,6 +34,9 @@ public class Professor extends Pessoa{
 	private Date anoAdmissao;
 	
 	private Integer qtdHoras;
+	
+	@OneToMany(mappedBy = "professor")
+	private List<Turma> turmas = new ArrayList<Turma>();
 	
 	public Professor(Long id, String nomeCompleto, String cpf, Sexo sexo,Date anoAdmissao,Integer qtdHoras) {
 		super(id, nomeCompleto, cpf, sexo);
