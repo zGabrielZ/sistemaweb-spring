@@ -24,6 +24,7 @@ import com.gabrielferreira.projeto.modelo.entidade.Endereco;
 import com.gabrielferreira.projeto.modelo.entidade.Pessoa;
 import com.gabrielferreira.projeto.modelo.entidade.Professor;
 import com.gabrielferreira.projeto.modelo.entidade.Telefone;
+import com.gabrielferreira.projeto.modelo.entidade.Turma;
 import com.gabrielferreira.projeto.modelo.entidade.dto.EnderecoAlterarDTO;
 import com.gabrielferreira.projeto.modelo.entidade.dto.EnderecoDTO;
 import com.gabrielferreira.projeto.modelo.entidade.dto.ProfessorAlterarDTO;
@@ -31,6 +32,7 @@ import com.gabrielferreira.projeto.modelo.entidade.dto.ProfessorDTO;
 import com.gabrielferreira.projeto.modelo.entidade.dto.ProfessorInserirDTO;
 import com.gabrielferreira.projeto.modelo.entidade.dto.TelefoneDTO;
 import com.gabrielferreira.projeto.modelo.entidade.dto.TelefoneInserirDTO;
+import com.gabrielferreira.projeto.modelo.entidade.dto.TurmaDTO;
 import com.gabrielferreira.projeto.service.EnderecoService;
 import com.gabrielferreira.projeto.service.ProfessorService;
 import com.gabrielferreira.projeto.service.TelefoneService;
@@ -140,6 +142,12 @@ public class ProfessorController {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@GetMapping("/{idProfessor}/turmas")
+	public ResponseEntity<List<TurmaDTO>> listagemDeTurmas(@PathVariable Long idProfessor){
+		Professor professor = professorService.buscarPorId(idProfessor);
+		return ResponseEntity.ok().body(paraListaDtoTurma(professor.getTurmas()));
+	}
+	
 	public ProfessorDTO paraVisualizacaoDto(Professor professor) {
 		return modelMapper.map(professor,ProfessorDTO.class);
 	}
@@ -166,6 +174,16 @@ public class ProfessorController {
 	
 	public Telefone paraInserirDto(TelefoneInserirDTO inserirDTO) {
 		return modelMapper.map(inserirDTO,Telefone.class);
+	}
+	
+	public TurmaDTO paraVisualizacaoDto(Turma turma) {
+		return modelMapper.map(turma,TurmaDTO.class);
+	}
+	
+	private List<TurmaDTO> paraListaDtoTurma(List<Turma> turmas) {
+		return turmas.stream()
+				.map(turma -> paraVisualizacaoDto(turma))
+				.collect(Collectors.toList());
 	}
 	
 }
