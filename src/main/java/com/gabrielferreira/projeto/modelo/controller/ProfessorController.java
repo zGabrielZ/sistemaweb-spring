@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -66,6 +68,17 @@ public class ProfessorController {
 	public ResponseEntity<List<ProfessorDTO>> listagemProfessor(){
 		List<Professor> professores = professorService.listagem();
 		return ResponseEntity.ok().body(paraListaDto(professores));
+	}
+	
+	@GetMapping("/paginacao")
+	public ResponseEntity<Page<ProfessorDTO>> pageProfessor(
+			@RequestParam(value = "pagina",defaultValue = "0")Integer pagina,
+			@RequestParam(value = "linhasPorPagina",defaultValue = "24")Integer linhasPorPagina,
+			@RequestParam(value = "ordernarPor",defaultValue = "nomeCompleto") String ordernarPor,
+			@RequestParam(value = "direcao",defaultValue = "ASC") String direcao,
+			@RequestParam(value = "nome",defaultValue = "") String nome){
+		Page<Professor> professores = professorService.buscarPagina(pagina, linhasPorPagina, ordernarPor, direcao, nome);
+		return ResponseEntity.ok().body(paraPageDto(professores));
 	}
 	
 	@GetMapping("/{id}")
@@ -164,6 +177,10 @@ public class ProfessorController {
 		return professores.stream()
 				.map(professor -> paraVisualizacaoDto(professor))
 				.collect(Collectors.toList());
+	}
+	
+	private Page<ProfessorDTO> paraPageDto(Page<Professor> professores) {
+		return professores.map(professor -> paraVisualizacaoDto(professor));
 	}
 	
 	private List<TelefoneDTO> paraListaDtoTelefone(List<Telefone> telefones) {

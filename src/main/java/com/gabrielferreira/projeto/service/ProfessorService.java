@@ -8,6 +8,9 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import com.gabrielferreira.projeto.modelo.entidade.Cidade;
 import com.gabrielferreira.projeto.modelo.entidade.Endereco;
@@ -90,6 +93,11 @@ public class ProfessorService {
 		Professor professor3 = (Professor) professor;
 		professor2.setQtdHoras(professor3.getQtdHoras());
 		entidade.setSexo(professor.getSexo());
+	}
+	
+	public Page<Professor> buscarPagina(Integer pagina,Integer linhasPorPagina,String ordernarPor,String direcao,String nome){
+		PageRequest pageRequest = PageRequest.of(pagina,linhasPorPagina,Direction.valueOf(direcao),ordernarPor);
+		return professorRepositorio.filtrar(nome,pageRequest);
 	}
 	
 	public Pessoa fromDto(ProfessorInserirDTO professorDTO) {
