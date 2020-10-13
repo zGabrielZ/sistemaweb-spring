@@ -8,12 +8,14 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.gabrielferreira.projeto.modelo.entidade.Curso;
@@ -46,6 +48,17 @@ public class CursoController {
 		return ResponseEntity.ok().body(paraListaDto(cursos));
 	}
 	
+	@GetMapping("/paginacao")
+	public ResponseEntity<Page<CursoDTO>> pageCurso(
+			@RequestParam(value = "pagina",defaultValue = "0")Integer pagina,
+			@RequestParam(value = "linhasPorPagina",defaultValue = "24")Integer linhasPorPagina,
+			@RequestParam(value = "ordernarPor",defaultValue = "nomeCurso") String ordernarPor,
+			@RequestParam(value = "direcao",defaultValue = "ASC") String direcao,
+			@RequestParam(value = "nome",defaultValue = "") String nome){
+		Page<Curso> cursos = cursoService.buscarPagina(pagina, linhasPorPagina, ordernarPor, direcao, nome);
+		return ResponseEntity.ok().body(paraPageDto(cursos));
+	}
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<CursoDTO> buscarPorIdCurso(@PathVariable Long id){
 		Curso curso = cursoService.consultarPorId(id);
@@ -65,4 +78,8 @@ public class CursoController {
 				.map(curso -> paraVisualizacaoDto(curso))
 				.collect(Collectors.toList());
 	}	
+	
+	private Page<CursoDTO> paraPageDto(Page<Curso> cursos) {
+		return cursos.map(curso -> paraVisualizacaoDto(curso));
+	}
 }

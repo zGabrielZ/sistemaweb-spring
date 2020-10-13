@@ -4,8 +4,10 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
-
 import com.gabrielferreira.projeto.modelo.entidade.Curso;
 import com.gabrielferreira.projeto.repositorio.CursoRepositorio;
 import com.gabrielferreira.projeto.service.exceptions.EntidadeNotFoundException;
@@ -29,6 +31,11 @@ public class CursoService {
 	
 	public List<Curso> listagem(){
 		return cursoRepositorio.findAll();
+	}
+	
+	public Page<Curso> buscarPagina(Integer pagina,Integer linhasPorPagina,String ordernarPor,String direcao,String nome){
+		PageRequest pageRequest = PageRequest.of(pagina,linhasPorPagina,Direction.valueOf(direcao),ordernarPor);
+		return cursoRepositorio.filtrar(nome,pageRequest);
 	}
 }
 
