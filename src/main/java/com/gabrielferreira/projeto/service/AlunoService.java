@@ -8,6 +8,9 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.gabrielferreira.projeto.modelo.entidade.Aluno;
@@ -91,6 +94,11 @@ public class AlunoService {
 		aluno2.setRa(aluno3.getRa());
 		aluno2.setCurso(aluno3.getCurso());
 		entidade.setSexo(aluno.getSexo());
+	}
+	
+	public Page<Aluno> buscarPagina(Integer pagina,Integer linhasPorPagina,String ordernarPor,String direcao,String nome){
+		PageRequest pageRequest = PageRequest.of(pagina,linhasPorPagina,Direction.valueOf(direcao),ordernarPor);
+		return alunoRepositorio.filtrar(nome,pageRequest);
 	}
 	
 	public Pessoa fromDto(AlunoInserirDTO alunoDTO) {

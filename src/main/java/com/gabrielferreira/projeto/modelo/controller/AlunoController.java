@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -67,6 +69,17 @@ public class AlunoController {
 	public ResponseEntity<List<AlunoDTO>> listagemAluno(){
 		List<Aluno> alunos = alunoService.listagem();
 		return ResponseEntity.ok().body(paraListaDto(alunos));
+	}
+	
+	@GetMapping("/paginacao")
+	public ResponseEntity<Page<AlunoDTO>> pageAluno(
+			@RequestParam(value = "pagina",defaultValue = "0")Integer pagina,
+			@RequestParam(value = "linhasPorPagina",defaultValue = "24")Integer linhasPorPagina,
+			@RequestParam(value = "ordernarPor",defaultValue = "nomeCompleto") String ordernarPor,
+			@RequestParam(value = "direcao",defaultValue = "ASC") String direcao,
+			@RequestParam(value = "nome",defaultValue = "") String nome){
+		Page<Aluno> alunos = alunoService.buscarPagina(pagina, linhasPorPagina, ordernarPor, direcao, nome);
+		return ResponseEntity.ok().body(paraPageDto(alunos));
 	}
 	
 	@GetMapping("/{id}")
@@ -179,6 +192,10 @@ public class AlunoController {
 		return alunos.stream()
 				.map(aluno -> paraVisualizacaoDto(aluno))
 				.collect(Collectors.toList());
+	}
+	
+	private Page<AlunoDTO> paraPageDto(Page<Aluno> alunos) {
+		return alunos.map(aluno -> paraVisualizacaoDto(aluno));
 	}
 	
 	private List<TelefoneDTO> paraListaDtoTelefone(List<Telefone> telefones) {
