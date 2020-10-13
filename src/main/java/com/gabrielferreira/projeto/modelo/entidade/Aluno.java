@@ -38,6 +38,9 @@ public class Aluno extends Pessoa {
 	
 	private Date anoIngresso;
 	
+	@OneToMany(mappedBy = "aluno")
+	private List<Sala> salas = new ArrayList<Sala>();
+	
 	public Aluno(Long id, String nomeCompleto, String cpf, Sexo sexo, String ra,Date anoIngresso) {
 		super(id, nomeCompleto, cpf, sexo);
 		this.ra = ra;

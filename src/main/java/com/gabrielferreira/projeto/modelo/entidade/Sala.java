@@ -1,8 +1,6 @@
 package com.gabrielferreira.projeto.modelo.entidade;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,10 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import com.gabrielferreira.projeto.modelo.entidade.enums.Turno;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,42 +19,24 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "tab_turma")
-public class Turma implements Serializable{
+@Table(name = "tab_sala")
+@AllArgsConstructor
+public class Sala implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String nomeTurma;
-	private String numeroTurma;
-	private Integer vagas;
-	private Integer turno;
 	
 	@ManyToOne
-	@JoinColumn(name = "professor_id")
-	private Professor professor;
+	@JoinColumn(name = "turma_id")
+	private Turma turma;
 	
-	@OneToMany(mappedBy = "turma")
-	private List<Sala> salas = new ArrayList<Sala>();
-
-	public Turma(Long id, String nomeTurma, String numeroTurma, Integer vagas, Turno turno) {
-		this.id = id;
-		this.nomeTurma = nomeTurma;
-		this.numeroTurma = numeroTurma;
-		this.vagas = vagas;
-		this.turno = (turno == null)?null:turno.getCodigo();
-	}
+	@ManyToOne
+	@JoinColumn(name = "aluno_id")
+	private Aluno aluno;	
 	
-	public Turno getTurno() {
-		return Turno.converterParaEnum(turno);
-	}
-
-	public void setTurno(Turno turno) {
-		this.turno = turno.getCodigo();
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -74,7 +53,7 @@ public class Turma implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Turma other = (Turma) obj;
+		Sala other = (Sala) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -82,10 +61,5 @@ public class Turma implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
 
 }
