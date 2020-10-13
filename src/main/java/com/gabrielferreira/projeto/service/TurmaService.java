@@ -6,6 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import com.gabrielferreira.projeto.modelo.entidade.Professor;
 import com.gabrielferreira.projeto.modelo.entidade.Turma;
@@ -55,6 +58,11 @@ public class TurmaService {
 		} catch (DataIntegrityViolationException e) {
 			throw new DatabaseException("Não é possivel deletar, pois está relacionada com outra entidade");
 		}
+	}
+	
+	public Page<Turma> buscarPagina(Integer pagina,Integer linhasPorPagina,String ordernarPor,String direcao,String nome){
+		PageRequest pageRequest = PageRequest.of(pagina,linhasPorPagina,Direction.valueOf(direcao),ordernarPor);
+		return turmaRepositorio.filtrar(nome,pageRequest);
 	}
 	
 	public Turma fromDto(TurmaInserirDTO turmaInserirDTO) {

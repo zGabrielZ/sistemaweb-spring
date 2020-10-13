@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.gabrielferreira.projeto.modelo.entidade.Turma;
@@ -47,6 +49,17 @@ public class TurmaController {
 		return ResponseEntity.ok().body(paraListaDto(turmas));
 	}
 	
+	@GetMapping("/paginacao")
+	public ResponseEntity<Page<TurmaDTO>> pageTurma(
+			@RequestParam(value = "pagina",defaultValue = "0")Integer pagina,
+			@RequestParam(value = "linhasPorPagina",defaultValue = "24")Integer linhasPorPagina,
+			@RequestParam(value = "ordernarPor",defaultValue = "nomeTurma") String ordernarPor,
+			@RequestParam(value = "direcao",defaultValue = "ASC") String direcao,
+			@RequestParam(value = "nome",defaultValue = "") String nome){
+		Page<Turma> turmas = turmaService.buscarPagina(pagina, linhasPorPagina, ordernarPor, direcao, nome);
+		return ResponseEntity.ok().body(paraPageDto(turmas));
+	}
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<TurmaDTO> buscarPorIdTurma(@PathVariable Long id){
 		Turma turma = turmaService.buscarPorId(id);
@@ -69,4 +82,8 @@ public class TurmaController {
 				.map(turma -> paraVisualizacaoDto(turma))
 				.collect(Collectors.toList());
 	}	
+	
+	private Page<TurmaDTO> paraPageDto(Page<Turma> turmas) {
+		return turmas.map(turma -> paraVisualizacaoDto(turma));
+	}
 }
