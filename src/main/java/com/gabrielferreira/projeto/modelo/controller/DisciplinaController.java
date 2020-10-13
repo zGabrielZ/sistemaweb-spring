@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.gabrielferreira.projeto.modelo.entidade.Disciplina;
@@ -47,6 +49,17 @@ public class DisciplinaController {
 		return ResponseEntity.ok().body(paraListaDto(disciplinas));
 	}
 	
+	@GetMapping("/paginacao")
+	public ResponseEntity<Page<DisciplinaDTO>> pageDisciplina(
+			@RequestParam(value = "pagina",defaultValue = "0")Integer pagina,
+			@RequestParam(value = "linhasPorPagina",defaultValue = "24")Integer linhasPorPagina,
+			@RequestParam(value = "ordernarPor",defaultValue = "nomeDisciplina") String ordernarPor,
+			@RequestParam(value = "direcao",defaultValue = "ASC") String direcao,
+			@RequestParam(value = "nome",defaultValue = "") String nome){
+		Page<Disciplina> disciplinas = disciplinaService.buscarPagina(pagina, linhasPorPagina, ordernarPor, direcao, nome);
+		return ResponseEntity.ok().body(paraPageDto(disciplinas));
+	}
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<DisciplinaDTO> buscarPorIdDisciplina(@PathVariable Long id){
 		Disciplina disciplina = disciplinaService.consultarPorId(id);
@@ -73,5 +86,9 @@ public class DisciplinaController {
 		return disciplinas.stream()
 				.map(disciplina -> paraVisualizacaoDto(disciplina))
 				.collect(Collectors.toList());
-	}	
+	}
+	
+	private Page<DisciplinaDTO> paraPageDto(Page<Disciplina> disciplinas) {
+		return disciplinas.map(disciplina -> paraVisualizacaoDto(disciplina));
+	}
 }

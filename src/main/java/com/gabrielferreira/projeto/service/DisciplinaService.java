@@ -5,6 +5,9 @@ import java.util.List;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import com.gabrielferreira.projeto.modelo.entidade.Disciplina;
 import com.gabrielferreira.projeto.repositorio.DisciplinaRepositorio;
@@ -29,6 +32,11 @@ public class DisciplinaService {
 	
 	public List<Disciplina> listagem(){
 		return disciplinaRepositorio.findAll();
+	}
+	
+	public Page<Disciplina> buscarPagina(Integer pagina,Integer linhasPorPagina,String ordernarPor,String direcao,String nome){
+		PageRequest pageRequest = PageRequest.of(pagina,linhasPorPagina,Direction.valueOf(direcao),ordernarPor);
+		return disciplinaRepositorio.filtrar(nome,pageRequest);
 	}
 	
 	public Disciplina atualizar(Long idDisciplina,Disciplina disciplina) {
