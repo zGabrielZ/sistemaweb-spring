@@ -20,12 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.gabrielferreira.projeto.modelo.entidade.Aluno;
+import com.gabrielferreira.projeto.modelo.entidade.Aula;
 import com.gabrielferreira.projeto.modelo.entidade.Endereco;
 import com.gabrielferreira.projeto.modelo.entidade.Pessoa;
 import com.gabrielferreira.projeto.modelo.entidade.Telefone;
 import com.gabrielferreira.projeto.modelo.entidade.dto.AlunoAlterarDTO;
 import com.gabrielferreira.projeto.modelo.entidade.dto.AlunoDTO;
 import com.gabrielferreira.projeto.modelo.entidade.dto.AlunoInserirDTO;
+import com.gabrielferreira.projeto.modelo.entidade.dto.AulaDTO;
 import com.gabrielferreira.projeto.modelo.entidade.dto.EnderecoAlterarDTO;
 import com.gabrielferreira.projeto.modelo.entidade.dto.EnderecoDTO;
 import com.gabrielferreira.projeto.modelo.entidade.dto.TelefoneDTO;
@@ -138,6 +140,12 @@ public class AlunoController {
 		telefoneService.atualizar(idTelefone, telefone, idAluno);
 		return ResponseEntity.noContent().build();
 	}
+	
+	@GetMapping("/{idAluno}/aulas")
+	public ResponseEntity<List<AulaDTO>> listagemDeAulas(@PathVariable Long idAluno){
+		Aluno aluno = alunoService.buscarPorId(idAluno);
+		return ResponseEntity.ok().body(paraListaDtoAula(aluno.getAulas()));
+	}
 		
 	public AlunoDTO paraVisualizacaoDto(Aluno aluno) {
 		return modelMapper.map(aluno,AlunoDTO.class);
@@ -151,6 +159,10 @@ public class AlunoController {
 		return modelMapper.map(telefone,TelefoneDTO.class);
 	}
 	
+	public AulaDTO paraVisualizacaoDto(Aula aula) {
+		return modelMapper.map(aula,AulaDTO.class);
+	}
+	
 	private List<AlunoDTO> paraListaDto(List<Aluno> alunos) {
 		return alunos.stream()
 				.map(aluno -> paraVisualizacaoDto(aluno))
@@ -160,6 +172,12 @@ public class AlunoController {
 	private List<TelefoneDTO> paraListaDtoTelefone(List<Telefone> telefones) {
 		return telefones.stream()
 				.map(telefone -> paraVisualizacaoDto(telefone))
+				.collect(Collectors.toList());
+	}
+	
+	private List<AulaDTO> paraListaDtoAula(List<Aula> aulas) {
+		return aulas.stream()
+				.map(aula -> paraVisualizacaoDto(aula))
 				.collect(Collectors.toList());
 	}
 	

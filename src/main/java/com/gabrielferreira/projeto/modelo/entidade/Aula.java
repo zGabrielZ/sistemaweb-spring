@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
+import com.gabrielferreira.projeto.modelo.entidade.enums.Semestre;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,7 +18,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "tab_aula")
 public class Aula implements Serializable{
@@ -31,11 +30,29 @@ public class Aula implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name = "disciplina_id")
-	private Disciplina disicplina;
+	private Disciplina disciplina;
 	
 	@ManyToOne
 	@JoinColumn(name = "aluno_id")
 	private Aluno aluno;
+	
+	private Integer semestre;
+	
+	public Aula(Long id, Disciplina disciplina, Aluno aluno, Semestre semestre) {
+		this.id = id;
+		this.disciplina = disciplina;
+		this.aluno = aluno;
+		this.semestre =  (semestre == null)?null:semestre.getCodigo();
+	}
+	
+	public Semestre getSemestre() {
+		return Semestre.converterParaEnum(semestre);
+	}
+
+	public void setSemestre(Semestre semestre) {
+		this.semestre = semestre.getCodigo();
+	}
+	
 
 	@Override
 	public int hashCode() {
@@ -61,10 +78,5 @@ public class Aula implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
 
 }

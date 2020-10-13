@@ -32,7 +32,7 @@ public class Disciplina implements Serializable{
 	
 	private String nomeDisciplina;
 	
-	@OneToMany(mappedBy = "disicplina")
+	@OneToMany(mappedBy = "disciplina")
 	private List<Aula> aulas = new ArrayList<Aula>();
 
 	@Override
