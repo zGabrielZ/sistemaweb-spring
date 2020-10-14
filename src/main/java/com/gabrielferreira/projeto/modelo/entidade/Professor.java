@@ -11,10 +11,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.gabrielferreira.projeto.modelo.entidade.enums.Perfil;
 import com.gabrielferreira.projeto.modelo.entidade.enums.Sexo;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
@@ -22,7 +22,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "tab_professor")
 @JsonTypeName("professor") 
-@NoArgsConstructor
 public class Professor extends Pessoa{
 	
 	private static final long serialVersionUID = 1L;
@@ -41,15 +40,17 @@ public class Professor extends Pessoa{
 	private String email;
 	private String senha;
 	
+	public Professor() {
+		addPerfil(Perfil.PROFESSOR);
+	}
+	
 	public Professor(Long id, String nomeCompleto, String cpf, Sexo sexo,Date anoAdmissao,Integer qtdHoras,String email,String senha) {
 		super(id, nomeCompleto, cpf, sexo);
 		this.anoAdmissao = anoAdmissao;
 		this.qtdHoras = qtdHoras;
 		this.email = email;
 		this.senha = senha;
+		addPerfil(Perfil.PROFESSOR);
 	}
-
-
 	
-
 }

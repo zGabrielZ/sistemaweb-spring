@@ -2,10 +2,16 @@ package com.gabrielferreira.projeto.modelo.entidade;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,6 +22,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.gabrielferreira.projeto.modelo.entidade.enums.Perfil;
 import com.gabrielferreira.projeto.modelo.entidade.enums.Sexo;
 
 import lombok.Getter;
@@ -48,6 +55,10 @@ public abstract class Pessoa implements Serializable{
 	
 	@OneToMany(mappedBy = "pessoa")
 	private List<Telefone> telefones = new ArrayList<Telefone>();
+	
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "tab_perfis")
+	private Set<Integer> perfis = new HashSet<Integer>();
 		
 	public Pessoa(Long id, String nomeCompleto, String cpf, Sexo sexo) {
 		this.id = id;
@@ -62,6 +73,14 @@ public abstract class Pessoa implements Serializable{
 
 	public void setSexo(Sexo sexo) {
 		this.sexo = sexo.getCodigo();
+	}
+	
+	public Set<Perfil> getPerfil() {
+		return perfis.stream().map(x->Perfil.converterParaEnum(x)).collect(Collectors.toSet());
+	}
+
+	public void addPerfil(Perfil perfil) {
+		perfis.add(perfil.getCodigo());
 	}
 
 	@Override
