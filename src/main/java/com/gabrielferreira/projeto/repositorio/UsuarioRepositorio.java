@@ -6,4 +6,6 @@ import com.gabrielferreira.projeto.modelo.entidade.Usuario;
 
 @Repository
 public interface UsuarioRepositorio extends JpaRepository<Usuario,Long> {
+
+	Usuario findByEmail(String email);
 }

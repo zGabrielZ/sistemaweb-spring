@@ -51,6 +51,15 @@ public class UsuarioService {
 		return usuario.get();
 	}
 	
+	public Usuario buscarPorEmail(String email) {
+		Usuario usuario = usuarioRepositorio.findByEmail(email);
+		if(usuario == null) {
+			throw new EntidadeNotFoundException("Email do usuário não encontrado");
+		}
+		
+		return usuario;
+	}
+	
 	public Pessoa fromDto(UsuarioInserirDTO usuarioDTO) {
 		
 		Pessoa pessoa = new Usuario(null,usuarioDTO.getNomeCompleto(),usuarioDTO.getCpf(),
