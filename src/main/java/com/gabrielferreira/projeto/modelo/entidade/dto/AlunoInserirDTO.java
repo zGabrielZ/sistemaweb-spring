@@ -3,6 +3,7 @@ package com.gabrielferreira.projeto.modelo.entidade.dto;
 import java.io.Serializable;
 import java.util.Date;
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -40,6 +41,14 @@ public class AlunoInserirDTO implements Serializable{
 	@NotBlank(message = "Campo do ra não pode ser vazio")
 	@Size(max = 10,message = "Não pode passa de 10 caracteres")
 	private String ra;
+	
+	@Email(message = "Email inválido")
+	@NotBlank(message = "Campo do email não pode ser vazio")
+	private String email;
+	
+	@NotBlank(message = "Campo da senha não pode ser vazio")
+	@Size(max = 120,message = "Não pode passa de 120 caracteres")
+	private String senha;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy",timezone =MY_TIME_ZONE)
 	@NotNull(message = "Campo do ano ingresso não pode ser vazio ou digitado incorretamente")

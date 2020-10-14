@@ -11,6 +11,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.gabrielferreira.projeto.modelo.entidade.Aluno;
@@ -32,6 +33,9 @@ import com.gabrielferreira.projeto.service.exceptions.EntidadeNotFoundException;
 @Service
 public class AlunoService {
 
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	@Autowired
 	private AlunoRepositorio alunoRepositorio;
 	
@@ -104,7 +108,7 @@ public class AlunoService {
 	public Pessoa fromDto(AlunoInserirDTO alunoDTO) {
 		
 		Pessoa pessoa = new Aluno(null,alunoDTO.getNomeCompleto(),alunoDTO.getCpf(),Sexo.converterParaEnum(alunoDTO.getSexo()),
-				alunoDTO.getRa(),alunoDTO.getAnoIngresso());
+				alunoDTO.getRa(),alunoDTO.getAnoIngresso(),alunoDTO.getEmail(),bCryptPasswordEncoder.encode(alunoDTO.getSenha()));
 		
 		Aluno aluno2 = (Aluno) pessoa;
 		Curso curso = new Curso(alunoDTO.getCurso(),null);
@@ -129,7 +133,8 @@ public class AlunoService {
 	}
 	
 	public Pessoa fromDto(AlunoAlterarDTO alunoDTO) {
-		Pessoa pessoa = new Aluno(null,alunoDTO.getNomeCompleto(),null,Sexo.converterParaEnum(alunoDTO.getSexo()),alunoDTO.getRa(),null);
+		Pessoa pessoa = new Aluno(null,alunoDTO.getNomeCompleto(),null,
+				Sexo.converterParaEnum(alunoDTO.getSexo()),alunoDTO.getRa(),null,null,null);
 		
 		Aluno aluno2 = (Aluno) pessoa;
 		Curso curso = new Curso(alunoDTO.getCurso(),null);

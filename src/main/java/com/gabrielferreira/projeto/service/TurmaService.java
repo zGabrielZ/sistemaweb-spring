@@ -70,7 +70,7 @@ public class TurmaService {
 		Turma turma = new Turma(null,turmaInserirDTO.getNomeTurma(),turmaInserirDTO.getNumeroTurma(),
 				turmaInserirDTO.getVagas(),Turno.converterParaEnum(turmaInserirDTO.getTurno()));
 		
-		Professor professor = new Professor(turmaInserirDTO.getProfessor(),null,null,null,null,null);
+		Professor professor = new Professor(turmaInserirDTO.getProfessor(),null,null,null,null,null,null,null);
 		
 		turma.setProfessor(professor);
 		professor.getTurmas().add(turma);

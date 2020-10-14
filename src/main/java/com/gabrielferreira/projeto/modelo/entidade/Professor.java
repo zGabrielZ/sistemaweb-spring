@@ -38,10 +38,15 @@ public class Professor extends Pessoa{
 	@OneToMany(mappedBy = "professor")
 	private List<Turma> turmas = new ArrayList<Turma>();
 	
-	public Professor(Long id, String nomeCompleto, String cpf, Sexo sexo,Date anoAdmissao,Integer qtdHoras) {
+	private String email;
+	private String senha;
+	
+	public Professor(Long id, String nomeCompleto, String cpf, Sexo sexo,Date anoAdmissao,Integer qtdHoras,String email,String senha) {
 		super(id, nomeCompleto, cpf, sexo);
 		this.anoAdmissao = anoAdmissao;
 		this.qtdHoras = qtdHoras;
+		this.email = email;
+		this.senha = senha;
 	}
 
 

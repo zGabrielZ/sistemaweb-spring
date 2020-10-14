@@ -34,6 +34,8 @@ public class AlunoDTO implements Serializable{
 	
 	private String ra;
 	
+	private String email;
+	
 	@JsonFormat(pattern = "dd/MM/yyyy",timezone =MY_TIME_ZONE)
 	@NotNull(message = "Campo do ano ingresso não pode ser vazio ou digitado incorretamente")
 	private Date anoIngresso;

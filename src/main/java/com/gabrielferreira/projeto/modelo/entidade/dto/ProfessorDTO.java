@@ -31,6 +31,8 @@ public class ProfessorDTO implements Serializable{
 	@Enumerated(EnumType.ORDINAL)
 	private Sexo sexo;
 
+	private String email;
+	
 	@JsonFormat(pattern = "dd/MM/yyyy",timezone =MY_TIME_ZONE)
 	private Date anoAdmissao;
 	

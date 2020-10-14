@@ -3,6 +3,7 @@ package com.gabrielferreira.projeto.modelo.entidade.dto;
 import java.io.Serializable;
 import java.util.Date;
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -43,6 +44,14 @@ public class ProfessorInserirDTO implements Serializable{
 	
 	@NotNull(message = "Campo de horas não pode ser vazio")
 	private Integer qtdHoras;
+	
+	@Email(message = "Email inválido")
+	@NotBlank(message = "Campo do email não pode ser vazio")
+	private String email;
+	
+	@NotBlank(message = "Campo da senha não pode ser vazio")
+	@Size(max = 120,message = "Não pode passa de 120 caracteres")
+	private String senha;
 	
 	@Valid
 	@NotNull(message = "Graduação do professor não pode ser vazio")

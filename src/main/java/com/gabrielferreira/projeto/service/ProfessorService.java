@@ -11,6 +11,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.gabrielferreira.projeto.modelo.entidade.Cidade;
 import com.gabrielferreira.projeto.modelo.entidade.Endereco;
@@ -32,6 +33,9 @@ import com.gabrielferreira.projeto.service.exceptions.EntidadeNotFoundException;
 @Service
 public class ProfessorService {
 
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	@Autowired
 	private ProfessorRepositorio professorRepositorio;
 	
@@ -103,7 +107,8 @@ public class ProfessorService {
 	public Pessoa fromDto(ProfessorInserirDTO professorDTO) {
 		
 		Pessoa pessoa = new Professor(null, professorDTO.getNomeCompleto(),professorDTO.getCpf(),
-				Sexo.converterParaEnum(professorDTO.getSexo()),professorDTO.getAnoAdmissao(),professorDTO.getQtdHoras());
+				Sexo.converterParaEnum(professorDTO.getSexo()),professorDTO.getAnoAdmissao(),professorDTO.getQtdHoras()
+				,professorDTO.getEmail(),bCryptPasswordEncoder.encode(professorDTO.getSenha()));
 		
 		Graduacao graduacao = new Graduacao(null, professorDTO.getGraduacao().getNomeGraduacao());
 		
@@ -129,7 +134,8 @@ public class ProfessorService {
 	}
 	
 	public Pessoa fromDto(ProfessorAlterarDTO professorDTO) {
-		Pessoa pessoa = new Professor(null,professorDTO.getNomeCompleto(),null,Sexo.converterParaEnum(professorDTO.getSexo()),null,professorDTO.getQtdHoras());
+		Pessoa pessoa = new Professor(null,professorDTO.getNomeCompleto(),null,
+				Sexo.converterParaEnum(professorDTO.getSexo()),null,professorDTO.getQtdHoras(),null,null);
 		return pessoa;
 	}
 }

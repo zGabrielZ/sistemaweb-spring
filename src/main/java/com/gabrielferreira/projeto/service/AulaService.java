@@ -61,7 +61,7 @@ public class AulaService {
 		aula.setDisciplina(disciplina);
 		disciplina.getAulas().add(aula);
 		
-		Aluno aluno = new Aluno(aulaInserirDTO.getAluno(),null,null,null,null,null);
+		Aluno aluno = new Aluno(aulaInserirDTO.getAluno(),null,null,null,null,null,null,null);
 		aluno = alunoService.buscarPorId(aluno.getId());
 		
 		aula.setAluno(aluno);
