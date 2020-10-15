@@ -38,7 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/h2-console/**",
 			"/alunos/**",
 			"/usuarios/**",
-			"/professores/**"
+			"/professores/**",
+			"/cursos/**"
 	};
 	
 	private static final String [] PONTOS_PUBLICOS_GET = {

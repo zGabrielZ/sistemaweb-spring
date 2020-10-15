@@ -17,18 +17,13 @@ import lombok.Setter;
 public class Usuario extends Pessoa {
 
 	private static final long serialVersionUID = 1L;
-	
-	private String email;
-	private String senha;
-		
+			
 	public Usuario() {
 		addPerfil(Perfil.ADMIN);
 	}
 
 	public Usuario(Long id, String nomeCompleto, String cpf, Sexo sexo,String email,String senha) {
-		super(id, nomeCompleto, cpf, sexo);
-		this.email = email;
-		this.senha = senha;
+		super(id, nomeCompleto, cpf, sexo,email,senha);
 		addPerfil(Perfil.ADMIN);
 	}
 	

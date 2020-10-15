@@ -38,20 +38,15 @@ public class Aluno extends Pessoa {
 	
 	@OneToMany(mappedBy = "aluno")
 	private List<Sala> salas = new ArrayList<Sala>();
-	
-	private String email;
-	private String senha;
 		
 	public Aluno() {
 		addPerfil(Perfil.ALUNO);
 	}
 	
 	public Aluno(Long id, String nomeCompleto, String cpf, Sexo sexo, String ra,Date anoIngresso,String email,String senha) {
-		super(id, nomeCompleto, cpf, sexo);
+		super(id, nomeCompleto, cpf, sexo,email,senha);
 		this.ra = ra;
 		this.anoIngresso = anoIngresso;
-		this.email = email;
-		this.senha = senha;
 		addPerfil(Perfil.ALUNO);
 	}
 	

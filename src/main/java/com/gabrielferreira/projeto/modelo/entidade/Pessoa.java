@@ -59,12 +59,17 @@ public abstract class Pessoa implements Serializable{
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "tab_perfis")
 	private Set<Integer> perfis = new HashSet<Integer>();
+	
+	private String email;
+	private String senha;
 		
-	public Pessoa(Long id, String nomeCompleto, String cpf, Sexo sexo) {
+	public Pessoa(Long id, String nomeCompleto, String cpf, Sexo sexo,String email,String senha) {
 		this.id = id;
 		this.nomeCompleto = nomeCompleto;
 		this.cpf = cpf;
 		this.sexo = (sexo == null)?null:sexo.getCodigo();
+		this.email = email;
+		this.senha = senha;
 	}
 	
 	public Sexo getSexo() {
