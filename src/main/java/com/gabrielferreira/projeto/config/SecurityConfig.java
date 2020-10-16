@@ -18,6 +18,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.gabrielferreira.projeto.security.JWTAuthenticationFilter;
+import com.gabrielferreira.projeto.security.JWTAuthorizationFilter;
 import com.gabrielferreira.projeto.security.JWTUtil;
 import com.gabrielferreira.projeto.service.UserDetailsServiceImpl;
 
@@ -36,10 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	private static final String [] PONTOS_PUBLICOS = {
 			"/h2-console/**",
-			"/alunos/**",
-			"/usuarios/**",
-			"/professores/**",
-			"/cursos/**"
+			"/usuarios/**"
 	};
 	
 	private static final String [] PONTOS_PUBLICOS_GET = {
@@ -60,6 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers(PONTOS_PUBLICOS).permitAll()
 			.anyRequest().authenticated();
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil,userDetailsService));
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 	

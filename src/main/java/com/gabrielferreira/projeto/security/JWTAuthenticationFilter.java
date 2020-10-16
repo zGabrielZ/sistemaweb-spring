@@ -63,6 +63,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		
 	}
 	
+	
+	// caso der erro na hora de autenticar
 	private class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {
 		 
         @Override
