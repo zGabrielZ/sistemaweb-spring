@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,6 +56,7 @@ public class ProfessorController {
 	@Autowired
 	private ModelMapper modelMapper;
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping
 	public ResponseEntity<Professor> cadastrarProfessor(@Valid @RequestBody ProfessorInserirDTO professorInserirDTO){
 		Pessoa pessoa = professorService.fromDto(professorInserirDTO);
@@ -64,12 +66,14 @@ public class ProfessorController {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','ALUNO')")
 	@GetMapping
 	public ResponseEntity<List<ProfessorDTO>> listagemProfessor(){
 		List<Professor> professores = professorService.listagem();
 		return ResponseEntity.ok().body(paraListaDto(professores));
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','ALUNO')")
 	@GetMapping("/paginacao")
 	public ResponseEntity<Page<ProfessorDTO>> pageProfessor(
 			@RequestParam(value = "pagina",defaultValue = "0")Integer pagina,
@@ -81,18 +85,21 @@ public class ProfessorController {
 		return ResponseEntity.ok().body(paraPageDto(professores));
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','ALUNO','PROFESSOR')")
 	@GetMapping("/{id}")
 	public ResponseEntity<ProfessorDTO> buscarPorIdProfessor(@PathVariable Long id){
 		Professor professor = professorService.buscarPorId(id);
 		return ResponseEntity.ok().body(paraVisualizacaoDto(professor));
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deletarProfessor(@PathVariable Long id) {
 		professorService.deletar(id);
 		return ResponseEntity.noContent().build();
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','PROFESSOR')")
 	@PutMapping("/{id}")
 	public ResponseEntity<Aluno> alterarProfessor(
 			@Valid @RequestBody ProfessorAlterarDTO professorDTO,
@@ -102,18 +109,21 @@ public class ProfessorController {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','PROFESSOR')")
 	@GetMapping("/{idProfessor}/enderecos")
 	public ResponseEntity<EnderecoDTO> listagemDeEndereco(@PathVariable Long idProfessor){
 		Professor professor = professorService.buscarPorId(idProfessor);
 		return ResponseEntity.ok().body(paraVisualizacaoDto(professor.getEndereco()));
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','PROFESSOR')")
 	@GetMapping("/{idProfessor}/enderecos/{idEndereco}")
 	public ResponseEntity<EnderecoDTO> consultarIdDoEndereco(@PathVariable Long idProfessor,@PathVariable Long idEndereco){
 		Endereco endereco = enderecoService.consultarPorId(idEndereco, idProfessor);
 		return ResponseEntity.ok().body(paraVisualizacaoDto(endereco));
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','PROFESSOR')")
 	@PutMapping("/{idProfessor}/enderecos/{idEndereco}")
 	public ResponseEntity<Endereco> alterarEndereco(
 			@Valid @RequestBody EnderecoAlterarDTO enderecoDTO,
@@ -124,18 +134,21 @@ public class ProfessorController {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','PROFESSOR')")
 	@GetMapping("/{idProfessor}/telefones")
 	public ResponseEntity<List<TelefoneDTO>> listagemDeTelefones(@PathVariable Long idProfessor){
 		Professor professor = professorService.buscarPorId(idProfessor);
 		return ResponseEntity.ok().body(paraListaDtoTelefone(professor.getTelefones()));
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','PROFESSOR')")
 	@GetMapping("/{idProfessor}/telefones/{idTelefone}")
 	public ResponseEntity<TelefoneDTO> consultarIdDoTelefone(@PathVariable Long idProfessor,@PathVariable Long idTelefone){
 		Telefone telefone = telefoneService.consultarPorId(idTelefone, idProfessor);
 		return ResponseEntity.ok().body(paraVisualizacaoDto(telefone));
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','PROFESSOR')")
 	@PostMapping("/{idProfessor}/telefones")
 	public ResponseEntity<Telefone> inserir(@Valid @RequestBody TelefoneInserirDTO telefoneInserirDTO,@PathVariable Long idProfessor) {
 		Telefone telefone = telefoneService.fromDto(telefoneInserirDTO);
@@ -145,6 +158,7 @@ public class ProfessorController {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','PROFESSOR')")
 	@PutMapping("/{idProfessor}/telefones/{idTelefone}")
 	public ResponseEntity<Endereco> alterarTelefone(
 			@Valid @RequestBody TelefoneInserirDTO telefoneDTO,
@@ -155,6 +169,7 @@ public class ProfessorController {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','PROFESSOR')")
 	@GetMapping("/{idProfessor}/turmas")
 	public ResponseEntity<List<TurmaDTO>> listagemDeTurmas(@PathVariable Long idProfessor){
 		Professor professor = professorService.buscarPorId(idProfessor);

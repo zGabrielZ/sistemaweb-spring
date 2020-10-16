@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,6 +57,7 @@ public class AlunoController {
 	@Autowired
 	private ModelMapper modelMapper;
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping
 	public ResponseEntity<Aluno> cadastrarAluno(@Valid @RequestBody AlunoInserirDTO alunoInserirDTO){
 		Pessoa pessoa = alunoService.fromDto(alunoInserirDTO);
@@ -65,12 +67,14 @@ public class AlunoController {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','PROFESSOR')")
 	@GetMapping
 	public ResponseEntity<List<AlunoDTO>> listagemAluno(){
 		List<Aluno> alunos = alunoService.listagem();
 		return ResponseEntity.ok().body(paraListaDto(alunos));
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','PROFESSOR')")
 	@GetMapping("/paginacao")
 	public ResponseEntity<Page<AlunoDTO>> pageAluno(
 			@RequestParam(value = "pagina",defaultValue = "0")Integer pagina,
@@ -82,18 +86,21 @@ public class AlunoController {
 		return ResponseEntity.ok().body(paraPageDto(alunos));
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','ALUNO','PROFESSOR')")
 	@GetMapping("/{id}")
 	public ResponseEntity<AlunoDTO> buscarPorIdAluno(@PathVariable Long id){
 		Aluno aluno = alunoService.buscarPorId(id);
 		return ResponseEntity.ok().body(paraVisualizacaoDto(aluno));
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deletarAluno(@PathVariable Long id) {
 		alunoService.deletar(id);
 		return ResponseEntity.noContent().build();
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','ALUNO')")
 	@PutMapping("/{id}")
 	public ResponseEntity<Aluno> alterarAluno(
 			@Valid @RequestBody AlunoAlterarDTO alunoDTO,
@@ -103,18 +110,21 @@ public class AlunoController {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','ALUNO')")
 	@GetMapping("/{idAluno}/enderecos")
 	public ResponseEntity<EnderecoDTO> listagemDeEndereco(@PathVariable Long idAluno){
 		Aluno aluno = alunoService.buscarPorId(idAluno);
 		return ResponseEntity.ok().body(paraVisualizacaoDto(aluno.getEndereco()));
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','ALUNO')")
 	@GetMapping("/{idAluno}/enderecos/{idEndereco}")
 	public ResponseEntity<EnderecoDTO> consultarIdDoEndereco(@PathVariable Long idAluno,@PathVariable Long idEndereco){
 		Endereco endereco = enderecoService.consultarPorId(idEndereco, idAluno);
 		return ResponseEntity.ok().body(paraVisualizacaoDto(endereco));
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','ALUNO')")
 	@PutMapping("/{idAluno}/enderecos/{idEndereco}")
 	public ResponseEntity<Endereco> alterarEndereco(
 			@Valid @RequestBody EnderecoAlterarDTO enderecoDTO,
@@ -125,18 +135,21 @@ public class AlunoController {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','ALUNO')")
 	@GetMapping("/{idAluno}/telefones")
 	public ResponseEntity<List<TelefoneDTO>> listagemDeTelefones(@PathVariable Long idAluno){
 		Aluno aluno = alunoService.buscarPorId(idAluno);
 		return ResponseEntity.ok().body(paraListaDtoTelefone(aluno.getTelefones()));
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','ALUNO')")
 	@GetMapping("/{idAluno}/telefones/{idTelefone}")
 	public ResponseEntity<TelefoneDTO> consultarIdDoTelefone(@PathVariable Long idAluno,@PathVariable Long idTelefone){
 		Telefone telefone = telefoneService.consultarPorId(idTelefone, idAluno);
 		return ResponseEntity.ok().body(paraVisualizacaoDto(telefone));
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','ALUNO')")
 	@PostMapping("/{idAluno}/telefones")
 	public ResponseEntity<Telefone> inserir(@Valid @RequestBody TelefoneInserirDTO telefoneInserirDTO,@PathVariable Long idAluno) {
 		Telefone telefone = telefoneService.fromDto(telefoneInserirDTO);
@@ -146,6 +159,7 @@ public class AlunoController {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','ALUNO')")
 	@PutMapping("/{idAluno}/telefones/{idTelefone}")
 	public ResponseEntity<Endereco> alterarTelefone(
 			@Valid @RequestBody TelefoneInserirDTO telefoneDTO,
@@ -156,12 +170,14 @@ public class AlunoController {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','ALUNO')")
 	@GetMapping("/{idAluno}/aulas")
 	public ResponseEntity<List<AulaDTO>> listagemDeAulas(@PathVariable Long idAluno){
 		Aluno aluno = alunoService.buscarPorId(idAluno);
 		return ResponseEntity.ok().body(paraListaDtoAula(aluno.getAulas()));
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','ALUNO')")
 	@GetMapping("/{idAluno}/salas")
 	public ResponseEntity<List<SalaDTO>> listagemDeSalas(@PathVariable Long idAluno){
 		Aluno aluno = alunoService.buscarPorId(idAluno);

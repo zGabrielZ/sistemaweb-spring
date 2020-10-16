@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +29,7 @@ public class SalaController {
 	@Autowired
 	private ModelMapper modelMapper;
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping
 	public ResponseEntity<Sala> cadastrarSala(@Valid @RequestBody SalaInserirDTO salaInserirDTO){
 		Sala sala = paraInserirDto(salaInserirDTO);
@@ -37,6 +39,7 @@ public class SalaController {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deletarSala(@PathVariable Long id) {
 		Sala sala = salaService.buscarPorId(id);

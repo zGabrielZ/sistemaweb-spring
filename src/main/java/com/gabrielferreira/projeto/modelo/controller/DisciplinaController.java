@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +35,7 @@ public class DisciplinaController {
 	@Autowired
 	private ModelMapper modelMapper;
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping
 	public ResponseEntity<Disciplina> cadastrarDisciplina(@Valid @RequestBody DisciplinaInserirDTO disciplinaInserirDTO){
 		Disciplina disciplina = paraInserirDto(disciplinaInserirDTO);
@@ -43,12 +45,14 @@ public class DisciplinaController {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','ALUNO','PROFESSOR')")
 	@GetMapping
 	public ResponseEntity<List<DisciplinaDTO>> listagemDisciplinas(){
 		List<Disciplina> disciplinas = disciplinaService.listagem();
 		return ResponseEntity.ok().body(paraListaDto(disciplinas));
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','ALUNO','PROFESSOR')")
 	@GetMapping("/paginacao")
 	public ResponseEntity<Page<DisciplinaDTO>> pageDisciplina(
 			@RequestParam(value = "pagina",defaultValue = "0")Integer pagina,
@@ -60,12 +64,14 @@ public class DisciplinaController {
 		return ResponseEntity.ok().body(paraPageDto(disciplinas));
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','ALUNO','PROFESSOR')")
 	@GetMapping("/{id}")
 	public ResponseEntity<DisciplinaDTO> buscarPorIdDisciplina(@PathVariable Long id){
 		Disciplina disciplina = disciplinaService.consultarPorId(id);
 		return ResponseEntity.ok().body(paraVisualizacaoDto(disciplina));
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PutMapping("/{id}")
 	public ResponseEntity<Disciplina> alterarDisciplina(@Valid @RequestBody DisciplinaInserirDTO alterarDTO,
 			@PathVariable Long id) {

@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,7 @@ public class AulaController {
 	@Autowired
 	private ModelMapper modelMapper;
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping
 	public ResponseEntity<Aula> cadastrarAula(@Valid @RequestBody AulaInserirDTO aulaInserirDTO){
 		Aula aula = aulaService.fromDto(aulaInserirDTO);
@@ -40,12 +42,14 @@ public class AulaController {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@GetMapping("/{id}")
 	public ResponseEntity<AulaDTO> buscarPorIdAula(@PathVariable Long id){
 		Aula aula = aulaService.buscarPorId(id);
 		return ResponseEntity.ok().body(paraVisualizacaoDto(aula));
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deletarAula(@PathVariable Long id) {
 		aulaService.deletar(id);

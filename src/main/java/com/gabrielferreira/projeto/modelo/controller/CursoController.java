@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +34,7 @@ public class CursoController {
 	@Autowired
 	private ModelMapper modelMapper;
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping
 	public ResponseEntity<Curso> cadastrarCurso(@Valid @RequestBody CursoInserirDTO cursoInserirDTO){
 		Curso curso = paraInserirDto(cursoInserirDTO);
@@ -42,12 +44,14 @@ public class CursoController {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','ALUNO','PROFESSOR')")
 	@GetMapping
 	public ResponseEntity<List<CursoDTO>> listagemCurso(){
 		List<Curso> cursos = cursoService.listagem();
 		return ResponseEntity.ok().body(paraListaDto(cursos));
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','ALUNO','PROFESSOR')")
 	@GetMapping("/paginacao")
 	public ResponseEntity<Page<CursoDTO>> pageCurso(
 			@RequestParam(value = "pagina",defaultValue = "0")Integer pagina,
@@ -59,6 +63,7 @@ public class CursoController {
 		return ResponseEntity.ok().body(paraPageDto(cursos));
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','ALUNO','PROFESSOR')")
 	@GetMapping("/{id}")
 	public ResponseEntity<CursoDTO> buscarPorIdCurso(@PathVariable Long id){
 		Curso curso = cursoService.consultarPorId(id);

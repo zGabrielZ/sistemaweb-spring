@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +35,7 @@ public class TurmaController {
 	@Autowired
 	private ModelMapper modelMapper;
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping
 	public ResponseEntity<Turma> cadastrarTurma(@Valid @RequestBody TurmaInserirDTO turmaInserirDTO){
 		Turma turma = turmaService.fromDto(turmaInserirDTO);
@@ -43,12 +45,14 @@ public class TurmaController {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','ALUNO','PROFESSOR')")
 	@GetMapping
 	public ResponseEntity<List<TurmaDTO>> listagemTurma(){
 		List<Turma> turmas = turmaService.listagem();
 		return ResponseEntity.ok().body(paraListaDto(turmas));
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','ALUNO','PROFESSOR')")
 	@GetMapping("/paginacao")
 	public ResponseEntity<Page<TurmaDTO>> pageTurma(
 			@RequestParam(value = "pagina",defaultValue = "0")Integer pagina,
@@ -60,12 +64,14 @@ public class TurmaController {
 		return ResponseEntity.ok().body(paraPageDto(turmas));
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','ALUNO','PROFESSOR')")
 	@GetMapping("/{id}")
 	public ResponseEntity<TurmaDTO> buscarPorIdTurma(@PathVariable Long id){
 		Turma turma = turmaService.buscarPorId(id);
 		return ResponseEntity.ok().body(paraVisualizacaoDto(turma));
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deletarTurma(@PathVariable Long id) {
 		turmaService.deletar(id);
