@@ -1,22 +1,25 @@
 package com.gabrielferreira.projeto.modelo.entidade.enums;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public enum Sexo {
 
-	Masculino("Masculino"),
-	Feminino("Feminino");
+	MASCULINO(1,"Masculino"),
+	FEMININO(2,"Feminino");
 	
+	@Getter
+	@Setter
+	private Integer id;
+	
+	@Getter
+	@Setter
 	private String descricao;
+
+	private Sexo(Integer id, String descricao) {
+		this.id = id;
+		this.descricao = descricao;
+	}
 	
-	Sexo(String descricao){
-		this.descricao = descricao;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
 	
 }
