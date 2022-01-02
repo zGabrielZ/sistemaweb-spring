@@ -4,12 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -21,28 +18,27 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "CIDADE")
+@Table(name = "ENDERECO_PESSOA")
 @Getter
 @Setter
-@ToString(exclude = {"estado"})
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Cidade implements Serializable{
+public class EnderecoPessoa implements Serializable{
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@SequenceGenerator(name = "CIDADE_SEQ", sequenceName = "SEQ_CIDADE", allocationSize = 1, initialValue = 1 )
-	@GeneratedValue(generator = "CIDADE_SEQ",strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "ENDERECO_PESSOA_SEQ", sequenceName = "SEQ_ENDERECO_PESSOA", allocationSize = 1, initialValue = 1 )
+	@GeneratedValue(generator = "ENDERECO_PESSOA_SEQ",strategy = GenerationType.SEQUENCE)
 	@EqualsAndHashCode.Include
 	private Integer id;
+	
+	@Column(name = "numero",nullable = false)
+	private String numero;
 
-	@Column(name = "nome",nullable = false)
-	private String nome;
-	
-	@JoinColumn(name = "estado_id",nullable = false,foreignKey = @ForeignKey(name="estado_fk") )
-	@ManyToOne
-	private Estado estado;
-	
 }
