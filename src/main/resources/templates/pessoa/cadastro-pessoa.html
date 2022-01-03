@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Bem vindo</title>
+<meta charset="utf-8">
+
+<!--Import JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<!--Import materialize.css-->
+<link type="text/css" rel="stylesheet" href="/static/materialize/css/materialize.css" media="screen,projection" />
+
+<!--Import materialize.min.css-->
+<link type="text/css" rel="stylesheet" href="/static/materialize/css/materialize.min.css" media="screen,projection" />
+
+</head>
+<body>
+
+	<h1>Cadastro de Pessoas</h1>
+
+	<div id="frmCadastroPessoa" class="row" align="center">
+		<div class="row card-panel">
+			<form method="POST" >
+				<div class="input-field col s12">
+					<select id="estado" onchange="return buscarCidade()" >
+						<option value="">Selecione Estado</option>
+						<option th:each="estado : ${estados}" th:value="${estado.id}" th:text="${estado.nome}" ></option>
+					</select>
+					<label for="estado"> Estado </label>
+				</div>
+				<div class="input-field col s12" >
+					<select id="cidade" ></select>	
+					<label for="cidade"> Cidade </label>
+				</div>
+			</form>
+		</div>
+	</div>
+
+
+	<!--JavaScript at end of body for optimized loading-->
+	<script type="text/javascript" src="/static/materialize/js/materialize.js"></script>
+	<script type="text/javascript" src="/static/materialize/js/materialize.min.js"></script>
+	<script type="text/javascript" src="/static/js/cidade.js"></script>
+	<script type="text/javascript" src="/static/js/select.js"></script>
+
+</body>
+</html>
