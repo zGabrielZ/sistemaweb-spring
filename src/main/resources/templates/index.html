@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Bem vindo</title>
+<meta charset="utf-8">
+
+<!--Import JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<!--Import materialize.css-->
+<link type="text/css" rel="stylesheet" href="/static/materialize/css/materialize.css" media="screen,projection" />
+
+<!--Import materialize.min.css-->
+<link type="text/css" rel="stylesheet" href="/static/materialize/css/materialize.min.css" media="screen,projection" />
+
+</head>
+<body>
+
+
+	<!-- Dropdown para menu Curso -->
+	<ul id="dropdown-curso" class="dropdown-content">
+  		<li><a href="/curso/cadastro">Cadastro</a></li>
+  		<li><a href="/curso/consulta">Consulta</a></li>
+	</ul>
+
+
+	<nav>
+    	<div class="nav-wrapper">
+      	<a href="/index" class="brand-logo" style="margin-left:5px;" >Spring Sistema Web</a>
+      	<ul id="nav-mobile" class="right hide-on-med-and-down">
+        	<!-- Dropdown para o menu Curso -->
+      		<li><a class="dropdown-trigger" href="#!" data-target="dropdown-curso">Curso<i class="material-icons right">arrow_drop_down</i></a></li>
+      	</ul>
+    	</div>
+  	</nav>
+
+	<!--JavaScript at end of body for optimized loading-->
+	<script type="text/javascript" src="/static/materialize/js/materialize.js"></script>
+	<script type="text/javascript" src="/static/materialize/js/materialize.min.js"></script>
+	<script type="text/javascript" src="/static/js/dropdown.js"></script>
+
+</body>
+</html>
