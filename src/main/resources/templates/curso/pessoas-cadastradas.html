@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Bem vindo</title>
+<meta charset="utf-8">
+
+<!--Import JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<!--Import materialize.css-->
+<link type="text/css" rel="stylesheet" href="/static/materialize/css/materialize.css" media="screen,projection" />
+
+<!--Import materialize.min.css-->
+<link type="text/css" rel="stylesheet" href="/static/materialize/css/materialize.min.css" media="screen,projection" />
+
+</head>
+<body>
+
+	<h1 align="center" style="font-size: 50px;" >Pessoas Cadastradas</h1>
+	
+	<p style="text-align: center;">
+		<a href="/curso/consulta" style="text-decoration: none;">Consulta</a>
+	</p>
+
+
+	<div id="frmConsultaCurso" class="row" align="center" style="margin-top: 30px;">
+	
+		<span th:text="${msgPessoas}" style="color: red;" ></span>
+	
+		<div class="row card-panel" style="width: 800px;">
+			<span th:text="${msgCursos}" style="color: red;"></span>
+			<table class="centered highlight">
+				<thead>
+					<tr>
+						<th>Código</th>
+						<th>Nome</th>
+						<th>Sobrenome</th>
+						<th>Data Nascimento</th>
+						<th>Sexo</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="pessoa : ${pessoas}">
+						<td th:text="${pessoa.id}"></td>
+						<td th:text="${pessoa.nome}"></td>
+						<td th:text="${pessoa.sobrenome}"></td>
+						<td th:text="${pessoa.dataNascimento}"></td>
+						<td th:text="${pessoa.sexo}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+	<!--JavaScript at end of body for optimized loading-->
+	<script type="text/javascript" src="/static/materialize/js/materialize.js"></script>
+	<script type="text/javascript" src="/static/materialize/js/materialize.min.js"></script>
+
+</body>
+</html>

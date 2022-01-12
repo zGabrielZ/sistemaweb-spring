@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Erro</title>
+    <meta charset="utf-8">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!--Import materialize.css-->
+     <link type="text/css" rel="stylesheet" href="/static/materialize/css/materialize.css"  media="screen,projection"/>
+    <!--Import materialize.min.css-->
+     <link type="text/css" rel="stylesheet" href="/static/materialize/css/materialize.min.css"  media="screen,projection"/>
+    
+  </head>
+  <body>
+    
+   	<h2 style="text-align: center;" >Erro encontrado !!</h2>
+   	<p style="text-align: center;" th:text="${'Erro : ' + erro.mensagem}" ></p>
+   	<p style="text-align: center;" th:text="${'Status : '+ erro.status}" ></p>
+   	<p style="text-align: center;" th:text="${'Hora : '+ erro.data}" ></p>
+    
+    
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="/static/materialize/js/materialize.js"></script>
+    <script type="text/javascript" src="/static/materialize/js/materialize.min.js"></script>
+  </body>
+</html>
