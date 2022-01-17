@@ -31,6 +31,12 @@ public class TipoTelefoneService {
 		return tipoTelefoneTos;
 	}
 	
+	public List<TipoTelefoneTo> getTiposTelefonesPorDescricao(String descricao){
+		List<TipoTelefone> tipos = tipoTelefoneRepositorio.findDescricao(descricao);
+		List<TipoTelefoneTo> tipoTelefoneTos = tipos.stream().map(t -> new TipoTelefoneTo(t)).collect(Collectors.toList());
+		return tipoTelefoneTos;
+	}
+	
 	public void deletar(Integer id) {
 		TipoTelefone tipoTelefone = getTipoTelefone(id);
 		tipoTelefoneRepositorio.deleteById(tipoTelefone.getId());

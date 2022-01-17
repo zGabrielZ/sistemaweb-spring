@@ -25,6 +25,22 @@
 		<a href="/tipo-telefone/cadastro" style="text-decoration: none;">Cadastro</a>
 	</p>
 
+	<div id="frmConsultarTipoTelefone" class="row" align="center" style="margin-top:20px;" >
+		<div class="row card-panel" style="width: 800px;" >
+			<form action="/tipo-telefone/consultar-tipo-telefone" method="POST">
+				<div class="input-field col s6">
+					<input id="descricao" type="text" maxlength="150" name="descricaoTipoTelefone" class="validate">
+					<label for="descricao" class="active"> Descrição </label>
+				</div>
+				<div class="input-field col s6" >
+					<button class="btn waves-effect waves-light" type="submit">
+						<span title="Consultar" >Consultar</span> 
+						<i class="material-icons right">send</i>
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
 
 	<div id="frmConsultaTipoTelefone" class="row" align="center" style="margin-top: 30px;">
 		<div class="row card-panel" style="width: 800px;">

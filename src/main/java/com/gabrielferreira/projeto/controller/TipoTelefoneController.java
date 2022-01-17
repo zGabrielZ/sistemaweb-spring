@@ -50,6 +50,17 @@ public class TipoTelefoneController {
 		return modelAndView;
 	}
 	
+	@PostMapping("/consultar-tipo-telefone")
+	public ModelAndView consultarTipoTelefonesDescricao(String descricaoTipoTelefone) {
+		ModelAndView modelAndView = new ModelAndView(PAG_CONSULTA_TIPO_TELEFONE);
+		List<TipoTelefoneTo> tipoTelefoneTos = tipoTelefoneService.getTiposTelefonesPorDescricao(descricaoTipoTelefone);
+		modelAndView.addObject("tiposTelefones",tipoTelefoneTos);
+		if(tipoTelefoneTos.isEmpty()) {
+			modelAndView.addObject("msgTiposTelefones","Nenhum registro encontrado.");
+		}
+		return modelAndView;
+	}
+	
 	@GetMapping("/editar-tipo-telefone/{idTipoTelefone}")
 	public ModelAndView editarTipoTelefone(@PathVariable Integer idTipoTelefone) {
 		ModelAndView modelAndView = new ModelAndView(PAG_CADASTRO_TIPO_TELEFONE);
