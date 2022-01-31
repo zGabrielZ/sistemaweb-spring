@@ -20,7 +20,7 @@ import com.gabrielferreira.projeto.api.exception.ErroPadrao;
 import com.gabrielferreira.projeto.exception.RegraException;
 import com.gabrielferreira.projeto.modelo.Curso;
 import com.gabrielferreira.projeto.modelo.to.CursoTo;
-import com.gabrielferreira.projeto.modelo.to.PessoaTo;
+import com.gabrielferreira.projeto.modelo.to.consulta.ConsultaPessoaTo;
 import com.gabrielferreira.projeto.service.CursoService;
 
 @Controller
@@ -74,7 +74,7 @@ public class CursoController {
 		Curso curso = cursoService.getCurso(idCurso);
 		
 		ModelAndView modelAndView = new ModelAndView(PAG_CADASTRADAS_PESSOAS);
-		List<PessoaTo> pessoaTos = cursoService.getPessoasPorCurso(curso.getId());
+		List<ConsultaPessoaTo> pessoaTos = cursoService.getPessoasPorCurso(curso.getId());
 		modelAndView.addObject("pessoas",pessoaTos);
 		if(pessoaTos.isEmpty()) {
 			modelAndView.addObject("msgPessoas","Nenhum registro encontrado.");

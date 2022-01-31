@@ -3,10 +3,10 @@ package com.gabrielferreira.projeto.modelo.entidade.enums;
 import lombok.Getter;
 import lombok.Setter;
 
-public enum Sexo {
+public enum TipoPessoa {
 
-	MASCULINO(1,"Masculino"),
-	FEMININO(2,"Feminino");
+	ALUNO(1,"Aluno"),
+	PROFESSOR(2,"Professor");
 	
 	@Getter
 	@Setter
@@ -16,7 +16,7 @@ public enum Sexo {
 	@Setter
 	private String descricao;
 
-	private Sexo(Integer id, String descricao) {
+	private TipoPessoa(Integer id, String descricao) {
 		this.id = id;
 		this.descricao = descricao;
 	}

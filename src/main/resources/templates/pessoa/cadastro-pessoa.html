@@ -8,6 +8,8 @@
 <!--Import JQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+
 <!--Import Google Icon Font-->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -20,12 +22,119 @@
 </head>
 <body>
 
-	<h1>Cadastro de Pessoas</h1>
-
-	<div id="frmCadastroPessoa" class="row" align="center">
-		<div class="row card-panel">
-			<form method="POST" >
+	<h1 align="center" style="font-size: 50px;" >Cadastro de Pessoas</h1>
+	
+	<div id="tipoCadastroPessoa" class="row" align="center" style="margin-top:30px" >
+		<div class="row card-panel" style="width: 800px;" >
+			<div class="input-field col s6" >
+					<label for="tipoPessoa"> Tipo Pessoa : </label>
+				</div>
+				<div class="input-field col s6" >
+					<select id="tipoPessoa" onchange="return buscarTipoPessoa()" >
+						<option value="">Selecione</option>
+						<option th:each="tipo : ${tipoPessoas}" th:value="${tipo.id}" th:text="${tipo.descricao}" ></option>
+					</select>
+				</div>
+		</div>
+	</div>
+	
+	<div id="msgsErros" align="center" style="margin-top:30px;"  ></div>
+	<div id="msgsSalvo" align="center" style="margin-top:30px;"  ></div>
+	
+	<div id="frmCadastroPessoaDiv" class="row" align="center"
+		style="margin-top: 30px;" th:if="${pessoa}">
+		<form id="frmCadastroPessoa" >
+			<div class="row card-panel" style="width: 800px;">
+				<h3>Dados</h3>
 				<div class="input-field col s12">
+					<input id="codigo-pessoa" type="text" readonly="readonly"> <label
+						for="codigo-pessoa" class="active"> Código Pessoa</label>
+				</div>
+
+				<div class="input-field col s6">
+					<input id="nome" type="text" maxlength="150" class="validate">
+					<label for="nome" class="active"> Nome </label>
+				</div>
+
+				<div class="input-field col s6">
+					<input id="sobrenome" type="text" maxlength="150" class="validate">
+					<label for="sobrenome" class="active"> Sobrenome </label>
+				</div>
+
+				<div class="input-field col s6">
+					<input id="cpf" type="text" class="validate"> <label
+						for="cpf" class="active"> CPF </label>
+				</div>
+
+				<div class="input-field col s6">
+					<select id="sexo" >
+						<option value="">Selecione o Sexo</option>
+						<option th:each="sexo : ${sexos}" th:value="${sexo.id}" th:text="${sexo.descricao}" ></option>
+					</select> 
+				</div>
+
+				<div class="input-field col s6">
+					<input id="nascimento" type="text" class="validate"> <label
+						for="nascimento" class="active"> Nascimento </label>
+				</div>
+
+				<div class="input-field col s6">
+					<select id="curso" >
+						<option value="">Selecione o Curso</option>
+						<option th:each="curso : ${cursos}" th:value="${curso.id}" th:text="${curso.nome}" ></option>
+					</select> 
+				</div>
+			</div>
+			
+			<div class="row card-panel" style="width: 800px;" th:if="${alunoV}" >
+				<h3>Aluno</h3>
+				<div class="input-field col s12">
+					<input id="ra" type="text" maxlength="150" class="validate">
+					<label for="ra" class="active"> RA </label>
+					<input id="tipo-aluno" type="hidden" value="1" >
+				</div>
+			</div>
+			
+			<div class="row card-panel" style="width: 800px;" th:if="${professorV}" >
+				<h3>Professor</h3>
+				<div class="input-field col s12">
+					<input id="salario" type="text" maxlength="150" class="validate">
+					<label for="salario" class="active"> Salário </label>
+				</div>
+			</div>
+			
+			<div class="row card-panel" style="width: 800px;">
+				<h3>Endereço</h3>
+				<div class="input-field col s12">
+					<input id="codigo-endereco" type="text" readonly="readonly" placeholder="Código Endereço" >
+				</div>
+
+				<div class="input-field col s6">
+					<input id="cep" type="text" onchange="return buscarCep()" maxlength="150" class="validate"
+					 placeholder="CEP">
+				</div>
+
+				<div class="input-field col s6">
+					<input id="logradouro" type="text" maxlength="150" class="validate"
+						placeholder="Logradouro">
+				</div>
+
+				<div class="input-field col s6">
+					<input id="complemento" type="text" class="validate"
+						placeholder="Complemento">
+				</div>
+
+				<div class="input-field col s6">
+					<input id="bairro" type="text" class="validate"
+						placeholder="Bairro">
+				</div>
+
+				<div class="input-field col s6">
+					<input id="numero" type="text" class="validate"
+						placeholder="Número">
+				</div>
+
+				<div class="input-field col s6">
 					<select id="estado" onchange="return buscarCidade()" >
 						<option value="">Selecione Estado</option>
 						<option th:each="estado : ${estados}" th:value="${estado.id}" th:text="${estado.nome}" ></option>
@@ -36,16 +145,54 @@
 					<select id="cidade" ></select>	
 					<label for="cidade"> Cidade </label>
 				</div>
-			</form>
-		</div>
-	</div>
+			
+				<div class="input-field col s">
+					<button class="btn waves-effect waves-light" type="submit" onclick="return cadastrarPessoa();" >
+					<span th:if="${pessoa.id == null }" title="Salvar">Salvar</span> <i
+						class="material-icons right">send</i>
+					</button>
+				</div>
+				
+				<div class="input-field col s" th:if="${pessoa.id != null }" >
+					<button class="btn waves-effect waves-light" type="submit">
+					<span title="Salvar">Atualizar</span> <i
+						class="material-icons right">send</i>
+					</button>
+				</div>
+			
+			</div>
 
+		</form>
+
+
+	<!-- fazer o metodo de inserir a pessoa,a pagina da listagem,  -->
+		<div class="row card-panel" style="width: 800px;">
+			<div class="input-field col s">
+				<button class="btn waves-effect waves-light" title="Limpar"
+					onclick="return limparPessoa();">
+					<span>Limpar</span> <i class="material-icons right">clear</i>
+				</button>
+			</div>
+
+			<div class="input-field col s">
+				<a href="/curso/consulta" style="text-decoration: none;"
+					title="Consulta pessoas" class="btn waves-effect waves-light">
+					<span>Listagem</span> <i class="material-icons right">list</i>
+				</a>
+			</div>
+		</div>
+
+	</div>
 
 	<!--JavaScript at end of body for optimized loading-->
 	<script type="text/javascript" src="/static/materialize/js/materialize.js"></script>
 	<script type="text/javascript" src="/static/materialize/js/materialize.min.js"></script>
 	<script type="text/javascript" src="/static/js/cidade.js"></script>
 	<script type="text/javascript" src="/static/js/select.js"></script>
+	<script type="text/javascript" src="/static/js/validar-tipo-pessoa.js"></script>
+	<script type="text/javascript" src="/static/js/buscar-pessoa.js"></script>
+	<script type="text/javascript" src="/static/js/buscar-cep.js"></script>
+	<script type="text/javascript" src="/static/js/pessoa.js"></script>
 
 </body>
 </html>

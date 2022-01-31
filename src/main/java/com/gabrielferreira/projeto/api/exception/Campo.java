@@ -1,8 +1,6 @@
 package com.gabrielferreira.projeto.api.exception;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,21 +13,14 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class ErroPadrao implements Serializable{
+public class Campo implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	private String nome;
 	private String mensagem;
-	private Integer status;
-	private String data;
-	
-	public List<Campo> campos = new ArrayList<>();
-	
-	public ErroPadrao(String mensagem) {
-		this.mensagem = mensagem;
-	}
 
 }

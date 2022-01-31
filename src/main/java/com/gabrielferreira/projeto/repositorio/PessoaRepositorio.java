@@ -13,4 +13,7 @@ public interface PessoaRepositorio extends JpaRepository<Pessoa, Integer>{
 
 	@Query("SELECT p FROM Pessoa p join p.curso c where c.id = :idCurso")
 	public List<Pessoa> getPessoasPorCurso(@Param("idCurso") Integer idCurso);
+	
+	@Query("SELECT p.cpf FROM Pessoa p where p.cpf = :cpf")
+	public String getCpf(@Param("cpf") String cpf);
 }

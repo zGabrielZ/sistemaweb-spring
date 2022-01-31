@@ -71,7 +71,7 @@ public abstract class Pessoa implements Serializable{
 	private Sexo sexo;
 
 	@JoinColumn(name = "endereco_id",nullable = false,foreignKey = @ForeignKey(name="endereco_fk"))
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Endereco endereco;
 	
 	@JoinColumn(name = "curso_id",nullable = false,foreignKey = @ForeignKey(name="curso_fk"))

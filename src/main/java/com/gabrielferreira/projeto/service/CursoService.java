@@ -13,7 +13,7 @@ import com.gabrielferreira.projeto.exception.RegraException;
 import com.gabrielferreira.projeto.modelo.Curso;
 import com.gabrielferreira.projeto.modelo.Pessoa;
 import com.gabrielferreira.projeto.modelo.to.CursoTo;
-import com.gabrielferreira.projeto.modelo.to.PessoaTo;
+import com.gabrielferreira.projeto.modelo.to.consulta.ConsultaPessoaTo;
 import com.gabrielferreira.projeto.repositorio.CursoRepositorio;
 import com.gabrielferreira.projeto.repositorio.PessoaRepositorio;
 
@@ -52,9 +52,9 @@ public class CursoService {
 		return optionalCurso.get();
 	}
 	
-	public List<PessoaTo> getPessoasPorCurso(Integer idCurso){
+	public List<ConsultaPessoaTo> getPessoasPorCurso(Integer idCurso){
 		List<Pessoa> pessoas = pessoaRepositorio.getPessoasPorCurso(idCurso);
-		List<PessoaTo> pessoasTo = pessoas.stream().map(p -> new PessoaTo(p)).collect(Collectors.toList());
+		List<ConsultaPessoaTo> pessoasTo = pessoas.stream().map(p -> new ConsultaPessoaTo(p)).collect(Collectors.toList());
 		return pessoasTo;
 	}
 	
