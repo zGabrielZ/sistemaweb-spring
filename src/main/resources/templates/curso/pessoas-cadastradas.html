@@ -39,6 +39,7 @@
 						<th>Nome</th>
 						<th>Sobrenome</th>
 						<th>Data Nascimento</th>
+						<th>CPF</th>
 						<th>Sexo</th>
 					</tr>
 				</thead>
@@ -47,7 +48,8 @@
 						<td th:text="${pessoa.id}"></td>
 						<td th:text="${pessoa.nome}"></td>
 						<td th:text="${pessoa.sobrenome}"></td>
-						<td th:text="${pessoa.dataNascimento}"></td>
+						<td th:text="${pessoa.dataNascimentoFormatado}"></td>
+						<td th:text="${pessoa.cpf}"></td>
 						<td th:text="${pessoa.sexo}"></td>
 					</tr>
 				</tbody>

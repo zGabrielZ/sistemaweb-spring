@@ -15,12 +15,14 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@Builder
 @Entity
 @Table(name = "CURSO")
 @Getter
@@ -42,6 +44,7 @@ public class Curso implements Serializable{
 	@Column(name = "nome",nullable = false)
 	private String nome;
 	
+	@Builder.Default
 	@OneToMany(fetch = FetchType.LAZY,mappedBy = "curso")
 	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
 	

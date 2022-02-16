@@ -2,6 +2,8 @@ package com.gabrielferreira.projeto.modelo.to.consulta;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import com.gabrielferreira.projeto.modelo.Pessoa;
 
 import lombok.AllArgsConstructor;
@@ -34,5 +36,12 @@ public class ConsultaPessoaTo implements Serializable{
 		this.nome = pessoa.getNome();
 		this.sobrenome = pessoa.getSobrenome();
 		this.sexo = pessoa.getSexo().getDescricao();
+		this.cpf = pessoa.getCpf();
+		this.dataNascimento = pessoa.getDataNascimento();
+	}
+	
+	public String getDataNascimentoFormatado() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		return dataNascimento.format(formatter);
 	}
 }

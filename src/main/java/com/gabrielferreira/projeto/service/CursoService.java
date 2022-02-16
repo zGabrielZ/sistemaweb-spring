@@ -3,8 +3,6 @@ package com.gabrielferreira.projeto.service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,14 +15,15 @@ import com.gabrielferreira.projeto.modelo.to.consulta.ConsultaPessoaTo;
 import com.gabrielferreira.projeto.repositorio.CursoRepositorio;
 import com.gabrielferreira.projeto.repositorio.PessoaRepositorio;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class CursoService {
 
-	@Autowired
-	private CursoRepositorio cursoRepositorio;
+	private final CursoRepositorio cursoRepositorio;
 	
-	@Autowired
-	private PessoaRepositorio pessoaRepositorio;
+	private final PessoaRepositorio pessoaRepositorio;
 	
 	@Transactional
 	public Curso inserir(CursoTo cursoTo) {
@@ -41,6 +40,11 @@ public class CursoService {
 	
 	public void deletar(Integer id) {
 		Curso curso = getCurso(id);
+		
+		if(!curso.getPessoas().isEmpty()) {
+			throw new EntidadeException("Não é possível deletar o curso, pois já existe pessoas relacionadas há este curso.");
+		}
+		
 		cursoRepositorio.deleteById(curso.getId());
 	}
 	

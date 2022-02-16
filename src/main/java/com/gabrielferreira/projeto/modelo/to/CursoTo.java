@@ -9,11 +9,13 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.gabrielferreira.projeto.modelo.Curso;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
